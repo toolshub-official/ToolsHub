@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Hub Blog - Tips, Guides & Resources</title>
+    <meta name="description" content="Explore expert guides, tutorials and tips on using PDF tools, converters, and more at Tools Hub - Your all-in-one toolkit.">
+    <meta name="keywords" content="blog, tools hub, PDF tools, online tools, tutorials, guides, productivity">
+    <meta property="og:title" content="Tools Hub Blog - Tips, Guides & Resources">
+    <meta property="og:description" content="Expert guides and tips on using Tools Hub's free online tools.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/blog">
+    <meta property="og:image" content="https://toolshub-official.github.io/ToolsHub/images/blog-og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-light: #e8f0fe;
+            --secondary-color: #ffffff;
+            --text-color: #202124;
+            --text-light: #5f6368;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links .active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Blog Hero */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-color) 100%);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .blog-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Blog Layout */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Blog Posts Grid */
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Blog Post Card */
+        .post-card {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 20px;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .post-meta span {
+            margin-right: 15px;
+        }
+
+        .post-meta i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .post-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .post-title a:hover {
+            color: var(--primary-color);
+        }
+
+        .post-excerpt {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-widget {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-medium);
+            color: var(--primary-color);
+        }
+
+        /* Search Widget */
+        .search-form {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-medium);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        /* Recent Posts Widget */
+        .recent-post {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-medium);
+        }
+
+        .recent-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .recent-post-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-right: 15px;
+        }
+
+        .recent-post-title {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .recent-post-title a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .recent-post-title a:hover {
+            color: var(--primary-color);
+        }
+
+        .recent-post-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* Tags Widget */
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-link {
+            display: inline-block;
+            background-color: var(--gray-light);
+            color: var(--text-light);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .tag-link:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        /* Categories Widget */
+        .categories-list {
+            list-style: none;
+        }
+
+        .category-item {
+            margin-bottom: 10px;
+        }
+
+        .category-link {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+
+        .category-link:hover {
+            color: var(--primary-color);
+        }
+
+        .category-count {
+            background-color: var(--gray-light);
+            color: var(--text-light);
+            padding: 2px 8px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+
+        /* Newsletter Widget */
+        .newsletter-form {
+            margin-top: 20px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-medium);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+        }
+
+        .newsletter-button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-button:hover {
+            background-color: #0d5bc5;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .pagination-list {
+            display: flex;
+            list-style: none;
+        }
+
+        .pagination-item {
+            margin: 0 5px;
+        }
+
+        .pagination-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 1px solid var(--gray-medium);
+        }
+
+        .pagination-link:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .pagination-link.active {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Ad Containers */
+        .ad-container {
+            background-color: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+            text-align: center;
+            border: 1px dashed var(--gray-medium);
+        }
+
+        .ad-container p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: var(--secondary-color);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-light);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-top: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+
+            .blog-hero p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .blog-posts {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40x40/1a73e8/ffffff?text=TH" alt="Tools Hub Logo">
+                    <span class="logo-text">Tools Hub</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="tools.html">All Tools</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="container fade-in">
+            <h1>Tools Hub Blog</h1>
+            <p>Tips, tutorials, and resources to help you get the most out of our free online tools</p>
+        </div>
+    </section>
+
+    <!-- Main Blog Content -->
+    <div class="container">
+        <div class="blog-container">
+            <!-- Blog Posts Column -->
+            <main class="blog-main">
+                <!-- Ad Container (Top) -->
+                <div class="ad-container fade-in">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="blog-top-ad" style="min-height: 90px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- BlogTopAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Blog Posts Grid -->
+                <div class="blog-posts">
+                    <!-- Post 1 -->
+                    <article class="post-card fade-in">
+                        <img src="https://via.placeholder.com/600x400/1a73e8/ffffff?text=Tools+Hub" alt="Welcome to Tools Hub Blog" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+                                <span><i class="far fa-user"></i> Admin</span>
+                            </div>
+                            <h2 class="post-title"><a href="blog-post.html">Welcome to the Tools Hub Blog – Tips, Guides & More</a></h2>
+                            <p class="post-excerpt">Explore expert guides and tips on using PDF tools, converters, and more at Tools Hub – Your all-in-one toolkit.</p>
+                            <div class="post-tags">
+                                <span class="tag">Announcement</span>
+                                <span class="tag">Getting Started</span>
+                            </div>
+                            <a href="blog-post.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 2 -->
+                    <article class="post-card fade-in delay-1">
+                        <img src="https://via.placeholder.com/600x400/1a73e8/ffffff?text=PDF+Guide" alt="Convert Images to PDF" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> June 10, 2023</span>
+                                <span><i class="far fa-user"></i> John Doe</span>
+                            </div>
+                            <h2 class="post-title"><a href="blog-post.html">How to Convert Images to PDF in Seconds – Free & Easy Tools</a></h2>
+                            <p class="post-excerpt">Learn how to use Tools Hub's free converter to turn your images into high-quality PDFs instantly.</p>
+                            <div class="post-tags">
+                                <span class="tag">PDF Tools</span>
+                                <span class="tag">Tutorial</span>
+                            </div>
+                            <a href="blog-post.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 3 -->
+                    <article class="post-card fade-in delay-2">
+                        <img src="https://via.placeholder.com/600x400/1a73e8/ffffff?text=Top+Tools" alt="Top Free Online Tools" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> June 5, 2023</span>
+                                <span><i class="far fa-user"></i> Jane Smith</span>
+                            </div>
+                            <h2 class="post-title"><a href="blog-post.html">Top 5 Free Online Tools You Didn't Know You Needed</a></h2>
+                            <p class="post-excerpt">Discover must-have free tools on Tools Hub for editing, converting, merging files and more.</p>
+                            <div class="post-tags">
+                                <span class="tag">Productivity</span>
+                                <span class="tag">Tools</span>
+                            </div>
+                            <a href="blog-post.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 4 -->
+                    <article class="post-card fade-in">
+                        <img src="https://via.placeholder.com/600x400/1a73e8/ffffff?text=Beginner+Guide" alt="Beginner's Guide to Tools Hub" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> May 28, 2023</span>
+                                <span><i class="far fa-user"></i> Admin</span>
+                            </div>
+                            <h2 class="post-title"><a href="blog-post.html">Beginner's Guide to Using Tools Hub – Everything You Need to Know</a></h2>
+                            <p class="post-excerpt">A complete guide on how to get started with Tools Hub and make the most of its features.</p>
+                            <div class="post-tags">
+                                <span class="tag">Guide</span>
+                                <span class="tag">Tutorial</span>
+                            </div>
+                            <a href="blog-post.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 5 -->
+                    <article class="post-card fade-in delay-1">
+                        <img src="https://via.placeholder.com/600x400/1a73e8/ffffff?text=PDF+vs+Word" alt="PDF vs Word Comparison" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> May 20, 2023</span>
+                                <span><i class="far fa-user"></i> John Doe</span>
+                            </div>
+                            <h2 class="post-title"><a href="blog-post.html">PDF vs Word: Which Format Should You Use and When?</a></h2>
+                            <p class="post-excerpt">Learn the differences between PDF and Word formats and when to use each for maximum productivity.</p>
+                            <div class="post-tags">
+                                <span class="tag">PDF Tools</span>
+                                <span class="tag">Comparison</span>
+                            </div>
+                            <a href="blog-post.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 6 -->
+                    <article class="post-card fade-in delay-2">
+                        <img src="https://via.placeholder.com/600x400/1a73e8/ffffff?text=Students" alt="Tools for Students" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> May 15, 2023</span>
+                                <span><i class="far fa-user"></i> Jane Smith</span>
+                            </div>
+                            <h2 class="post-title"><a href="blog-post.html">How Students Can Save Time Using Tools Hub</a></h2>
+                            <p class="post-excerpt">Essential Tools Hub features that every student should know about to streamline their academic work.</p>
+                            <div class="post-tags">
+                                <span class="tag">Students</span>
+                                <span class="tag">Productivity</span>
+                            </div>
+                            <a href="blog-post.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Ad Container (Middle) -->
+                <div class="ad-container fade-in">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="blog-mid-ad" style="min-height: 90px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- BlogMidAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination fade-in">
+                    <ul class="pagination-list">
+                        <li class="pagination-item"><a href="#" class="pagination-link active">1</a></li>
+                        <li class="pagination-item"><a href="#" class="pagination-link">2</a></li>
+                        <li class="pagination-item"><a href="#" class="pagination-link">3</a></li>
+                        <li class="pagination-item"><a href="#" class="pagination-link"><i class="fas fa-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Search Widget -->
+                <div class="sidebar-widget fade-in">
+                    <h3 class="widget-title">Search</h3>
+                    <form class="search-form">
+                        <input type="text" class="search-input" placeholder="Search blog...">
+                        <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <!-- Recent Posts Widget -->
+                <div class="sidebar-widget fade-in delay-1">
+                    <h3 class="widget-title">Recent Posts</h3>
+                    <div class="recent-posts">
+                        <div class="recent-post">
+                            <img src="https://via.placeholder.com/100x70/1a73e8/ffffff?text=TH" alt="Recent Post" class="recent-post-image">
+                            <div>
+                                <h4 class="recent-post-title"><a href="blog-post.html">Welcome to the Tools Hub Blog</a></h4>
+                                <p class="recent-post-date">June 15, 2023</p>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <img src="https://via.placeholder.com/100x70/1a73e8/ffffff?text=PDF" alt="Recent Post" class="recent-post-image">
+                            <div>
+                                <h4 class="recent-post-title"><a href="blog-post.html">How to Convert Images to PDF</a></h4>
+                                <p class="recent-post-date">June 10, 2023</p>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <img src="https://via.placeholder.com/100x70/1a73e8/ffffff?text=Top5" alt="Recent Post" class="recent-post-image">
+                            <div>
+                                <h4 class="recent-post-title"><a href="blog-post.html">Top 5 Free Online Tools</a></h4>
+                                <p class="recent-post-date">June 5, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="sidebar-widget fade-in delay-2">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="categories-list">
+                        <li class="category-item"><a href="#" class="category-link">PDF Tools <span class="category-count">8</span></a></li>
+                        <li class="category-item"><a href="#" class="category-link">Image Tools <span class="category-count">5</span></a></li>
+                        <li class="category-item"><a href="#" class="category-link">Tutorials <span class="category-count">12</span></a></li>
+                        <li class="category-item"><a href="#" class="category-link">Productivity <span class="category-count">7</span></a></li>
+                        <li class="category-item"><a href="#" class="category-link">Announcements <span class="category-count">3</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Tags Widget -->
+                <div class="sidebar-widget fade-in delay-3">
+                    <h3 class="widget-title">Popular Tags</h3>
+                    <div class="tags-list">
+                        <a href="#" class="tag-link">PDF</a>
+                        <a href="#" class="tag-link">Converter</a>
+                        <a href="#" class="tag-link">Tutorial</a>
+                        <a href="#" class="tag-link">Students</a>
+                        <a href="#" class="tag-link">Productivity</a>
+                        <a href="#" class="tag-link">Free Tools</a>
+                        <a href="#" class="tag-link">Image</a>
+                        <a href="#" class="tag-link">Guide</a>
+                    </div>
+                </div>
+
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget fade-in">
+                    <h3 class="widget-title">Newsletter</h3>
+                    <p>Subscribe to get updates on new tools and blog posts.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email address">
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+
+                <!-- Ad Container (Sidebar) -->
+                <div class="sidebar-widget ad-container fade-in delay-1">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="sidebar-ad" style="min-height: 250px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- BlogSidebarAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools Hub</h3>
+                    <p>Your one-stop destination for free online tools to simplify your work and boost productivity.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="tools.html">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Check on initial load
+        window.addEventListener('load', fadeInOnScroll);
+        // Check on scroll
+        window.addEventListener('scroll', fadeInOnScroll);
+
+        // Newsletter Form Submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = newsletterForm.querySelector('.newsletter-input').value;
+                // Here you would typically send the email to your newsletter service
+                alert(`Thank you for subscribing with ${email}!`);
+                newsletterForm.reset();
+            });
+        }
+
+        // Search Form Submission
+        const searchForm = document.querySelector('.search-form');
+        if (searchForm) {
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const query = searchForm.querySelector('.search-input').value;
+                // Here you would typically redirect to search results or filter posts
+                alert(`Searching for: ${query}`);
+            });
+        }
+    </script>
+</body>
+</html>
