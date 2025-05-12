@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about Tools Hub - your one-stop destination for free online tools for students, developers, designers, and marketers. Discover our mission, story, and tools.">
+    <meta name="keywords" content="online tools, free tools, PDF converter, image editor, calculator, web tools, productivity tools">
+    <meta property="og:title" content="About Tools Hub - Smart Tools for Smarter Work">
+    <meta property="og:description" content="Discover the story behind Tools Hub and our mission to provide free, accessible online tools for everyone.">
+    <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/about">
+    <meta property="og:type" content="website">
+    <title>About Tools Hub - Smart Tools for Smarter Work</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-light: #e8f0fe;
+            --secondary-color: #ffffff;
+            --text-color: #202124;
+            --text-light: #5f6368;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-color) 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Main Content Sections */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
+        }
+
+        .section-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .mission-card, .story-card {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        .mission-card:hover, .story-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .mission-card h3, .story-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .tool-card {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .tool-card h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        /* Benefits Section */
+        .benefits-list {
+            list-style: none;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .benefits-list li {
+            background-color: var(--primary-light);
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .benefits-list i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid var(--primary-light);
+        }
+
+        .team-member h3 {
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .team-member p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0d47a1 100%);
+            color: var(--secondary-color);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* Ad Container */
+        .ad-container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 40px auto;
+            text-align: center;
+            border: 1px dashed #ccc;
+            max-width: 800px;
+        }
+
+        .ad-container p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: var(--secondary-color);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40x40/1a73e8/ffffff?text=TH" alt="Tools Hub Logo">
+                    <span class="logo-text">Tools Hub</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tools.html">All Tools</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container fade-in">
+            <h1>About Tools Hub</h1>
+            <p>Smart Tools for Smarter Work - Discover our mission to provide free, accessible online tools for everyone</p>
+        </div>
+    </section>
+
+    <!-- Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <p>Advertisement</p>
+            <!-- Replace with your Google AdSense code -->
+            <div id="about-page-ad" style="min-height: 90px;">
+                <!-- AdSense Ad Unit -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                <!-- AboutPageAd -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUB_ID"
+                     data-ad-slot="YOUR_AD_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Mission</h2>
+            <div class="section-content">
+                <div class="mission-card fade-in delay-1">
+                    <h3>Empowering Productivity</h3>
+                    <p>At Tools Hub, our mission is to provide free, high-quality online tools that help students, developers, designers, and marketers work more efficiently. We believe that everyone should have access to powerful productivity tools without the burden of expensive subscriptions or complicated software installations.</p>
+                    <p>By offering our tools for free (supported by non-intrusive ads), we aim to remove barriers to productivity and make professional-grade tools accessible to anyone with an internet connection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Story</h2>
+            <div class="section-content">
+                <div class="story-card fade-in delay-1">
+                    <h3>From Frustration to Innovation</h3>
+                    <p>Tools Hub was born out of personal frustration. Our founder, while working on a university project, spent hours searching for simple tools to convert files, edit images, and perform calculations. Existing solutions were either too expensive, loaded with ads, or required software downloads.</p>
+                    <p>In 2022, we decided to create a better solution - a centralized hub of essential tools that are free, easy to use, and accessible from any device. What started as a small collection of basic utilities has grown into a comprehensive platform serving thousands of users every month.</p>
+                    <p>Today, Tools Hub continues to evolve, adding new tools based on user feedback and emerging needs in the digital workspace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Tools Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Tools</h2>
+            <div class="section-content">
+                <p class="fade-in" style="text-align: center; margin-bottom: 30px;">Discover our growing collection of free online tools designed to simplify your work and boost productivity.</p>
+                
+                <div class="tools-grid">
+                    <!-- Tool 1 -->
+                    <div class="tool-card fade-in delay-1">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3>PDF Tools</h3>
+                        <p>Convert, merge, split, and compress PDF files with our easy-to-use PDF toolkit. Perfect for students and professionals.</p>
+                    </div>
+                    
+                    <!-- Tool 2 -->
+                    <div class="tool-card fade-in delay-2">
+                        <div class="tool-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>Image Editor</h3>
+                        <p>Resize, crop, compress, and enhance images without leaving your browser. No design skills required.</p>
+                    </div>
+                    
+                    <!-- Tool 3 -->
+                    <div class="tool-card fade-in delay-3">
+                        <div class="tool-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Calculators</h3>
+                        <p>Scientific, financial, and conversion calculators for students, engineers, and finance professionals.</p>
+                    </div>
+                    
+                    <!-- Tool 4 -->
+                    <div class="tool-card fade-in delay-1">
+                        <div class="tool-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Developer Tools</h3>
+                        <p>HTML/CSS/JS formatters, validators, and minifiers to streamline your development workflow.</p>
+                    </div>
+                    
+                    <!-- Tool 5 -->
+                    <div class="tool-card fade-in delay-2">
+                        <div class="tool-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Marketing Tools</h3>
+                        <p>Keyword generators, SEO analyzers, and social media utilities for digital marketers.</p>
+                    </div>
+                    
+                    <!-- Tool 6 -->
+                    <div class="tool-card fade-in delay-3">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <h3>Document Tools</h3>
+                        <p>Convert between Word, Excel, PowerPoint, and other formats while preserving formatting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title fade-in">How to Use Tools Hub</h2>
+            <div class="section-content">
+                <div class="mission-card fade-in delay-1">
+                    <h3>Simple Steps to Boost Your Productivity</h3>
+                    <ol style="padding-left: 20px; margin-top: 15px;">
+                        <li><strong>Browse our tools</strong> - Visit our <a href="tools.html">Tools page</a> to see all available utilities</li>
+                        <li><strong>Select your tool</strong> - Choose the tool that matches your need</li>
+                        <li><strong>Upload or input</strong> - Provide the required files or data (most tools process everything in your browser)</li>
+                        <li><strong>Process & download</strong> - Let the tool work its magic and download your results</li>
+                    </ol>
+                    <p style="margin-top: 20px;">No accounts needed, no watermarks, no hidden fees. Just simple tools for your everyday needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Benefits Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Why Choose Tools Hub?</h2>
+            <div class="section-content">
+                <ul class="benefits-list">
+                    <li class="fade-in delay-1">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Time-Saving</h3>
+                            <p>Get your tasks done in seconds without installing software or creating accounts.</p>
+                        </div>
+                    </li>
+                    <li class="fade-in delay-2">
+                        <i class="fas fa-lock"></i>
+                        <div>
+                            <h3>Secure & Private</h3>
+                            <p>Most tools process files in your browser - your data never leaves your computer.</p>
+                        </div>
+                    </li>
+                    <li class="fade-in delay-3">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div>
+                            <h3>100% Free</h3>
+                            <p>All tools are completely free to use, supported by non-intrusive ads.</p>
+                        </div>
+                    </li>
+                    <li class="fade-in delay-1">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <h3>Mobile-Friendly</h3>
+                            <p>Access all tools from any device - desktop, tablet, or smartphone.</p>
+                        </div>
+                    </li>
+                    <li class="fade-in delay-2">
+                        <i class="fas fa-sync-alt"></i>
+                        <div>
+                            <h3>Always Improving</h3>
+                            <p>We regularly add new tools and features based on user feedback.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title fade-in">Meet Our Team</h2>
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-member fade-in delay-1">
+                    <img src="https://via.placeholder.com/150x150/1a73e8/ffffff?text=JD" alt="John Doe" class="member-photo">
+                    <h3>John Doe</h3>
+                    <p>Founder & Lead Developer</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="team-member fade-in delay-2">
+                    <img src="https://via.placeholder.com/150x150/1a73e8/ffffff?text=AS" alt="Alex Smith" class="member-photo">
+                    <h3>Alex Smith</h3>
+                    <p>UI/UX Designer</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="team-member fade-in delay-3">
+                    <img src="https://via.placeholder.com/150x150/1a73e8/ffffff?text=MJ" alt="Maria Johnson" class="member-photo">
+                    <h3>Maria Johnson</h3>
+                    <p>Tool Developer</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-stack-overflow"></i></a>
+                        <a href="#"><i class="fab fa-medium"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community & Feedback Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Community & Feedback</h2>
+            <div class="section-content">
+                <div class="mission-card fade-in delay-1">
+                    <h3>Your Voice Matters</h3>
+                    <p>Tools Hub is built for you, and we value your feedback. Help us improve by:</p>
+                    <ul style="padding-left: 20px; margin-top: 15px;">
+                        <li><strong>Suggesting new tools</strong> - Tell us what tools you'd like to see added</li>
+                        <li><strong>Reporting issues</strong> - Let us know if something isn't working right</li>
+                        <li><strong>Sharing feedback</strong> - We read every comment and suggestion</li>
+                    </ul>
+                    <p style="margin-top: 20px;">Contact us through our <a href="contact.html">Contact page</a> or join our growing community on social media.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container fade-in">
+            <h2>Ready to Boost Your Productivity?</h2>
+            <p>Explore our collection of free tools today and experience the Tools Hub difference.</p>
+            <a href="tools.html" class="btn btn-outline">Browse All Tools</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools Hub</h3>
+                    <p>Your one-stop destination for free online tools to simplify your work and boost productivity.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="tools.html">All Tools</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Check on initial load
+        window.addEventListener('load', fadeInOnScroll);
+        // Check on scroll
+        window.addEventListener('scroll', fadeInOnScroll);
+    </script>
+</body>
+</html>
