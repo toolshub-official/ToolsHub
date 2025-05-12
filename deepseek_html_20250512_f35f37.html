@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer - Tools Hub</title>
+    <meta name="description" content="Disclaimer page for Tools Hub - Learn about tool accuracy, data usage, third-party integrations, liability, and advertising policies.">
+    <meta name="keywords" content="disclaimer, tools hub, legal, terms, privacy, adsense">
+    <meta property="og:title" content="Disclaimer - Tools Hub">
+    <meta property="og:description" content="Legal disclaimer for Tools Hub including tool usage policies and monetization transparency.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/disclaimer">
+    <meta property="og:image" content="https://toolshub-official.github.io/ToolsHub/images/disclaimer-og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-light: #e8f0fe;
+            --secondary-color: #ffffff;
+            --text-color: #202124;
+            --text-light: #5f6368;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links .active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Disclaimer Hero */
+        .disclaimer-hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-color) 100%);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .disclaimer-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .disclaimer-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .disclaimer-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .disclaimer-content {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 60px;
+        }
+
+        .disclaimer-section {
+            margin-bottom: 40px;
+        }
+
+        .disclaimer-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 15px;
+            font-size: 1.3rem;
+        }
+
+        .disclaimer-text {
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-list li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        /* Ad Container */
+        .ad-container {
+            background-color: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 40px auto;
+            text-align: center;
+            border: 1px dashed var(--gray-medium);
+        }
+
+        .ad-container p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #0d5bc5;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: var(--secondary-color);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-light);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .disclaimer-hero h1 {
+                font-size: 2rem;
+            }
+
+            .disclaimer-hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40x40/1a73e8/ffffff?text=TH" alt="Tools Hub Logo">
+                    <span class="logo-text">Tools Hub</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tools.html">All Tools</a></li>
+                    <li><a href="disclaimer.html" class="active">Disclaimer</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Disclaimer Hero Section -->
+    <section class="disclaimer-hero">
+        <div class="container fade-in">
+            <h1>Disclaimer</h1>
+            <p>Legal information about tool usage, data privacy, and advertising on Tools Hub</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="disclaimer-container">
+            <!-- Ad Container (Top) -->
+            <div class="ad-container fade-in">
+                <p>Advertisement</p>
+                <!-- Replace with your Google AdSense code -->
+                <div id="disclaimer-top-ad" style="min-height: 90px;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                    <!-- DisclaimerTopAd -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUB_ID"
+                         data-ad-slot="YOUR_AD_SLOT"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <!-- Disclaimer Content -->
+            <div class="disclaimer-content fade-in">
+                <!-- General Disclaimer Section -->
+                <section class="disclaimer-section">
+                    <h2 class="section-title"><i class="fas fa-exclamation-triangle"></i> General Disclaimer</h2>
+                    <p class="disclaimer-text">All the tools provided on Tools Hub are free to use and are meant to assist users with everyday tasks. However, we do not guarantee 100% accuracy of the results and accept no liability for errors or outcomes. Your usage is at your own risk.</p>
+                    <p class="disclaimer-text">Tools Hub is for general informational purposes only. The content and tools are provided "as is" without any warranties, expressed or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+                </section>
+
+                <!-- Tool Accuracy Section -->
+                <section class="disclaimer-section">
+                    <h2 class="section-title"><i class="fas fa-check-circle"></i> Tool Output Accuracy</h2>
+                    <p class="disclaimer-text">While we strive to provide accurate and reliable tools, the output data and results are based on automated systems and may not be 100% accurate in all cases. Users should:</p>
+                    <ul class="disclaimer-list">
+                        <li>Double-check important results before relying on them</li>
+                        <li>Use professional software for critical applications</li>
+                        <li>Verify converted files for formatting issues</li>
+                        <li>Understand that some tools may have limitations</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <p><strong>Important:</strong> For legal, financial, or other professional purposes, please consult appropriate professionals and verify results independently.</p>
+                    </div>
+                </section>
+
+                <!-- Limitation of Liability Section -->
+                <section class="disclaimer-section">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Limitation of Liability</h2>
+                    <p class="disclaimer-text">In no event shall Tools Hub, its owners, or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this website or its tools, even if advised of the possibility of such damage.</p>
+                </section>
+
+                <!-- Ad Container (Middle) -->
+                <div class="ad-container fade-in">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="disclaimer-mid-ad" style="min-height: 90px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- DisclaimerMidAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Third-Party Links Section -->
+                <section class="disclaimer-section">
+                    <h2 class="section-title"><i class="fas fa-external-link-alt"></i> Third-Party Links and Ads</h2>
+                    <p class="disclaimer-text">Tools Hub may contain links to external websites and display advertisements from third parties. Please note that:</p>
+                    <ul class="disclaimer-list">
+                        <li>We do not control the content or privacy practices of third-party sites</li>
+                        <li>Inclusion of any link does not imply endorsement by Tools Hub</li>
+                        <li>You access third-party content at your own risk</li>
+                        <li>Ads are provided by Google AdSense and other advertising partners</li>
+                    </ul>
+                </section>
+
+                <!-- AdSense Disclosure Section -->
+                <section class="disclaimer-section">
+                    <h2 class="section-title"><i class="fas fa-ad"></i> AdSense & Monetization Disclosure</h2>
+                    <p class="disclaimer-text">Tools Hub uses Google AdSense to display advertisements and generate revenue to support the free services we provide. Important information about our advertising:</p>
+                    <ul class="disclaimer-list">
+                        <li>Ads may be personalized based on your browsing history (if you're signed into Google)</li>
+                        <li>You can opt out of personalized advertising through <a href="https://adssettings.google.com" target="_blank">Google's Ad Settings</a></li>
+                        <li>We do not control the specific ads displayed by Google AdSense</li>
+                        <li>Clicking on ads is at your own discretion and risk</li>
+                    </ul>
+                    <p class="disclaimer-text">The revenue from these ads helps us maintain and improve Tools Hub while keeping all tools free for our users.</p>
+                </section>
+
+                <!-- File Privacy Section -->
+                <section class="disclaimer-section">
+                    <h2 class="section-title"><i class="fas fa-lock"></i> File Privacy and Safety</h2>
+                    <p class="disclaimer-text">We take your privacy seriously when you use our file processing tools:</p>
+                    <ul class="disclaimer-list">
+                        <li>Files uploaded for processing are not permanently stored on our servers</li>
+                        <li>Most processing happens in your browser - files never leave your computer</li>
+                        <li>For server-side processing, files are automatically deleted after completion</li>
+                        <li>We do not scan file contents for any purpose other than processing</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <p><strong>Note:</strong> While we implement security measures, we recommend not uploading highly sensitive or confidential files to any online service.</p>
+                    </div>
+                </section>
+
+                <!-- Changes to Disclaimer Section -->
+                <section class="disclaimer-section">
+                    <h2 class="section-title"><i class="fas fa-sync-alt"></i> Changes to This Disclaimer</h2>
+                    <p class="disclaimer-text">We reserve the right to modify this disclaimer at any time without prior notice. Changes will be effective immediately upon posting to the website. Your continued use of Tools Hub after any changes constitutes your acceptance of the new terms.</p>
+                    <p class="disclaimer-text">We encourage users to periodically review this page for the latest information on our policies.</p>
+                </section>
+
+                <!-- Contact Information Section -->
+                <section class="disclaimer-section">
+                    <h2 class="section-title"><i class="fas fa-envelope"></i> Contact Information</h2>
+                    <p class="disclaimer-text">If you have any questions about this disclaimer or legal concerns regarding Tools Hub, please contact us at:</p>
+                    <p class="disclaimer-text" style="margin-top: 15px;">
+                        <strong>Email:</strong> <a href="mailto:toolshub.official@gmail.com">toolshub.official@gmail.com</a>
+                    </p>
+                </section>
+            </div>
+
+            <!-- Ad Container (Bottom) -->
+            <div class="ad-container fade-in">
+                <p>Advertisement</p>
+                <!-- Replace with your Google AdSense code -->
+                <div id="disclaimer-bottom-ad" style="min-height: 90px;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                    <!-- DisclaimerBottomAd -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUB_ID"
+                         data-ad-slot="YOUR_AD_SLOT"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools Hub</h3>
+                    <p>Your one-stop destination for free online tools to simplify your work and boost productivity.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="tools.html">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Schema.org structured data
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Disclaimer - Tools Hub",
+            "description": "Legal disclaimer for Tools Hub including tool usage policies and monetization transparency",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Tools Hub",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://toolshub-official.github.io/ToolsHub/images/logo.png"
+                }
+            },
+            "mainEntity": {
+                "@type": "Text",
+                "text": "Legal disclaimer covering tool accuracy, liability, third-party content, and advertising policies for Tools Hub website."
+            }
+        };
+
+        const scriptTag = document.createElement('script');
+        scriptTag.type = 'application/ld+json';
+        scriptTag.text = JSON.stringify(structuredData);
+        document.head.appendChild(scriptTag);
+    </script>
+</body>
+</html>
