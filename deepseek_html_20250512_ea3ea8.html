@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Tools Hub</title>
+    <meta name="description" content="Find answers to frequently asked questions about Tools Hub. Learn how to use free online tools, troubleshoot issues, and understand our policies.">
+    <meta name="keywords" content="FAQ, tools hub, help, support, questions, answers, troubleshooting">
+    <meta property="og:title" content="FAQ - Tools Hub">
+    <meta property="og:description" content="Find answers to frequently asked questions about Tools Hub.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/faq">
+    <meta property="og:image" content="https://toolshub-official.github.io/ToolsHub/images/faq-og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-light: #e8f0fe;
+            --secondary-color: #ffffff;
+            --text-color: #202124;
+            --text-light: #5f6368;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links .active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* FAQ Hero */
+        .faq-hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-color) 100%);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .faq-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .faq-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid var(--gray-medium);
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            padding-right: 50px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        /* FAQ Sections */
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .faq-item.active {
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-question {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: var(--primary-light);
+        }
+
+        .faq-question i {
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: var(--secondary-color);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding-top: 10px;
+        }
+
+        .faq-answer p {
+            margin-bottom: 15px;
+        }
+
+        .faq-answer ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .faq-answer li {
+            margin-bottom: 8px;
+        }
+
+        /* Ad Container */
+        .ad-container {
+            background-color: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 40px auto;
+            text-align: center;
+            border: 1px dashed var(--gray-medium);
+        }
+
+        .ad-container p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            background-color: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .contact-cta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .contact-cta p {
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: #0d5bc5;
+            transform: translateY(-2px);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #0d5bc5;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: var(--secondary-color);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-light);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .faq-hero h1 {
+                font-size: 2rem;
+            }
+
+            .faq-hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40x40/1a73e8/ffffff?text=TH" alt="Tools Hub Logo">
+                    <span class="logo-text">Tools Hub</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tools.html">All Tools</a></li>
+                    <li><a href="faq.html" class="active">FAQ</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- FAQ Hero Section -->
+    <section class="faq-hero">
+        <div class="container fade-in">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about Tools Hub and our free online tools</p>
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <div class="container">
+        <div class="search-container fade-in">
+            <input type="text" class="search-input" placeholder="Search FAQs...">
+            <button class="search-button"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <!-- Main FAQ Content -->
+    <div class="container">
+        <div class="faq-container">
+            <!-- Ad Container (Top) -->
+            <div class="ad-container fade-in">
+                <p>Advertisement</p>
+                <!-- Replace with your Google AdSense code -->
+                <div id="faq-top-ad" style="min-height: 90px;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                    <!-- FAQTopAd -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUB_ID"
+                         data-ad-slot="YOUR_AD_SLOT"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <!-- About Tools Hub Section -->
+            <section class="faq-section fade-in">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> About Tools Hub</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is Tools Hub?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Tools Hub is a free online platform that provides a collection of useful tools for students, developers, designers, and professionals. Our tools help with various tasks including file conversion, image editing, calculations, and more - all without requiring any software installation or registration.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is Tools Hub free to use?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Yes, all tools on Tools Hub are completely free to use. There are no hidden charges or premium features. The platform is supported by non-intrusive advertisements to keep the service free for all users.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Who created Tools Hub?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Tools Hub was created by a team of developers who wanted to provide easy-to-use, accessible tools for everyday tasks. Our team continues to develop and maintain the platform, adding new tools based on user feedback and emerging needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tool Usage Section -->
+            <section class="faq-section fade-in">
+                <h2 class="section-title"><i class="fas fa-tools"></i> Tool Usage</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I use the tools on Tools Hub?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Using our tools is simple:</p>
+                            <ol>
+                                <li>Navigate to the tool you want to use from our homepage or tools page</li>
+                                <li>Follow the on-screen instructions (most tools are self-explanatory)</li>
+                                <li>Upload or input your data if required</li>
+                                <li>Let the tool process your request</li>
+                                <li>Download or copy your results</li>
+                            </ol>
+                            <p>No registration or account creation is needed to use any of our tools.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I use Tools Hub without signing up?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Absolutely! None of our tools require you to create an account or sign in. All tools are available for immediate use without any registration. This is part of our commitment to providing quick, hassle-free access to useful tools.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are the tools mobile-friendly?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Yes, Tools Hub is fully responsive and works well on mobile devices, tablets, and desktops. Most tools are designed to function perfectly on smaller screens, though some tools with complex interfaces might be easier to use on larger screens.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ad Container (Middle) -->
+            <div class="ad-container fade-in">
+                <p>Advertisement</p>
+                <!-- Replace with your Google AdSense code -->
+                <div id="faq-mid-ad" style="min-height: 90px;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                    <!-- FAQMidAd -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUB_ID"
+                         data-ad-slot="YOUR_AD_SLOT"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <!-- Technical Help Section -->
+            <section class="faq-section fade-in">
+                <h2 class="section-title"><i class="fas fa-question-circle"></i> Technical Help</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Why is a tool not working?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>If a tool isn't working properly, try these troubleshooting steps:</p>
+                            <ul>
+                                <li>Refresh the page and try again</li>
+                                <li>Clear your browser cache and cookies</li>
+                                <li>Try using a different browser (we recommend Chrome, Firefox, or Edge)</li>
+                                <li>Check your internet connection</li>
+                                <li>Ensure you're using the tool as intended (check any instructions)</li>
+                            </ul>
+                            <p>If the problem persists, please contact us with details about the issue.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need an internet connection?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Yes, you need an active internet connection to use Tools Hub as all tools run on our servers. Some basic tools might work offline after initial page load, but most functionality requires an internet connection for processing.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I report a bug?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We appreciate bug reports! Please contact us through our <a href="contact.html">contact page</a> and include:</p>
+                            <ul>
+                                <li>The tool you were using</li>
+                                <li>What you were trying to do</li>
+                                <li>What went wrong</li>
+                                <li>Your browser and operating system</li>
+                                <li>Any error messages you received</li>
+                            </ul>
+                            <p>This information helps us quickly identify and fix issues.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Privacy & Safety Section -->
+            <section class="faq-section fade-in">
+                <h2 class="section-title"><i class="fas fa-lock"></i> Privacy & Safety</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Does Tools Hub collect personal data?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We collect minimal data necessary to operate our service effectively. This may include:</p>
+                            <ul>
+                                <li>Anonymous usage statistics (through Google Analytics)</li>
+                                <li>IP addresses for security and analytics</li>
+                                <li>Information about your device and browser</li>
+                            </ul>
+                            <p>Most tools process your data directly in your browser - your files never leave your computer unless you explicitly upload them for processing. For more details, see our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is my data safe on Tools Hub?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We take data security seriously. Here's how we protect your information:</p>
+                            <ul>
+                                <li>Most tools process data locally in your browser</li>
+                                <li>For tools requiring server processing, we use secure connections (HTTPS)</li>
+                                <li>Uploaded files are automatically deleted after processing</li>
+                                <li>We don't store your personal information unless absolutely necessary</li>
+                                <li>Regular security audits of our systems</li>
+                            </ul>
+                            <p>However, we recommend not uploading highly sensitive documents to any online service.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How can I request data removal?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Since we don't store your processed files or personal data from tool usage, there's typically no data to remove. If you've contacted us through email or our contact form and want your message deleted, please email us at <a href="mailto:privacy@toolshub.com">privacy@toolshub.com</a> with your request.</p>
+                            <p>For analytics data collected by services like Google Analytics, you can use browser extensions or privacy tools to opt out of tracking.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ads & Monetization Section -->
+            <section class="faq-section fade-in">
+                <h2 class="section-title"><i class="fas fa-ad"></i> Ads & Monetization</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Why do I see ads?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Tools Hub is completely free to use, with no paid subscriptions or premium features. To cover our operational costs (servers, development, maintenance), we display non-intrusive advertisements through Google AdSense.</p>
+                            <p>The ads help us keep the service running and free for everyone. We carefully place ads to minimize disruption to your experience while using our tools.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is Google AdSense?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Google AdSense is an advertising service by Google that allows website owners to display targeted ads on their sites. These ads are automatically generated based on various factors including:</p>
+                            <ul>
+                                <li>Your browsing history (if you're signed into Google)</li>
+                                <li>The content of the page you're viewing</li>
+                                <li>Your general location</li>
+                                <li>Your device type</li>
+                            </ul>
+                            <p>You can learn more about how Google uses data from ads at <a href="https://policies.google.com/technologies/partner-sites" target="_blank">Google's Privacy & Terms</a>.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I support Tools Hub?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Yes! There are several ways to support Tools Hub:</p>
+                            <ul>
+                                <li>Use our tools regularly (increased usage helps with ad revenue)</li>
+                                <li>Share Tools Hub with friends and colleagues</li>
+                                <li>Provide feedback and suggestions for improvement</li>
+                                <li>Report any issues you encounter</li>
+                                <li>Consider disabling ad blockers for our site</li>
+                            </ul>
+                            <p>We may introduce additional support options in the future, such as donations or premium accounts with extra features.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature Requests Section -->
+            <section class="faq-section fade-in">
+                <h2 class="section-title"><i class="fas fa-lightbulb"></i> Feature Requests</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I suggest a new tool?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We welcome suggestions for new tools! Please contact us through our <a href="contact.html">contact page</a> or email us at <a href="mailto:suggestions@toolshub.com">suggestions@toolshub.com</a> with your idea.</p>
+                            <p>When suggesting a tool, please include:</p>
+                            <ul>
+                                <li>A description of what the tool would do</li>
+                                <li>Why it would be useful</li>
+                                <li>Any similar tools you've used elsewhere</li>
+                            </ul>
+                            <p>While we can't implement every suggestion, we review all requests and prioritize based on demand and feasibility.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Will Tools Hub get more updates?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Yes! We're continuously working to improve Tools Hub by:</p>
+                            <ul>
+                                <li>Adding new tools based on user demand</li>
+                                <li>Improving existing tools with new features</li>
+                                <li>Enhancing performance and reliability</li>
+                                <li>Updating the design and user experience</li>
+                            </ul>
+                            <p>You can follow our <a href="blog.html">blog</a> or social media accounts to stay updated on new releases and improvements.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How often is the site updated?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We release updates on a regular basis, typically:</p>
+                            <ul>
+                                <li><strong>Minor updates:</strong> Weekly (bug fixes, small improvements)</li>
+                                <li><strong>New tools:</strong> Monthly (depending on complexity)</li>
+                                <li><strong>Major updates:</strong> Quarterly (redesigns, major feature additions)</li>
+                            </ul>
+                            <p>Our development roadmap is largely driven by user feedback, so the more suggestions we receive, the more we can improve the platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact CTA -->
+            <div class="contact-cta fade-in">
+                <h3>Still have questions?</h3>
+                <p>If you didn't find the answer you were looking for, feel free to reach out to our support team. We're happy to help!</p>
+                <a href="contact.html" class="btn">Contact Support</a>
+            </div>
+
+            <!-- Ad Container (Bottom) -->
+            <div class="ad-container fade-in">
+                <p>Advertisement</p>
+                <!-- Replace with your Google AdSense code -->
+                <div id="faq-bottom-ad" style="min-height: 90px;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                    <!-- FAQBottomAd -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUB_ID"
+                         data-ad-slot="YOUR_AD_SLOT"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools Hub</h3>
+                    <p>Your one-stop destination for free online tools to simplify your work and boost productivity.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="tools.html">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // FAQ Accordion Functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // FAQ Search Functionality
+        const searchInput = document.querySelector('.search-input');
+        
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    item.classList.add('active'); // Open matching items
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Schema.org structured data for FAQPage
+        const faqStructuredData = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "What is Tools Hub?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Tools Hub is a free online platform that provides a collection of useful tools for students, developers, designers, and professionals. Our tools help with various tasks including file conversion, image editing, calculations, and more - all without requiring any software installation or registration."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Is Tools Hub free to use?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes, all tools on Tools Hub are completely free to use. There are no hidden charges or premium features. The platform is supported by non-intrusive advertisements to keep the service free for all users."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How do I use the tools on Tools Hub?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Using our tools is simple: 1) Navigate to the tool you want to use from our homepage or tools page, 2) Follow the on-screen instructions (most tools are self-explanatory), 3) Upload or input your data if required, 4) Let the tool process your request, 5) Download or copy your results. No registration or account creation is needed to use any of our tools."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Does Tools Hub collect personal data?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "We collect minimal data necessary to operate our service effectively. This may include: Anonymous usage statistics (through Google Analytics), IP addresses for security and analytics, and information about your device and browser. Most tools process your data directly in your browser - your files never leave your computer unless you explicitly upload them for processing."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How do I suggest a new tool?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "We welcome suggestions for new tools! Please contact us through our contact page or email us at suggestions@toolshub.com with your idea. When suggesting a tool, please include: A description of what the tool would do, why it would be useful, and any similar tools you've used elsewhere. While we can't implement every suggestion, we review all requests and prioritize based on demand and feasibility."
+                    }
+                }
+            ]
+        };
+
+        const scriptTag = document.createElement('script');
+        scriptTag.type = 'application/ld+json';
+        scriptTag.text = JSON.stringify(faqStructuredData);
+        document.head.appendChild(scriptTag);
+    </script>
+</body>
+</html>
