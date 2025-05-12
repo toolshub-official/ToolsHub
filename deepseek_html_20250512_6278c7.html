@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Guide - Tools Hub</title>
+    <meta name="description" content="Learn how to use all free tools on Tools Hub with our comprehensive user guide. Step-by-step instructions, FAQs, and support documentation.">
+    <meta name="keywords" content="tools hub, user guide, tutorial, how to use, instructions, support">
+    <meta property="og:title" content="User Guide - Tools Hub">
+    <meta property="og:description" content="Learn how to use all free tools on Tools Hub with our comprehensive user guide.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/user-guide">
+    <meta property="og:image" content="https://toolshub-official.github.io/ToolsHub/images/guide-og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-light: #e8f0fe;
+            --secondary-color: #ffffff;
+            --text-color: #202124;
+            --text-light: #5f6368;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links .active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Guide Hero */
+        .guide-hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-color) 100%);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Guide Layout */
+        .guide-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Table of Contents */
+        .toc-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toc-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .toc-title i {
+            margin-right: 10px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .toc-item::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .toc-item.active::before {
+            opacity: 1;
+        }
+
+        .toc-link {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            padding: 6px 0;
+        }
+
+        .toc-link:hover, .toc-item.active .toc-link {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        /* Guide Content */
+        .guide-content {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .guide-section {
+            margin-bottom: 50px;
+            scroll-margin-top: 20px;
+        }
+
+        .guide-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--primary-color);
+        }
+
+        .tool-card {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .tool-title i {
+            margin-right: 15px;
+            font-size: 1.3rem;
+        }
+
+        .tool-description {
+            margin-bottom: 20px;
+        }
+
+        .steps-list {
+            list-style-type: none;
+            counter-reset: step-counter;
+            margin-bottom: 20px;
+        }
+
+        .steps-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .steps-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary-color);
+        }
+
+        .tips-box {
+            background-color: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tips-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .tips-title i {
+            margin-right: 10px;
+        }
+
+        /* Video Placeholder */
+        .video-placeholder {
+            background-color: var(--gray-light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border: 2px dashed var(--gray-medium);
+        }
+
+        .video-placeholder i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Ad Container */
+        .ad-container {
+            background-color: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 40px auto;
+            text-align: center;
+            border: 1px dashed var(--gray-medium);
+        }
+
+        .ad-container p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            background-color: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .contact-cta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .contact-cta p {
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: #0d5bc5;
+            transform: translateY(-2px);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #0d5bc5;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: var(--secondary-color);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-light);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .guide-container {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-sidebar {
+                position: static;
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40x40/1a73e8/ffffff?text=TH" alt="Tools Hub Logo">
+                    <span class="logo-text">Tools Hub</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tools.html">All Tools</a></li>
+                    <li><a href="user-guide.html" class="active">User Guide</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Guide Hero Section -->
+    <section class="guide-hero">
+        <div class="container fade-in">
+            <h1>Tools Hub User Guide</h1>
+            <p>Learn how to get the most out of our free online tools with this comprehensive guide</p>
+        </div>
+    </section>
+
+    <!-- Main Guide Content -->
+    <div class="container">
+        <div class="guide-container">
+            <!-- Table of Contents -->
+            <aside class="toc-sidebar fade-in">
+                <h3 class="toc-title"><i class="fas fa-list-ul"></i> Table of Contents</h3>
+                <ul class="toc-list">
+                    <li class="toc-item active">
+                        <a href="#introduction" class="toc-link">Introduction</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#image-tools" class="toc-link">Image Tools</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#pdf-tools" class="toc-link">PDF Tools</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#document-tools" class="toc-link">Document Tools</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#developer-tools" class="toc-link">Developer Tools</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#tips" class="toc-link">Tips & Tricks</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#video-guides" class="toc-link">Video Guides</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#support" class="toc-link">Support</a>
+                    </li>
+                </ul>
+
+                <!-- Ad Container (Sidebar) -->
+                <div class="ad-container fade-in">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="guide-sidebar-ad" style="min-height: 250px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- GuideSidebarAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Guide Content -->
+            <main class="guide-content fade-in">
+                <!-- Ad Container (Top) -->
+                <div class="ad-container">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="guide-top-ad" style="min-height: 90px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- GuideTopAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Introduction Section -->
+                <section id="introduction" class="guide-section">
+                    <h2 class="section-title">Introduction to Tools Hub</h2>
+                    <p>Welcome to the Tools Hub User Guide! This comprehensive guide will help you understand and use all the free tools available on our platform.</p>
+                    
+                    <h3 class="section-subtitle">What is Tools Hub?</h3>
+                    <p>Tools Hub is a free online platform that provides a collection of useful tools for students, developers, designers, and professionals. Our tools help with various tasks including file conversion, image editing, calculations, and more - all without requiring any software installation or registration.</p>
+                    
+                    <h3 class="section-subtitle">Key Features</h3>
+                    <ul class="feature-list">
+                        <li>100% free with no hidden charges</li>
+                        <li>No registration required</li>
+                        <li>Works on all devices (desktop, tablet, mobile)</li>
+                        <li>Secure processing - most tools work in your browser</li>
+                        <li>Regularly updated with new tools</li>
+                    </ul>
+                    
+                    <div class="tips-box">
+                        <h4 class="tips-title"><i class="fas fa-lightbulb"></i> Quick Tip</h4>
+                        <p>Bookmark Tools Hub (<a href="https://toolshub-official.github.io/ToolsHub/" target="_blank">https://toolshub-official.github.io/ToolsHub/</a>) for quick access to all your favorite tools!</p>
+                    </div>
+                </section>
+
+                <!-- Image Tools Section -->
+                <section id="image-tools" class="guide-section">
+                    <h2 class="section-title">Image Tools</h2>
+                    <p>Our image tools help you edit, convert, and optimize images for various purposes.</p>
+                    
+                    <!-- Image Converter -->
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-image"></i> Image Converter</h3>
+                        <p class="tool-description">Convert images between different formats (JPG, PNG, WEBP, etc.) with just a few clicks.</p>
+                        
+                        <h4>How to use:</h4>
+                        <ol class="steps-list">
+                            <li>Click "Choose File" or drag and drop your image into the upload area</li>
+                            <li>Select your desired output format from the dropdown menu</li>
+                            <li>Adjust quality settings if needed (for JPG/WEBP)</li>
+                            <li>Click "Convert" button</li>
+                            <li>Download your converted image when processing completes</li>
+                        </ol>
+                        
+                        <h4>Supported Formats:</h4>
+                        <ul class="feature-list">
+                            <li>Input: JPG, PNG, WEBP, GIF, BMP</li>
+                            <li>Output: JPG, PNG, WEBP</li>
+                        </ul>
+                        
+                        <div class="tips-box">
+                            <h4 class="tips-title"><i class="fas fa-lightbulb"></i> Pro Tip</h4>
+                            <p>For best results with photo conversions, choose JPG format with 80-90% quality. For graphics with transparency, use PNG.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Image Resizer -->
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-expand"></i> Image Resizer</h3>
+                        <p class="tool-description">Resize images to specific dimensions or scale them proportionally.</p>
+                        
+                        <h4>How to use:</h4>
+                        <ol class="steps-list">
+                            <li>Upload your image file</li>
+                            <li>Choose resize method:
+                                <ul class="feature-list">
+                                    <li><strong>By Dimensions:</strong> Enter exact width/height</li>
+                                    <li><strong>By Percentage:</strong> Scale up or down by %</li>
+                                    <li><strong>By Preset:</strong> Common sizes (Social media, documents, etc.)</li>
+                                </ul>
+                            </li>
+                            <li>Check "Maintain Aspect Ratio" to prevent distortion</li>
+                            <li>Click "Resize Image"</li>
+                            <li>Download your resized image</li>
+                        </ol>
+                        
+                        <div class="tips-box">
+                            <h4 class="tips-title"><i class="fas fa-exclamation-triangle"></i> Common Issue</h4>
+                            <p>If your resized image looks blurry, try using a higher resolution source image or enable the "Sharpen" option before resizing.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ad Container (Middle) -->
+                <div class="ad-container">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="guide-mid-ad" style="min-height: 90px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- GuideMidAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+
+                <!-- PDF Tools Section -->
+                <section id="pdf-tools" class="guide-section">
+                    <h2 class="section-title">PDF Tools</h2>
+                    <p>Our PDF tools help you manipulate PDF documents without expensive software.</p>
+                    
+                    <!-- PDF Merger -->
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-file-pdf"></i> PDF Merger</h3>
+                        <p class="tool-description">Combine multiple PDF files into a single document.</p>
+                        
+                        <h4>How to use:</h4>
+                        <ol class="steps-list">
+                            <li>Click "Add Files" to upload PDFs (or drag and drop)</li>
+                            <li>Rearrange files by dragging them up/down</li>
+                            <li>Select page ranges if you don't need entire documents</li>
+                            <li>Choose output options:
+                                <ul class="feature-list">
+                                    <li>Page orientation</li>
+                                    <li>Margin size</li>
+                                    <li>Header/footer options</li>
+                                </ul>
+                            </li>
+                            <li>Click "Merge PDFs"</li>
+                            <li>Download your merged document when ready</li>
+                        </ol>
+                        
+                        <div class="tips-box">
+                            <h4 class="tips-title"><i class="fas fa-lightbulb"></i> Pro Tip</h4>
+                            <p>For best results, make sure all PDFs have the same page size before merging. You can use our PDF Resizer tool to standardize sizes.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- PDF to Word -->
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-file-word"></i> PDF to Word Converter</h3>
+                        <p class="tool-description">Convert PDF documents to editable Word (DOCX) format while preserving formatting.</p>
+                        
+                        <h4>How to use:</h4>
+                        <ol class="steps-list">
+                            <li>Upload your PDF file</li>
+                            <li>Choose conversion options:
+                                <ul class="feature-list">
+                                    <li><strong>Layout:</strong> Preserve original layout or flow text</li>
+                                    <li><strong>Images:</strong> Include or exclude images</li>
+                                </ul>
+                            </li>
+                            <li>Click "Convert to Word"</li>
+                            <li>Download your DOCX file when processing completes</li>
+                        </ol>
+                        
+                        <h4>Supported Formats:</h4>
+                        <ul class="feature-list">
+                            <li>Input: PDF</li>
+                            <li>Output: DOCX (Microsoft Word)</li>
+                        </ul>
+                        
+                        <div class="tips-box">
+                            <h4 class="tips-title"><i class="fas fa-exclamation-triangle"></i> Common Issue</h4>
+                            <p>Complex PDFs with multiple columns or tables may not convert perfectly. For best results, use simple, text-heavy PDFs.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Document Tools Section -->
+                <section id="document-tools" class="guide-section">
+                    <h2 class="section-title">Document Tools</h2>
+                    <p>Convert between popular document formats with our easy-to-use tools.</p>
+                    
+                    <!-- Word to PDF -->
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-file-word"></i> Word to PDF Converter</h3>
+                        <p class="tool-description">Convert Word documents (DOC, DOCX) to PDF format while preserving formatting.</p>
+                        
+                        <h4>How to use:</h4>
+                        <ol class="steps-list">
+                            <li>Upload your Word document</li>
+                            <li>Choose PDF options:
+                                <ul class="feature-list">
+                                    <li>Page size (Letter, A4, etc.)</li>
+                                    <li>Orientation (Portrait/Landscape)</li>
+                                    <li>Margin size</li>
+                                </ul>
+                            </li>
+                            <li>Click "Convert to PDF"</li>
+                            <li>Download your PDF file</li>
+                        </ol>
+                        
+                        <h4>Supported Formats:</h4>
+                        <ul class="feature-list">
+                            <li>Input: DOC, DOCX</li>
+                            <li>Output: PDF</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Developer Tools Section -->
+                <section id="developer-tools" class="guide-section">
+                    <h2 class="section-title">Developer Tools</h2>
+                    <p>Essential tools for developers and programmers.</p>
+                    
+                    <!-- JSON Formatter -->
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-code"></i> JSON Formatter</h3>
+                        <p class="tool-description">Format and validate JSON data with syntax highlighting.</p>
+                        
+                        <h4>How to use:</h4>
+                        <ol class="steps-list">
+                            <li>Paste your JSON code into the input box</li>
+                            <li>Click "Format" button</li>
+                            <li>View formatted output with syntax highlighting</li>
+                            <li>Use the toolbar to:
+                                <ul class="feature-list">
+                                    <li>Toggle between tree and plain views</li>
+                                    <li>Expand/collapse all nodes</li>
+                                    <li>Copy formatted JSON</li>
+                                    <li>Download as JSON file</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        
+                        <div class="tips-box">
+                            <h4 class="tips-title"><i class="fas fa-lightbulb"></i> Pro Tip</h4>
+                            <p>Use the "Validate" button to check your JSON for syntax errors before using it in your applications.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tips & Tricks Section -->
+                <section id="tips" class="guide-section">
+                    <h2 class="section-title">Tips for Better Results</h2>
+                    
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-magic"></i> General Tips</h3>
+                        
+                        <h4>Uploading Files</h4>
+                        <ul class="feature-list">
+                            <li>For best results, use high-quality source files</li>
+                            <li>Check file size limits before uploading (shown on each tool page)</li>
+                            <li>Use common file formats for maximum compatibility</li>
+                        </ul>
+                        
+                        <h4>Browser Compatibility</h4>
+                        <ul class="feature-list">
+                            <li>Tools Hub works best on modern browsers (Chrome, Firefox, Edge, Safari)</li>
+                            <li>Ensure your browser is up to date</li>
+                            <li>Disable ad blockers if tools aren't loading properly</li>
+                        </ul>
+                        
+                        <h4>Performance</h4>
+                        <ul class="feature-list">
+                            <li>Clear your browser cache regularly for optimal performance</li>
+                            <li>Close other tabs/applications when working with large files</li>
+                            <li>Use a stable internet connection for large uploads</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Troubleshooting Section -->
+                <section id="troubleshooting" class="guide-section">
+                    <h2 class="section-title">Troubleshooting Common Problems</h2>
+                    
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-tools"></i> Common Issues & Solutions</h3>
+                        
+                        <h4>Tool Not Working</h4>
+                        <ul class="feature-list">
+                            <li><strong>Refresh the page</strong> - This often resolves temporary issues</li>
+                            <li><strong>Clear browser cache</strong> - Old cached files might interfere</li>
+                            <li><strong>Try a different browser</strong> - Some tools work better on specific browsers</li>
+                        </ul>
+                        
+                        <h4>File Upload Problems</h4>
+                        <ul class="feature-list">
+                            <li>Check file size limits</li>
+                            <li>Ensure the file format is supported</li>
+                            <li>Try a different file to isolate the issue</li>
+                        </ul>
+                        
+                        <h4>Processing Errors</h4>
+                        <ul class="feature-list">
+                            <li>Check your internet connection</li>
+                            <li>Try a smaller file or simpler operation</li>
+                            <li>Wait a few minutes and try again (server might be busy)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Video Guides Section -->
+                <section id="video-guides" class="guide-section">
+                    <h2 class="section-title">Video Guides</h2>
+                    <p>Watch these tutorial videos to learn how to use Tools Hub effectively.</p>
+                    
+                    <div class="video-placeholder">
+                        <i class="fas fa-video"></i>
+                        <h3>Video Tutorials Coming Soon!</h3>
+                        <p>We're currently working on video guides for all our tools. Check back later or subscribe to our newsletter to be notified when they're available.</p>
+                    </div>
+                </section>
+
+                <!-- Support Section -->
+                <section id="support" class="guide-section">
+                    <h2 class="section-title">Support & Feedback</h2>
+                    
+                    <div class="tool-card">
+                        <h3 class="tool-title"><i class="fas fa-headset"></i> Getting Help</h3>
+                        
+                        <p>If you need assistance with Tools Hub, here's how to get help:</p>
+                        
+                        <h4>Reporting Issues</h4>
+                        <ul class="feature-list">
+                            <li>Use our <a href="contact.html">contact form</a> to report bugs</li>
+                            <li>Include details about:
+                                <ul>
+                                    <li>The tool you were using</li>
+                                    <li>What you were trying to do</li>
+                                    <li>What went wrong</li>
+                                    <li>Your browser and operating system</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h4>Feature Requests</h4>
+                        <ul class="feature-list">
+                            <li>We welcome suggestions for new tools or improvements</li>
+                            <li>Email us at <a href="mailto:suggestions@toolshub.com">suggestions@toolshub.com</a></li>
+                        </ul>
+                        
+                        <div class="contact-cta">
+                            <h3>Need More Help?</h3>
+                            <p>Our support team is ready to assist you with any questions or issues you might have.</p>
+                            <a href="contact.html" class="btn">Contact Support</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ad Container (Bottom) -->
+                <div class="ad-container">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="guide-bottom-ad" style="min-height: 90px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- GuideBottomAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools Hub</h3>
+                    <p>Your one-stop destination for free online tools to simplify your work and boost productivity.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="tools.html">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Table of Contents Highlighting
+        const sections = document.querySelectorAll('.guide-section');
+        const tocItems = document.querySelectorAll('.toc-item');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.querySelector('.toc-link').getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Schema.org structured data
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Tools Hub User Guide",
+            "description": "Comprehensive guide to using all free tools on Tools Hub platform",
+            "author": {
+                "@type": "Organization",
+                "name": "Tools Hub"
+            },
+            "datePublished": "2023-06-15",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Tools Hub",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://toolshub-official.github.io/ToolsHub/images/logo.png"
+                }
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://toolshub-official.github.io/ToolsHub/user-guide"
+            }
+        };
+
+        const scriptTag = document.createElement('script');
+        scriptTag.type = 'application/ld+json';
+        scriptTag.text = JSON.stringify(structuredData);
+        document.head.appendChild(scriptTag);
+    </script>
+</body>
+</html>
