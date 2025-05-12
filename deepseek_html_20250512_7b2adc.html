@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Tools Hub</title>
+    <meta name="description" content="Read the Privacy Policy for Tools Hub - Learn how we collect, use, and protect your data while using our free online tools.">
+    <meta name="keywords" content="privacy policy, tools hub, data protection, cookies, GDPR, AdSense">
+    <meta property="og:title" content="Privacy Policy - Tools Hub">
+    <meta property="og:description" content="Learn how Tools Hub collects, uses, and protects your data.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/privacy-policy">
+    <meta property="og:image" content="https://toolshub-official.github.io/ToolsHub/images/privacy-og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-light: #e8f0fe;
+            --secondary-color: #ffffff;
+            --text-color: #202124;
+            --text-light: #5f6368;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links .active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Privacy Policy Hero */
+        .privacy-hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-color) 100%);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .privacy-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .privacy-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .privacy-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Policy Content */
+        .policy-content {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .policy-section {
+            margin-bottom: 40px;
+        }
+
+        .policy-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        .policy-text {
+            margin-bottom: 15px;
+        }
+
+        .policy-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .policy-list li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .update-date {
+            font-style: italic;
+            color: var(--text-light);
+            margin-top: 30px;
+            text-align: right;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-widget {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            list-style: none;
+        }
+
+        .quick-links li {
+            margin-bottom: 10px;
+        }
+
+        .quick-links a {
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 8px 0;
+        }
+
+        .quick-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .quick-links i {
+            margin-right: 10px;
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Ad Container */
+        .ad-container {
+            background-color: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+            text-align: center;
+            border: 1px dashed var(--gray-medium);
+        }
+
+        .ad-container p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #0d5bc5;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: var(--secondary-color);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-light);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .privacy-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-top: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .privacy-hero h1 {
+                font-size: 2rem;
+            }
+
+            .privacy-hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40x40/1a73e8/ffffff?text=TH" alt="Tools Hub Logo">
+                    <span class="logo-text">Tools Hub</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tools.html">All Tools</a></li>
+                    <li><a href="privacy-policy.html" class="active">Privacy</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Privacy Policy Hero -->
+    <section class="privacy-hero">
+        <div class="container fade-in">
+            <h1>Privacy Policy</h1>
+            <p>Learn how we collect, use, and protect your data while using our free online tools</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="privacy-container">
+            <!-- Policy Content -->
+            <main class="policy-content fade-in">
+                <!-- Introduction Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-info-circle"></i> Introduction</h2>
+                    <p class="policy-text">Tools Hub respects your privacy and is committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p>
+                    <p class="policy-text">By using our website and services, you agree to the collection and use of information in accordance with this policy. Please read this privacy policy carefully before using our website or submitting any personal information.</p>
+                </section>
+
+                <!-- Information Collection Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-database"></i> Information We Collect</h2>
+                    <p class="policy-text">We collect several different types of information for various purposes to provide and improve our service to you:</p>
+                    <ul class="policy-list">
+                        <li><strong>Personal Data:</strong> While using our service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data"). Personally identifiable information may include, but is not limited to: Email address, First name and last name, Cookies and Usage Data.</li>
+                        <li><strong>Usage Data:</strong> We may also collect information how the Service is accessed and used ("Usage Data"). This Usage Data may include information such as your computer's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</li>
+                        <li><strong>Tracking & Cookies Data:</strong> We use cookies and similar tracking technologies to track the activity on our Service and hold certain information.</li>
+                    </ul>
+                </section>
+
+                <!-- Use of Information Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-chart-line"></i> Use of Collected Information</h2>
+                    <p class="policy-text">Tools Hub uses the collected data for various purposes:</p>
+                    <ul class="policy-list">
+                        <li>To provide and maintain our Service</li>
+                        <li>To notify you about changes to our Service</li>
+                        <li>To allow you to participate in interactive features of our Service when you choose to do so</li>
+                        <li>To provide customer support</li>
+                        <li>To gather analysis or valuable information so that we can improve our Service</li>
+                        <li>To monitor the usage of our Service</li>
+                        <li>To detect, prevent and address technical issues</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <p><strong>Important:</strong> We do not sell or rent your personal information to third parties. We may share generic aggregated demographic information not linked to any personal identification information regarding visitors and users with our business partners and advertisers for the purposes outlined above.</p>
+                    </div>
+                </section>
+
+                <!-- Cookies Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-cookie-bite"></i> Cookies and Tracking Technologies</h2>
+                    <p class="policy-text">We use cookies and similar tracking technologies to track the activity on our Service and we hold certain information.</p>
+                    <p class="policy-text">Cookies are files with a small amount of data which may include an anonymous unique identifier. Cookies are sent to your browser from a website and stored on your device. Other tracking technologies are also used such as beacons, tags and scripts to collect and track information and to improve and analyze our Service.</p>
+                    <p class="policy-text">You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.</p>
+                    <p class="policy-text">Examples of Cookies we use:</p>
+                    <ul class="policy-list">
+                        <li><strong>Session Cookies:</strong> We use Session Cookies to operate our Service.</li>
+                        <li><strong>Preference Cookies:</strong> We use Preference Cookies to remember your preferences and various settings.</li>
+                        <li><strong>Security Cookies:</strong> We use Security Cookies for security purposes.</li>
+                        <li><strong>Advertising Cookies:</strong> Advertising Cookies are used to serve you with advertisements that may be relevant to you and your interests.</li>
+                    </ul>
+                </section>
+
+                <!-- AdSense Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-ad"></i> Google AdSense</h2>
+                    <p class="policy-text">We use Google AdSense to display advertisements on our website. Google AdSense is a web advertising service provided by Google Inc. that uses the DoubleClick cookie to serve more relevant ads across the web and limit the number of times a given ad is shown to you.</p>
+                    <p class="policy-text">For more information on Google AdSense, see the official Google AdSense privacy FAQ: <a href="https://support.google.com/adsense/answer/3394713" target="_blank">https://support.google.com/adsense/answer/3394713</a></p>
+                    <p class="policy-text">You can opt out of personalized advertising by visiting Ads Settings: <a href="https://www.google.com/settings/ads" target="_blank">https://www.google.com/settings/ads</a></p>
+                    
+                    <!-- Ad Container -->
+                    <div class="ad-container">
+                        <p>Advertisement</p>
+                        <!-- Replace with your Google AdSense code -->
+                        <div id="privacy-ad" style="min-height: 90px;">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                            <!-- PrivacyPolicyAd -->
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-YOUR_PUB_ID"
+                                 data-ad-slot="YOUR_AD_SLOT"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
+                            <script>
+                                 (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Third Party Services Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-external-link-alt"></i> Third-Party Services</h2>
+                    <p class="policy-text">We may employ third party companies and individuals to facilitate our Service ("Service Providers"), to provide the Service on our behalf, to perform Service-related services or to assist us in analyzing how our Service is used.</p>
+                    <p class="policy-text">These third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.</p>
+                    <p class="policy-text">Third-party services we use include:</p>
+                    <ul class="policy-list">
+                        <li><strong>Google Analytics:</strong> For analyzing website traffic and user behavior.</li>
+                        <li><strong>Google AdSense:</strong> For displaying advertisements on our website.</li>
+                        <li><strong>Cloudflare:</strong> For content delivery network and security services.</li>
+                    </ul>
+                </section>
+
+                <!-- User Rights Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-user-shield"></i> Your Data Protection Rights</h2>
+                    <p class="policy-text">Depending on your location, you may have certain rights regarding your personal information:</p>
+                    <ul class="policy-list">
+                        <li><strong>Access:</strong> You have the right to request copies of your personal data.</li>
+                        <li><strong>Rectification:</strong> You have the right to request correction of any information you believe is inaccurate.</li>
+                        <li><strong>Erasure:</strong> You have the right to request that we erase your personal data, under certain conditions.</li>
+                        <li><strong>Restrict processing:</strong> You have the right to request that we restrict the processing of your personal data, under certain conditions.</li>
+                        <li><strong>Object to processing:</strong> You have the right to object to our processing of your personal data, under certain conditions.</li>
+                        <li><strong>Data portability:</strong> You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.</li>
+                    </ul>
+                    <p class="policy-text">If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us at our email: <a href="mailto:privacy@toolshub.com">privacy@toolshub.com</a></p>
+                </section>
+
+                <!-- Children's Privacy Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-child"></i> Children's Privacy</h2>
+                    <p class="policy-text">Our Service does not address anyone under the age of 13 ("Children").</p>
+                    <p class="policy-text">We do not knowingly collect personally identifiable information from anyone under the age of 13. If you are a parent or guardian and you are aware that your child has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from children without verification of parental consent, we take steps to remove that information from our servers.</p>
+                </section>
+
+                <!-- Policy Changes Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-sync-alt"></i> Changes to This Privacy Policy</h2>
+                    <p class="policy-text">We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+                    <p class="policy-text">We will let you know via email and/or a prominent notice on our Service, prior to the change becoming effective and update the "effective date" at the top of this Privacy Policy.</p>
+                    <p class="policy-text">You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+                    <p class="update-date">Last updated: June 15, 2023</p>
+                </section>
+
+                <!-- Contact Section -->
+                <section class="policy-section">
+                    <h2 class="section-title"><i class="fas fa-envelope"></i> Contact Us</h2>
+                    <p class="policy-text">If you have any questions about this Privacy Policy, please contact us:</p>
+                    <ul class="policy-list">
+                        <li>By email: <a href="mailto:privacy@toolshub.com">privacy@toolshub.com</a></li>
+                        <li>By visiting our contact page: <a href="contact.html">https://toolshub-official.github.io/ToolsHub/contact</a></li>
+                    </ul>
+                </section>
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Quick Links Widget -->
+                <div class="sidebar-widget fade-in">
+                    <h3 class="widget-title">Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="#introduction"><i class="fas fa-chevron-right"></i> Introduction</a></li>
+                        <li><a href="#information-collection"><i class="fas fa-chevron-right"></i> Information Collection</a></li>
+                        <li><a href="#use-of-information"><i class="fas fa-chevron-right"></i> Use of Information</a></li>
+                        <li><a href="#cookies"><i class="fas fa-chevron-right"></i> Cookies</a></li>
+                        <li><a href="#adsense"><i class="fas fa-chevron-right"></i> Google AdSense</a></li>
+                        <li><a href="#third-party"><i class="fas fa-chevron-right"></i> Third-Party Services</a></li>
+                        <li><a href="#user-rights"><i class="fas fa-chevron-right"></i> Your Rights</a></li>
+                        <li><a href="#children-privacy"><i class="fas fa-chevron-right"></i> Children's Privacy</a></li>
+                        <li><a href="#policy-changes"><i class="fas fa-chevron-right"></i> Policy Changes</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Ad Container -->
+                <div class="sidebar-widget ad-container fade-in">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <div id="sidebar-ad" style="min-height: 250px;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"></script>
+                        <!-- PrivacySidebarAd -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-YOUR_PUB_ID"
+                             data-ad-slot="YOUR_AD_SLOT"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Contact Widget -->
+                <div class="sidebar-widget fade-in">
+                    <h3 class="widget-title">Have Questions?</h3>
+                    <p>If you have any questions about our privacy practices, please don't hesitate to contact us.</p>
+                    <a href="contact.html" class="btn" style="display: inline-block; margin-top: 15px; background-color: var(--primary-color); color: white; padding: 10px 20px; border-radius: var(--border-radius); text-decoration: none; font-weight: 500; transition: var(--transition);">Contact Us</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools Hub</h3>
+                    <p>Your one-stop destination for free online tools to simplify your work and boost productivity.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="tools.html">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Schema.org structured data
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Privacy Policy - Tools Hub",
+            "description": "Learn how Tools Hub collects, uses, and protects your data while using our free online tools.",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Tools Hub",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://toolshub-official.github.io/ToolsHub/images/logo.png"
+                }
+            },
+            "about": {
+                "@type": "Thing",
+                "name": "Privacy Policy"
+            }
+        };
+
+        const scriptTag = document.createElement('script');
+        scriptTag.type = 'application/ld+json';
+        scriptTag.text = JSON.stringify(structuredData);
+        document.head.appendChild(scriptTag);
+    </script>
+</body>
+</html>
