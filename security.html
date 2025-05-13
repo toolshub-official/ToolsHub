@@ -12,479 +12,104 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/security">
     
-    :root {
-            --primary-color: #1a73e8;
-            --primary-light: #e8f0fe;
-            --secondary-color: #ffffff;
-            --text-color: #202124;
-            --text-light: #5f6368;
-            --gray-light: #f8f9fa;
-            --gray-medium: #e9ecef;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-            --border-radius: 8px;
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
         }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .security-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #0369a1;
         }
-
-        /* Header Styles */
-        header {
-            background-color: var(--secondary-color);
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links .active {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 24px;
-        }
-
-        /* FAQ Hero */
-        .faq-hero {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-color) 100%);
-            padding: 80px 0;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .faq-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-
-        .faq-hero p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Search Bar */
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto 40px;
+        .nav-link {
             position: relative;
         }
-
-        .search-input {
-            width: 100%;
-            padding: 15px 20px;
-            border: 1px solid var(--gray-medium);
-            border-radius: 50px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: var(--transition);
-            padding-right: 50px;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
-        }
-
-        .search-button {
+        .nav-link:after {
+            content: '';
             position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #0369a1;
+            transition: width 0.3s ease;
         }
-
-        /* FAQ Sections */
-        .faq-container {
-            max-width: 900px;
-            margin: 0 auto;
+        .nav-link:hover:after {
+            width: 100%;
         }
-
-        .faq-section {
-            margin-bottom: 40px;
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-        }
-
-        .section-title i {
-            margin-right: 15px;
-            font-size: 1.5rem;
-        }
-
-        .faq-item {
-            margin-bottom: 15px;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-
-        .faq-item.active {
-            box-shadow: var(--shadow-md);
-        }
-
-        .faq-question {
-            background-color: var(--secondary-color);
-            padding: 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .faq-question:hover {
-            background-color: var(--primary-light);
-        }
-
-        .faq-question i {
-            color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background-color: var(--secondary-color);
-        }
-
-        .faq-item.active .faq-answer {
-            padding: 0 20px 20px;
-            max-height: 500px;
-        }
-
-        .faq-answer-content {
-            padding-top: 10px;
-        }
-
-        .faq-answer p {
-            margin-bottom: 15px;
-        }
-
-        .faq-answer ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .faq-answer li {
-            margin-bottom: 8px;
-        }
-
-        /* Ad Container */
-        .ad-container {
-            background-color: var(--gray-light);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin: 40px auto;
-            text-align: center;
-            border: 1px dashed var(--gray-medium);
-        }
-
-        .ad-container p {
-            color: var(--text-light);
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        /* Contact CTA */
-        .contact-cta {
-            background-color: var(--primary-light);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .contact-cta h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
-        .contact-cta p {
-            margin-bottom: 20px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: 2px solid transparent;
-        }
-
-        .btn:hover {
-            background-color: #0d5bc5;
+        .card:hover {
             transform: translateY(-2px);
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: var(--shadow-md);
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            z-index: 99;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background-color: #0d5bc5;
-            transform: translateY(-3px);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--text-color);
-            color: var(--secondary-color);
-            padding: 60px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #bdc1c6;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary-color);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            color: var(--primary-light);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #bdc1c6;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background-color: var(--secondary-color);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 40px;
-                transition: var(--transition);
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .nav-links li {
-                margin: 15px 0;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .faq-hero h1 {
-                font-size: 2rem;
-            }
-
-            .faq-hero p {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease forwards;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+<body class="bg-white text-gray-800">
     <!-- Navigation -->
-    <nav class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold text-blue-600 dark:text-blue-400">Tools Hub</a>
-            <div class="flex space-x-4">
-                <a href="index.html" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a>
-                <a href="user-guide.html" class="hover:text-blue-600 dark:hover:text-blue-400">Tools</a>
-                <a href="privacy-policy.html" class="hover:text-blue-600 dark:hover:text-blue-400">Privacy</a>
-                <a href="security.html" class="text-blue-600 dark:text-blue-400 font-medium">Security</a>
+            <a href="/" class="text-2xl font-bold text-primary-700 flex items-center">
+                <i class="fas fa-cube mr-2"></i>
+                Tools Hub
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="nav-link text-gray-600 hover:text-primary-700">Home</a>
+                <a href="user-guide.html" class="nav-link text-gray-600 hover:text-primary-700">Tools</a>
+                <a href="privacy-policy.html" class="nav-link text-gray-600 hover:text-primary-700">Privacy</a>
+                <a href="security.html" class="nav-link text-primary-700 font-medium">Security</a>
             </div>
+            <button class="md:hidden text-gray-600">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         <!-- Hero Section -->
-        <section class="text-center mb-12">
-            <h1 class="text-4xl font-bold mb-4">Security at Tools Hub</h1>
-            <p class="text-xl max-w-3xl mx-auto">Your security is our priority. We implement robust measures to protect your data and privacy while using our tools.</p>
+        <section class="text-center mb-12 py-12 bg-gradient-to-r from-primary-50 to-primary-100 rounded-xl">
+            <h1 class="text-4xl font-bold mb-4 text-primary-800">Security at Tools Hub</h1>
+            <p class="text-xl max-w-3xl mx-auto text-gray-700">Your security is our priority. We implement robust measures to protect your data and privacy while using our <a href="/tools" class="text-primary-600 hover:underline">tools</a>.</p>
             
             <!-- AdSense Banner (Top) -->
-            <div class="my-8">
+            <div class="my-8 max-w-4xl mx-auto">
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX" crossorigin="anonymous"></script>
                 <!-- Security Top Banner -->
                 <ins class="adsbygoogle"
@@ -500,54 +125,54 @@
         </section>
 
         <!-- Security Sections -->
-        <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div class="grid md:grid-cols-2 gap-6 mb-12">
             <!-- User Data Protection -->
-            <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card">
                 <div class="text-center">
                     <i class="fas fa-shield-alt security-icon"></i>
-                    <h2 class="text-2xl font-bold mb-4">User Data Protection</h2>
+                    <h2 class="text-2xl font-bold mb-4 text-primary-700">User Data Protection</h2>
                 </div>
                 <ul class="space-y-3">
                     <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>All connections are secured with SSL/TLS encryption</span>
+                        <i class="fas fa-check-circle text-primary-500 mt-1 mr-2"></i>
+                        <span>All connections secured with <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">SSL/TLS encryption</a></span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Strict data retention policies - we don't store your personal data longer than necessary</span>
+                        <i class="fas fa-check-circle text-primary-500 mt-1 mr-2"></i>
+                        <span>Strict <a href="/privacy#data-retention" class="text-primary-600 hover:underline">data retention policies</a></span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Regular security audits to identify and fix vulnerabilities</span>
+                        <i class="fas fa-check-circle text-primary-500 mt-1 mr-2"></i>
+                        <span>Regular <a href="#vulnerability-management" class="text-primary-600 hover:underline">security audits</a></span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Secure server infrastructure with firewalls and intrusion detection</span>
+                        <i class="fas fa-check-circle text-primary-500 mt-1 mr-2"></i>
+                        <span>Secure server infrastructure with <a href="https://en.wikipedia.org/wiki/Firewall_(computing)" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">firewalls</a> and intrusion detection</span>
                     </li>
                 </ul>
             </section>
 
             <!-- Security Features -->
-            <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card">
                 <div class="text-center">
                     <i class="fas fa-lock security-icon"></i>
-                    <h2 class="text-2xl font-bold mb-4">Tool Security Features</h2>
+                    <h2 class="text-2xl font-bold mb-4 text-primary-700">Tool Security Features</h2>
                 </div>
                 <ul class="space-y-3">
                     <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Encrypted file transfers for all file-based tools</span>
+                        <i class="fas fa-check-circle text-primary-500 mt-1 mr-2"></i>
+                        <span><a href="/tools/file-converter" class="text-primary-600 hover:underline">Encrypted file transfers</a> for all file-based tools</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                        <i class="fas fa-check-circle text-primary-500 mt-1 mr-2"></i>
                         <span>Temporary file storage that's automatically purged</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                        <i class="fas fa-check-circle text-primary-500 mt-1 mr-2"></i>
                         <span>No unnecessary data collection - we only process what's required</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                        <i class="fas fa-check-circle text-primary-500 mt-1 mr-2"></i>
                         <span>Client-side processing where possible to minimize data exposure</span>
                     </li>
                 </ul>
@@ -555,7 +180,7 @@
         </div>
 
         <!-- Mid-Page Ad -->
-        <div class="my-8">
+        <div class="my-8 max-w-4xl mx-auto">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX" crossorigin="anonymous"></script>
             <!-- Security Mid Banner -->
             <ins class="adsbygoogle"
@@ -570,96 +195,96 @@
         </div>
 
         <!-- Additional Sections -->
-        <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div class="grid md:grid-cols-2 gap-6 mb-12">
             <!-- User Responsibilities -->
-            <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card">
                 <div class="text-center">
                     <i class="fas fa-user-shield security-icon"></i>
-                    <h2 class="text-2xl font-bold mb-4">Your Security Responsibilities</h2>
+                    <h2 class="text-2xl font-bold mb-4 text-primary-700">Your Security Responsibilities</h2>
                 </div>
-                <p class="mb-4">While we do our part, you can help by:</p>
+                <p class="mb-4 text-gray-700">While we do our part, you can help by:</p>
                 <ul class="space-y-3">
                     <li class="flex items-start">
-                        <i class="fas fa-exclamation-triangle text-yellow-500 mt-1 mr-2"></i>
-                        <span>Using strong, unique passwords for any accounts</span>
+                        <i class="fas fa-exclamation-circle text-primary-500 mt-1 mr-2"></i>
+                        <span>Using <a href="https://www.howtogeek.com/195430/how-to-create-a-strong-password-and-remember-it/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">strong, unique passwords</a> for any accounts</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-exclamation-triangle text-yellow-500 mt-1 mr-2"></i>
+                        <i class="fas fa-exclamation-circle text-primary-500 mt-1 mr-2"></i>
                         <span>Keeping your devices and browsers updated</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-exclamation-triangle text-yellow-500 mt-1 mr-2"></i>
+                        <i class="fas fa-exclamation-circle text-primary-500 mt-1 mr-2"></i>
                         <span>Being cautious with sensitive information in public spaces</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-exclamation-triangle text-yellow-500 mt-1 mr-2"></i>
-                        <span>Reporting any suspicious activity immediately</span>
+                        <i class="fas fa-exclamation-circle text-primary-500 mt-1 mr-2"></i>
+                        <span><a href="#contact" class="text-primary-600 hover:underline">Reporting</a> any suspicious activity immediately</span>
                     </li>
                 </ul>
             </section>
 
             <!-- Vulnerability Handling -->
-            <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <section id="vulnerability-management" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card">
                 <div class="text-center">
                     <i class="fas fa-bug security-icon"></i>
-                    <h2 class="text-2xl font-bold mb-4">Vulnerability Management</h2>
+                    <h2 class="text-2xl font-bold mb-4 text-primary-700">Vulnerability Management</h2>
                 </div>
-                <p>We take security vulnerabilities seriously:</p>
+                <p class="text-gray-700">We take security vulnerabilities seriously:</p>
                 <ul class="space-y-3 mt-3">
                     <li class="flex items-start">
-                        <i class="fas fa-search text-blue-500 mt-1 mr-2"></i>
+                        <i class="fas fa-search text-primary-500 mt-1 mr-2"></i>
                         <span>Regular automated and manual security testing</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-clock text-blue-500 mt-1 mr-2"></i>
+                        <i class="fas fa-clock text-primary-500 mt-1 mr-2"></i>
                         <span>Critical vulnerabilities are addressed within 24 hours</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-envelope text-blue-500 mt-1 mr-2"></i>
+                        <i class="fas fa-envelope text-primary-500 mt-1 mr-2"></i>
                         <span>Responsible disclosure program for security researchers</span>
                     </li>
                 </ul>
-                <p class="mt-4">Found a vulnerability? <a href="mailto:security@toolshub.example" class="text-blue-600 dark:text-blue-400 hover:underline">Contact our security team</a>.</p>
+                <p class="mt-4 text-gray-700">Found a vulnerability? <a href="mailto:security@toolshub.example" class="text-primary-600 hover:underline">Contact our security team</a>.</p>
             </section>
         </div>
 
         <!-- Third-Party Section -->
-        <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-12">
+        <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-12 card">
             <div class="text-center">
                 <i class="fas fa-handshake security-icon"></i>
-                <h2 class="text-2xl font-bold mb-4">Third-Party Services</h2>
+                <h2 class="text-2xl font-bold mb-4 text-primary-700">Third-Party Services</h2>
             </div>
-            <p class="mb-4">We use carefully selected third-party services to enhance functionality:</p>
+            <p class="mb-4 text-gray-700">We use carefully selected third-party services to enhance functionality:</p>
             <div class="grid md:grid-cols-2 gap-4">
-                <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <h3 class="font-bold mb-2">Google Analytics</h3>
-                    <p>Used for understanding website traffic and usage patterns. Data is anonymized where possible.</p>
+                <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                    <h3 class="font-bold mb-2 text-primary-700">Google Analytics</h3>
+                    <p class="text-gray-700">Used for understanding website traffic and usage patterns. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">Privacy Policy</a></p>
                 </div>
-                <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <h3 class="font-bold mb-2">Google AdSense</h3>
-                    <p>Displays relevant ads to support our free services. Ads may use cookies for personalization.</p>
+                <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                    <h3 class="font-bold mb-2 text-primary-700">Google AdSense</h3>
+                    <p class="text-gray-700">Displays relevant ads to support our free services. <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">How ads are personalized</a></p>
                 </div>
             </div>
-            <p class="mt-4">All third-party services comply with strict data protection standards.</p>
+            <p class="mt-4 text-gray-700">All third-party services comply with strict data protection standards. Learn more in our <a href="/privacy#third-party" class="text-primary-600 hover:underline">Privacy Policy</a>.</p>
         </section>
 
         <!-- Cookie Disclaimer -->
-        <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-12">
+        <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-12 card">
             <div class="text-center">
                 <i class="fas fa-cookie-bite security-icon"></i>
-                <h2 class="text-2xl font-bold mb-4">Cookie & Tracking Policy</h2>
+                <h2 class="text-2xl font-bold mb-4 text-primary-700">Cookie & Tracking Policy</h2>
             </div>
-            <p>We use cookies and similar technologies for:</p>
-            <ul class="list-disc pl-5 mt-2 space-y-2">
+            <p class="text-gray-700">We use cookies and similar technologies for:</p>
+            <ul class="list-disc pl-5 mt-2 space-y-2 text-gray-700">
                 <li>Essential website functionality</li>
                 <li>Performance monitoring and analytics</li>
                 <li>Ad personalization (via Google AdSense)</li>
             </ul>
-            <p class="mt-4">You can manage cookie preferences in your browser settings. For details, see our <a href="/privacy" class="text-blue-600 dark:text-blue-400 hover:underline">Privacy Policy</a>.</p>
+            <p class="mt-4 text-gray-700">You can manage cookie preferences in your browser settings. For details, see our <a href="/privacy#cookies" class="text-primary-600 hover:underline">Privacy Policy</a> and <a href="/cookie-policy" class="text-primary-600 hover:underline">Cookie Policy</a>.</p>
         </section>
 
         <!-- Bottom Ad -->
-        <div class="my-8">
+        <div class="my-8 max-w-4xl mx-auto">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX" crossorigin="anonymous"></script>
             <!-- Security Bottom Banner -->
             <ins class="adsbygoogle"
@@ -674,204 +299,58 @@
         </div>
 
         <!-- Policy Updates -->
-        <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-12">
+        <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-12 card">
             <div class="text-center">
                 <i class="fas fa-calendar-alt security-icon"></i>
-                <h2 class="text-2xl font-bold mb-4">Policy Updates</h2>
+                <h2 class="text-2xl font-bold mb-4 text-primary-700">Policy Updates</h2>
             </div>
-            <p>We may update this security policy periodically to reflect changes in our practices or regulations.</p>
-            <p class="mt-2">Last updated: <span class="font-medium">June 10, 2023</span></p>
-            <p class="mt-4">Significant changes will be communicated through our website or via email for registered users.</p>
+            <p class="text-gray-700">We may update this security policy periodically to reflect changes in our practices or regulations.</p>
+            <p class="mt-2 text-gray-700">Last updated: <span class="font-medium text-primary-700">June 10, 2023</span></p>
+            <p class="mt-4 text-gray-700">Significant changes will be communicated through our website or via email for registered users. View our <a href="/changelog" class="text-primary-600 hover:underline">changelog</a> for recent updates.</p>
         </section>
 
         <!-- Contact Section -->
-        <section class="bg-blue-50 dark:bg-blue-900/30 p-6 rounded-lg shadow-md text-center">
-            <h2 class="text-2xl font-bold mb-4">Security Questions?</h2>
-            <p class="mb-4">Contact our security team for any concerns or questions:</p>
-            <a href="contact-us.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-200">
-                <i class="fas fa-envelope mr-2"></i> Email Us
-            </a>
+        <section id="contact" class="bg-primary-50 p-8 rounded-xl text-center border border-primary-100">
+            <h2 class="text-2xl font-bold mb-4 text-primary-800">Security Questions?</h2>
+            <p class="mb-6 text-gray-700 max-w-2xl mx-auto">Contact our security team for any concerns or questions about our security measures.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="contact-us.html" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-8 rounded-lg transition duration-200 shadow-md">
+                    <i class="fas fa-envelope mr-2"></i> Email Us
+                </a>
+                <a href="/contact" class="inline-block border border-primary-600 text-primary-600 hover:bg-primary-50 font-medium py-3 px-8 rounded-lg transition duration-200">
+                    <i class="fas fa-headset mr-2"></i> Contact Form
+                </a>
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
+    <footer class="bg-primary-800 text-white py-12">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <a href="/" class="text-2xl font-bold text-blue-400">Tools Hub</a>
-                    <p class="mt-2 text-gray-400">Free online tools for everyone</p>
-                </div>
-                <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0 text-center md:text-left">
-                    <div>
-                        <h3 class="font-bold mb-2">Links</h3>
-                        <ul class="space-y-1">
-                            <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
-                            <li><a href="user-guide.html" class="hover:text-blue-400">Tools</a></li>
-                            <li><a href="privacy-policy.html" class="hover:text-blue-400">Privacy</a></li>
-                            <li><a href="security.html" class="text-blue-400">Security</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="font-bold mb-2">Legal</h3>
-                        <ul class="space-y-1">
-                            <li><a href="terms.html" class="hover:text-blue-400">Terms</a></li>
-                            <li><a href="privacy-policy.html" class="hover:text-blue-400">Privacy Policy</a></li>
-                            <li><a href="cookie-policy.html" class="hover:text-blue-400">Cookie Policy</a></li>
-                        </ul>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="/" class="text-2xl font-bold text-white flex items-center mb-4">
+                        <i class="fas fa-cube mr-2"></i>
+                        Tools Hub
+                    </a>
+                    <p class="text-primary-200">Free online tools for everyone</p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="https://twitter.com/toolshub" target="_blank" rel="noopener noreferrer" class="text-primary-200 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/toolshub" target="_blank" rel="noopener noreferrer" class="text-primary-200 hover:text-white text-xl"><i class="fab fa-github"></i></a>
+                        <a href="https://discord.gg/toolshub" target="_blank" rel="noopener noreferrer" class="text-primary-200 hover:text-white text-xl"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
-            </div>
-            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
-                <p>&copy; 2023 Tools Hub. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button id="backToTop" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hidden">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Schema Markup -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Security - Tools Hub",
-        "description": "Learn about the security measures implemented at Tools Hub to protect user data and privacy.",
-        "url": "https://toolshub-official.github.io/ToolsHub/security",
-        "mainEntity": {
-            "@type": "Organization",
-            "name": "Tools Hub",
-            "securityPolicy": "https://toolshub-official.github.io/ToolsHub/security"
-        }
-    }
-    </script>
-
-    <!-- JavaScript -->
-    <script>
-// Mobile Navigation Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // FAQ Accordion Functionality
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            
-            question.addEventListener('click', () => {
-                // Close all other items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                
-                // Toggle current item
-                item.classList.toggle('active');
-            });
-        });
-
-        // Back to Top Button
-        const backToTopButton = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
-            }
-        });
-
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // FAQ Search Functionality
-        const searchInput = document.querySelector('.search-input');
-        
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase();
-            
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
-                const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
-                
-                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
-                    item.style.display = 'block';
-                    item.classList.add('active'); // Open matching items
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-
-        // Schema.org structured data for FAQPage
-        const faqStructuredData = {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "What is Tools Hub?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Tools Hub is a free online platform that provides a collection of useful tools for students, developers, designers, and professionals. Our tools help with various tasks including file conversion, image editing, calculations, and more - all without requiring any software installation or registration."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Is Tools Hub free to use?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes, all tools on Tools Hub are completely free to use. There are no hidden charges or premium features. The platform is supported by non-intrusive advertisements to keep the service free for all users."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "How do I use the tools on Tools Hub?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Using our tools is simple: 1) Navigate to the tool you want to use from our homepage or tools page, 2) Follow the on-screen instructions (most tools are self-explanatory), 3) Upload or input your data if required, 4) Let the tool process your request, 5) Download or copy your results. No registration or account creation is needed to use any of our tools."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Does Tools Hub collect personal data?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "We collect minimal data necessary to operate our service effectively. This may include: Anonymous usage statistics (through Google Analytics), IP addresses for security and analytics, and information about your device and browser. Most tools process your data directly in your browser - your files never leave your computer unless you explicitly upload them for processing."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "How do I suggest a new tool?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "We welcome suggestions for new tools! Please contact us through our contact page or email us at suggestions@toolshub.com with your idea. When suggesting a tool, please include: A description of what the tool would do, why it would be useful, and any similar tools you've used elsewhere. While we can't implement every suggestion, we review all requests and prioritize based on demand and feasibility."
-                    }
-                }
-            ]
-        };
-
-        const scriptTag = document.createElement('script');
-        scriptTag.type = 'application/ld+json';
-        scriptTag.text = JSON.stringify(faqStructuredData);
-        document.head.appendChild(scriptTag);
-    </script>
-</body>
-</html>
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-primary-200 hover:text-white">Home</a></li>
+                        <li><a href="user-guide.html" class="text-primary-200 hover:text-white">Tools</a></li>
+                        <li><a href="privacy-policy.html" class="text-primary-200 hover:text-white">Privacy</a></li>
+                        <li><a href="security.html" class="text-white font-medium">Security</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-white">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/terms" class="text-primary-200 hover:text-white">Terms of Service</a></li>
+                        <li><a href="/privac
