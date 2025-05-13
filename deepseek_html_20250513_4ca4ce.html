@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Tools Hub</title>
+    <meta name="description" content="Read the Terms of Service of Tools Hub, outlining your rights, responsibilities, and policies while using our free online tools.">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Terms of Service - Tools Hub">
+    <meta property="og:description" content="Legal terms governing the use of Tools Hub's free online tools and services">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/terms">
+    <meta property="og:image" content="https://toolshub-official.github.io/ToolsHub/images/og-terms.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #1a73e8;
+            --primary-light: #e8f0fe;
+            --white: #ffffff;
+            --text-dark: #202124;
+            --text-light: #5f6368;
+            --border-color: #dadce0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .nav-links .active {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            padding: 40px 0;
+        }
+        
+        .sidebar {
+            width: 250px;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            margin-right: 40px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+        
+        .sidebar-links {
+            list-style: none;
+            border-left: 2px solid var(--border-color);
+            padding-left: 15px;
+        }
+        
+        .sidebar-links li {
+            margin-bottom: 12px;
+        }
+        
+        .sidebar-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .sidebar-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .content {
+            flex: 1;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section h2 {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            padding-top: 10px;
+        }
+        
+        .section h3 {
+            font-size: 1.2rem;
+            margin: 25px 0 15px;
+            color: var(--text-dark);
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        
+        .section ul, .section ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        .section li {
+            margin-bottom: 8px;
+        }
+        
+        .last-updated {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        
+        /* Ad Containers */
+        .ad-container {
+            background-color: #f8f9fa;
+            border: 1px dashed var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .ad-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            header, footer, .sidebar, .ad-container {
+                display: none;
+            }
+            
+            .main-content {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <i class="fas fa-tools"></i>
+                    <span>Tools Hub</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tools">Tools</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/terms" class="active">Terms</a></li>
+                    <li><a href="/privacy">Privacy</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Terms of Service</h1>
+            <p>Last Updated: <span id="last-updated-date">June 15, 2023</span></p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <h3 class="sidebar-title">Terms of Service</h3>
+                <ul class="sidebar-links">
+                    <li><a href="#introduction">1. Introduction</a></li>
+                    <li><a href="#acceptance">2. Acceptance of Terms</a></li>
+                    <li><a href="#modifications">3. Modifications</a></li>
+                    <li><a href="#user-responsibilities">4. User Responsibilities</a></li>
+                    <li><a href="#use-of-tools">5. Use of Tools</a></li>
+                    <li><a href="#intellectual-property">6. Intellectual Property</a></li>
+                    <li><a href="#privacy">7. Privacy & Data</a></li>
+                    <li><a href="#third-party">8. Third-Party</a></li>
+                    <li><a href="#liability">9. Liability</a></li>
+                    <li><a href="#termination">10. Termination</a></li>
+                    <li><a href="#governing-law">11. Governing Law</a></li>
+                    <li><a href="#contact">12. Contact</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Ad Container (Top) -->
+                <div class="ad-container">
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Google AdSense Ad Unit -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX"></script>
+                    <!-- TermsPage_Top -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXX"
+                         data-ad-slot="YYYYYYYY"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
+                <!-- Introduction -->
+                <section id="introduction" class="section">
+                    <h2>1. Introduction</h2>
+                    <p>Welcome to Tools Hub ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, tools, and services (collectively, the "Services").</p>
+                    <p>By accessing or using our Services, you agree to be bound by these Terms. If you do not agree to these Terms, you may not use our Services.</p>
+                </section>
+
+                <!-- Acceptance of Terms -->
+                <section id="acceptance" class="section">
+                    <h2>2. Acceptance of Terms</h2>
+                    <p>By using Tools Hub, you confirm that:</p>
+                    <ul>
+                        <li>You are at least 13 years of age (or the minimum legal age in your jurisdiction)</li>
+                        <li>You have the legal capacity to enter into these Terms</li>
+                        <li>You will comply with all applicable laws and regulations</li>
+                        <li>You accept full responsibility for all activities that occur under your usage of our Services</li>
+                    </ul>
+                </section>
+
+                <!-- Modifications -->
+                <section id="modifications" class="section">
+                    <h2>3. Modifications to Terms</h2>
+                    <p>We reserve the right to modify these Terms at any time. When we make changes, we will update the "Last Updated" date at the top of this page.</p>
+                    <p>Your continued use of our Services after any modifications constitutes your acceptance of the revised Terms. We recommend reviewing these Terms periodically.</p>
+                </section>
+
+                <!-- Ad Container (Middle) -->
+                <div class="ad-container">
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Google AdSense Ad Unit -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX"></script>
+                    <!-- TermsPage_Middle -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXX"
+                         data-ad-slot="ZZZZZZZZ"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
+                <!-- User Responsibilities -->
+                <section id="user-responsibilities" class="section">
+                    <h2>4. User Responsibilities</h2>
+                    <p>When using Tools Hub, you agree to:</p>
+                    <ul>
+                        <li>Use our Services only for lawful purposes</li>
+                        <li>Not upload or transmit any harmful, illegal, or infringing content</li>
+                        <li>Not attempt to disrupt or interfere with our Services</li>
+                        <li>Not use our Services to violate any laws or regulations</li>
+                        <li>Not use automated systems (e.g., bots) to access our Services without permission</li>
+                    </ul>
+                    <p>You are solely responsible for any content you upload, process, or generate using our tools.</p>
+                </section>
+
+                <!-- Use of Tools -->
+                <section id="use-of-tools" class="section">
+                    <h2>5. Use of Tools and Services</h2>
+                    <p>Our Services provide various online tools for conversion, calculation, and other utility purposes. You acknowledge that:</p>
+                    <ul>
+                        <li>We do not guarantee the accuracy, completeness, or reliability of any tool output</li>
+                        <li>Some tools may have usage limitations or require specific input formats</li>
+                        <li>We may modify, suspend, or discontinue any tool without notice</li>
+                        <li>We are not responsible for any decisions made based on tool outputs</li>
+                    </ul>
+                    <h3>File Processing</h3>
+                    <p>For tools that process files:</p>
+                    <ul>
+                        <li>Files are temporarily stored only for processing and automatically deleted</li>
+                        <li>We do not guarantee file security during transmission</li>
+                        <li>You should not upload sensitive or confidential files</li>
+                    </ul>
+                </section>
+
+                <!-- Intellectual Property -->
+                <section id="intellectual-property" class="section">
+                    <h2>6. Intellectual Property</h2>
+                    <p>All content, features, and functionality on Tools Hub, including but not limited to text, graphics, logos, and software, are owned by us or our licensors and are protected by intellectual property laws.</p>
+                    <p>You may not:</p>
+                    <ul>
+                        <li>Copy, modify, or create derivative works of our Services</li>
+                        <li>Reverse engineer or attempt to extract source code</li>
+                        <li>Use our trademarks without express written permission</li>
+                    </ul>
+                    <p>You retain ownership of any content you upload or create using our tools, but grant us a limited license to process that content as necessary to provide the Services.</p>
+                </section>
+
+                <!-- Privacy & Data -->
+                <section id="privacy" class="section">
+                    <h2>7. Privacy and Data Handling</h2>
+                    <p>Your privacy is important to us. Our <a href="/privacy">Privacy Policy</a> explains how we collect, use, and protect your information.</p>
+                    <p>By using our Services, you consent to our data practices as described in the Privacy Policy.</p>
+                    <h3>Data Retention</h3>
+                    <p>We generally do not store:</p>
+                    <ul>
+                        <li>Files you upload for processing (deleted after processing)</li>
+                        <li>Tool outputs or generated content</li>
+                        <li>Personal information beyond what's necessary for service operation</li>
+                    </ul>
+                </section>
+
+                <!-- Third-Party -->
+                <section id="third-party" class="section">
+                    <h2>8. Third-Party Links and Ads</h2>
+                    <p>Our Services may contain:</p>
+                    <ul>
+                        <li>Links to third-party websites or services</li>
+                        <li>Advertisements from third-party networks (e.g., Google AdSense)</li>
+                    </ul>
+                    <p>We are not responsible for:</p>
+                    <ul>
+                        <li>The content or practices of third-party sites</li>
+                        <li>Any transactions between you and third parties</li>
+                        <li>The accuracy of third-party advertisements</li>
+                    </ul>
+                    <p>Your interactions with third parties are solely between you and that third party.</p>
+                </section>
+
+                <!-- Liability -->
+                <section id="liability" class="section">
+                    <h2>9. Limitation of Liability</h2>
+                    <p>To the maximum extent permitted by law, Tools Hub shall not be liable for:</p>
+                    <ul>
+                        <li>Any indirect, incidental, or consequential damages</li>
+                        <li>Loss of data, profits, or business opportunities</li>
+                        <li>Errors or inaccuracies in tool outputs</li>
+                        <li>Service interruptions or downtime</li>
+                    </ul>
+                    <p>Our total liability for any claims related to these Terms or our Services shall not exceed the amount you paid us (if any) in the past six months.</p>
+                    <h3>No Warranty</h3>
+                    <p>Our Services are provided "as is" without warranties of any kind, either express or implied. We do not warrant that our Services will be uninterrupted, error-free, or secure.</p>
+                </section>
+
+                <!-- Termination -->
+                <section id="termination" class="section">
+                    <h2>10. Termination</h2>
+                    <p>We may suspend or terminate your access to our Services:</p>
+                    <ul>
+                        <li>For violation of these Terms</li>
+                        <li>For any reason with or without notice</li>
+                    </ul>
+                    <p>You may stop using our Services at any time.</p>
+                </section>
+
+                <!-- Governing Law -->
+                <section id="governing-law" class="section">
+                    <h2>11. Governing Law</h2>
+                    <p>These Terms shall be governed by and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law provisions.</p>
+                    <p>Any disputes shall be resolved in the courts located in [Your Jurisdiction].</p>
+                </section>
+
+                <!-- Contact -->
+                <section id="contact" class="section">
+                    <h2>12. Contact Information</h2>
+                    <p>For questions about these Terms, please contact us:</p>
+                    <ul>
+                        <li>Email: <a href="mailto:legal@toolshub.example">legal@toolshub.example</a></li>
+                        <li>Contact Form: <a href="/contact">Contact Us</a></li>
+                    </ul>
+                </section>
+
+                <!-- Ad Container (Bottom) -->
+                <div class="ad-container">
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Google AdSense Ad Unit -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX"></script>
+                    <!-- TermsPage_Bottom -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXX"
+                         data-ad-slot="WWWWWWWW"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools Hub</h3>
+                    <p>Your one-stop destination for free online tools that make work easier and faster.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/tools">All Tools</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/cookies">Cookie Policy</a></li>
+                        <li><a href="/disclaimer">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="/faq">FAQs</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/status">System Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Update last updated date dynamically
+        document.getElementById('last-updated-date').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Print button functionality (optional)
+        const printButton = document.createElement('button');
+        printButton.innerHTML = '<i class="fas fa-print"></i> Print Terms';
+        printButton.style.position = 'fixed';
+        printButton.style.bottom = '20px';
+        printButton.style.right = '20px';
+        printButton.style.padding = '10px 15px';
+        printButton.style.background = 'var(--primary-blue)';
+        printButton.style.color = 'white';
+        printButton.style.border = 'none';
+        printButton.style.borderRadius = '5px';
+        printButton.style.cursor = 'pointer';
+        printButton.style.zIndex = '99';
+        printButton.addEventListener('click', () => window.print());
+        
+        document.body.appendChild(printButton);
+    </script>
+</body>
+</html>
