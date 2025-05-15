@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online Word Counter Tool | Tools Hub</title>
+    <meta name="description" content="Use our free online Word Counter to instantly count words, characters, sentences, paragraphs, and more. Perfect for writers, students, and SEO.">
+    <meta name="keywords" content="word counter, online word counter, character counter, text analysis tool, tools hub">
+    <meta name="author" content="Tools Hub">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolshub-official.github.io/ToolsHub/word-counter">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --glass: rgba(255, 255, 255, 0.9);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1rem;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            flex: 1;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            background: var(--glass);
+            backdrop-filter: blur(5px);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(67, 97, 238, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 992px) {
+            .tool-container {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .text-area-container {
+            position: relative;
+            background: var(--glass);
+            backdrop-filter: blur(5px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .text-area-container label {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: white;
+            padding: 0 10px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 350px;
+            padding: 1.5rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 0.8rem;
+            font-size: 1rem;
+            resize: vertical;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+        }
+
+        .stats-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .stats-card {
+            background: var(--glass);
+            backdrop-filter: blur(5px);
+            border-radius: 1rem;
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stats-card h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats-card h3 i {
+            font-size: 1.1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .stat-label {
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: #dee2e6;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+        }
+
+        .keyword-density {
+            margin-top: 0;
+        }
+
+        .keyword-density h4 {
+            margin-bottom: 1rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .keyword-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .keyword-text {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .keyword-tag {
+            background: var(--primary-light);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .keyword-bar-container {
+            width: 100%;
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            margin: 0.5rem 0 1rem;
+            overflow: hidden;
+        }
+
+        .keyword-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 4px;
+        }
+
+        .no-keywords {
+            color: var(--gray);
+            font-style: italic;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .ad-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 0.8rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .ad-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .blog-snippet {
+            background: var(--glass);
+            backdrop-filter: blur(5px);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 3rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .blog-snippet h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .blog-snippet p {
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        .blog-snippet a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .blog-snippet a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--glass);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links a {
+                padding: 1rem 2rem;
+                width: 100%;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .text-area-container {
+                padding: 1rem;
+            }
+            
+            textarea {
+                min-height: 250px;
+            }
+        }
+
+        /* Dark mode toggle */
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f8f9fa;
+        }
+
+        .dark-mode .hero,
+        .dark-mode .stats-card,
+        .dark-mode .text-area-container,
+        .dark-mode .blog-snippet {
+            background: rgba(30, 30, 46, 0.9);
+            color: #f8f9fa;
+        }
+
+        .dark-mode textarea {
+            background: rgba(20, 20, 36, 0.7);
+            color: #f8f9fa;
+            border-color: #495057;
+        }
+
+        .dark-mode .stat-item {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .btn-secondary {
+            background: #495057;
+            color: #f8f9fa;
+        }
+
+        .dark-mode .btn-secondary:hover {
+            background: #6c757d;
+        }
+
+        .dark-mode .ad-container {
+            background: rgba(30, 30, 46, 0.9);
+            color: #f8f9fa;
+        }
+
+        .dark-mode .footer-links a {
+            color: #adb5bd;
+        }
+
+        .dark-mode .footer-links a:hover {
+            color: white;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--dark);
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .dark-mode .theme-toggle {
+            color: #f8f9fa;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stats-card, .text-area-container, .blog-snippet {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-tools"></i> Tools Hub
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="blog/index.html"><i class="fas fa-blog"></i> Blog</a>
+                <a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Top Ad -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <!-- AdSense Code -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXX"
+                 data-ad-slot="YYYYYYYYYY"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <section class="hero">
+            <h1>Advanced Word Counter Tool</h1>
+            <p>Get detailed text analysis including word count, character count, reading time, keyword density, and more. Perfect for writers, students, and SEO professionals.</p>
+        </section>
+
+        <div class="tool-container">
+            <div class="text-area-container">
+                <label for="textInput">Your Text</label>
+                <textarea id="textInput" placeholder="Type or paste your text here to analyze..."></textarea>
+                
+                <div class="button-group">
+                    <button class="btn-primary" id="copyBtn">
+                        <i class="far fa-copy"></i> Copy Text
+                    </button>
+                    <button class="btn-secondary" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button class="btn-danger" id="clearBtn">
+                        <i class="far fa-trash-alt"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-sidebar">
+                <div class="stats-card">
+                    <h3><i class="fas fa-chart-bar"></i> Text Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Words:</span>
+                        <span class="stat-value" id="wordCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Characters (with spaces):</span>
+                        <span class="stat-value" id="charCountSpaces">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Characters (no spaces):</span>
+                        <span class="stat-value" id="charCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sentences:</span>
+                        <span class="stat-value" id="sentenceCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Paragraphs:</span>
+                        <span class="stat-value" id="paragraphCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Reading Time (avg):</span>
+                        <span class="stat-value" id="readTime">0 sec</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Speaking Time (avg):</span>
+                        <span class="stat-value" id="speakTime">0 sec</span>
+                    </div>
+                </div>
+
+                <div class="stats-card keyword-density">
+                    <h3><i class="fas fa-key"></i> Keyword Analysis</h3>
+                    <div id="keywordDensity">
+                        <p class="no-keywords">Top keywords will appear here as you type...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Ad -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <!-- AdSense Code -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXX"
+                 data-ad-slot="ZZZZZZZZZZ"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <article class="blog-snippet">
+            <h2>Why Word Count Matters for Your Content</h2>
+            <p>Whether you're a student working on an essay, a blogger crafting the perfect post, or an SEO specialist optimizing content, word count plays a crucial role in communication effectiveness. Our comprehensive guide explores how different word counts affect readability, engagement, and SEO performance.</p>
+            <a href="/blog/word-count-guide.html">Read the full article <i class="fas fa-arrow-right"></i></a>
+        </article>
+
+        <!-- Bottom Ad -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <!-- AdSense Code -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXX"
+                 data-ad-slot="WWWWWWWWWW"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Tools Hub</h3>
+                <p>Your one-stop destination for free online tools to make your work easier and more efficient.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="index.html"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a>
+                    <a href="blog/index.html"><i class="fas fa-chevron-right"></i> Blog</a>
+                    <a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Tools</h3>
+                <div class="footer-links">
+                    <a href="word-counter.html"><i class="fas fa-chevron-right"></i> Word Counter</a>
+                    <a href="plagiarism-checker.html"><i class="fas fa-chevron-right"></i> Plagiarism Checker</a>
+                    <a href="grammar-checker.html"><i class="fas fa-chevron-right"></i> Grammar Checker</a>
+                    <a href="seo-analyzer.html"><i class="fas fa-chevron-right"></i> SEO Analyzer</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <div class="footer-links">
+                    <a href="privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a>
+                    <a href="terms.html"><i class="fas fa-chevron-right"></i> Terms of Service</a>
+                    <a href="cookie-policy.html"><i class="fas fa-chevron-right"></i> Cookie Policy</a>
+                    <a href="disclaimer.html"><i class="fas fa-chevron-right"></i> Disclaimer</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textInput = document.getElementById('textInput');
+            const wordCount = document.getElementById('wordCount');
+            const charCount = document.getElementById('charCount');
+            const charCountSpaces = document.getElementById('charCountSpaces');
+            const sentenceCount = document.getElementById('sentenceCount');
+            const paragraphCount = document.getElementById('paragraphCount');
+            const readTime = document.getElementById('readTime');
+            const speakTime = document.getElementById('speakTime');
+            const keywordDensity = document.getElementById('keywordDensity');
+            const copyBtn = document.getElementById('copyBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const themeToggle = document.getElementById('themeToggle');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+
+            // Update stats when text changes
+            textInput.addEventListener('input', updateStats);
+
+            // Copy text to clipboard
+            copyBtn.addEventListener('click', function() {
+                textInput.select();
+                document.execCommand('copy');
+                
+                // Change icon to checkmark temporarily
+                const icon = copyBtn.querySelector('i');
+                icon.classList.remove('fa-copy');
+                icon.classList.add('fa-check');
+                
+                setTimeout(() => {
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-copy');
+                }, 2000);
+            });
+
+            // Download text as file
+            downloadBtn.addEventListener('click', function() {
+                const text = textInput.value;
+                if (!text) {
+                    alert('Please enter some text to download.');
+                    return;
+                }
+                
+                const blob = new Blob([text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'text-content.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            // Clear text
+            clearBtn.addEventListener('click', function() {
+                textInput.value = '';
+                updateStats();
+            });
+
+            // Toggle dark mode
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDark);
+                
+                // Change icon
+                const icon = themeToggle.querySelector('i');
+                if (isDark) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            });
+
+            // Toggle mobile menu
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                
+                // Change icon
+                const icon = mobileMenuBtn.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Check for saved theme preference
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                const icon = themeToggle.querySelector('i');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+
+            // Update all statistics
+            function updateStats() {
+                const text = textInput.value;
+                
+                // Word count
+                const words = text.trim() ? text.trim().split(/\s+/) : [];
+                wordCount.textContent = words.length.toLocaleString();
+                
+                // Character counts
+                charCount.textContent = text.replace(/\s/g, '').length.toLocaleString();
+                charCountSpaces.textContent = text.length.toLocaleString();
+                
+                // Sentence count (simple detection)
+                const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+                sentenceCount.textContent = sentences.length.toLocaleString();
+                
+                // Paragraph count
+                const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+                paragraphCount.textContent = paragraphs.length.toLocaleString();
+                
+                // Reading time (200 words per minute)
+                const readingTimeMinutes = words.length / 200;
+                readTime.textContent = readingTimeMinutes < 1 
+                    ? '<1 min' 
+                    : `${Math.ceil(readingTimeMinutes)} min`;
+                
+                // Speaking time (130 words per minute)
+                const speakingTimeMinutes = words.length / 130;
+                speakTime.textContent = speakingTimeMinutes < 1 
+                    ? '<1 min' 
+                    : `${Math.ceil(speakingTimeMinutes)} min`;
+                
+                // Keyword density analysis
+                analyzeKeywords(words);
+            }
+
+            // Analyze keyword density
+            function analyzeKeywords(words) {
+                if (words.length === 0) {
+                    keywordDensity.innerHTML = '<p class="no-keywords">Top keywords will appear here as you type...</p>';
+                    return;
+                }
+                
+                // Filter out common words and short words
+                const commonWords = new Set(['the', 'and', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'is', 'are', 'was', 'were', 'this', 'that', 'it', 'as', 'be', 'by', 'or', 'but', 'not', 'have', 'has', 'had', 'i', 'you', 'he', 'she', 'we', 'they', 'my', 'your', 'his', 'her', 'our', 'their']);
+                const wordFreq = {};
+                
+                words.forEach(word => {
+                    const cleanWord = word.toLowerCase().replace(/[^a-z']/g, '');
+                    if (cleanWord.length > 3 && !commonWords.has(cleanWord)) {
+                        wordFreq[cleanWord] = (wordFreq[cleanWord] || 0) + 1;
+                    }
+                });
+                
+                // Sort by frequency
+                const sortedWords = Object.keys(wordFreq).sort((a, b) => wordFreq[b] - wordFreq[a]).slice(0, 10);
+                
+                if (sortedWords.length === 0) {
+                    keywordDensity.innerHTML = '<p class="no-keywords">No significant keywords detected. Try writing more content.</p>';
+                    return;
+                }
+                
+                let html = '';
+                sortedWords.forEach(word => {
+                    const count = wordFreq[word];
+                    const density = (count / words.length * 100).toFixed(1);
+                    const barWidth = Math.min(100, density * 3);
+                    
+                    html += `
+                        <div class="keyword-item">
+                            <div class="keyword-text">
+                                <span class="keyword-tag">${word}</span>
+                                <span>${count}</span>
+                            </div>
+                            <span>${density}%</span>
+                        </div>
+                        <div class="keyword-bar-container">
+                            <div class="keyword-bar" style="width: ${barWidth}%"></div>
+                        </div>
+                    `;
+                });
+                
+                keywordDensity.innerHTML = html;
+            }
+
+            // Initialize stats
+            updateStats();
+        });
+    </script>
+</body>
+</html>
