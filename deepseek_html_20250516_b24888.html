@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online Image Resizer Tool | Resize Photos in Seconds - Tools Hub</title>
+    <meta name="description" content="Resize your images online for free. Change width, height, or scale by percentage while maintaining high quality. Perfect for social media, web, or printing.">
+    <meta name="keywords" content="image resizer, resize images online, free image resize tool, online image editor, photo resizer, tools hub">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Free Online Image Resizer Tool | Tools Hub">
+    <meta property="og:description" content="Resize images easily online using Tools Hub. Change size, keep quality, and download instantly.">
+    <meta property="og:url" content="https://toolshub-official.github.io/ToolsHub/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a"}
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dropzone {
+            border: 2px dashed #3b82f6;
+            transition: all 0.3s;
+        }
+        .dropzone.active {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.05);
+        }
+        .toast {
+            animation: slideIn 0.5s, fadeOut 0.5s 2.5s;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .glassmorphism {
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="flex items-center space-x-3">
+                    <i class="fas fa-tools text-2xl text-blue-500"></i>
+                    <span class="text-xl font-bold text-gray-800 dark:text-white">Tools Hub</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Home</a>
+                    <a href="#resizer" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Image Resizer</a>
+                    <a href="#blog" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Blog</a>
+                    <a href="#about" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">About</a>
+                    <a href="#contact" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Contact</a>
+                    <button id="theme-toggle" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+                <button class="md:hidden text-gray-500 dark:text-gray-400" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div class="md:hidden hidden py-2" id="mobile-menu">
+                <a href="#home" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Home</a>
+                <a href="#resizer" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Image Resizer</a>
+                <a href="#blog" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Blog</a>
+                <a href="#about" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">About</a>
+                <a href="#contact" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Contact</a>
+                <div class="flex items-center py-2 px-4">
+                    <span class="text-gray-700 dark:text-gray-300 mr-2">Dark Mode</span>
+                    <button id="theme-toggle-mobile" class="relative inline-flex items-center h-6 rounded-full w-11 bg-gray-200 dark:bg-gray-600">
+                        <span class="sr-only">Toggle dark mode</span>
+                        <span class="inline-block w-4 h-4 transform transition translate-x-1 dark:translate-x-6 bg-white dark:bg-gray-300 rounded-full"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section id="home" class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">Free Online Tools for Everyone</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">Tools Hub provides free, easy-to-use online tools to make your digital life simpler.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <a href="#resizer" class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition">
+                    <i class="fas fa-image text-3xl text-blue-500 mb-2"></i>
+                    <h3 class="font-medium text-gray-800 dark:text-white">Image Resizer</h3>
+                </a>
+                <!-- Add more tool cards here -->
+            </div>
+        </section>
+
+        <!-- AdSense Banner -->
+        <div class="my-8 p-4 bg-gray-200 dark:bg-gray-700 rounded-lg text-center">
+            <p class="text-gray-500 dark:text-gray-300 mb-2">Advertisement</p>
+            <!-- Replace with your AdSense code -->
+            <div class="h-32 bg-gray-300 dark:bg-gray-600 rounded flex items-center justify-center">
+                <p class="text-gray-500">AdSense Banner</p>
+            </div>
+        </div>
+
+        <!-- Image Resizer Tool -->
+        <section id="resizer" class="mb-16">
+            <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <!-- Upload Section -->
+                    <div class="md:w-1/2 p-6">
+                        <div id="dropzone" class="dropzone rounded-lg p-8 text-center cursor-pointer mb-6">
+                            <div id="upload-content">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-blue-500 mb-3"></i>
+                                <h3 class="text-lg font-medium text-gray-700 dark:text-gray-200 mb-1">Drag & Drop Image Here</h3>
+                                <p class="text-gray-500 dark:text-gray-400 mb-4">or</p>
+                                <label for="file-input" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg cursor-pointer transition">
+                                    Select Image
+                                </label>
+                                <input id="file-input" type="file" accept="image/*" class="hidden">
+                            </div>
+                            <div id="image-preview-container" class="hidden">
+                                <img id="image-preview" class="max-h-60 mx-auto mb-4 rounded-lg shadow">
+                                <button id="change-image" class="text-blue-500 hover:text-blue-600 text-sm font-medium">
+                                    <i class="fas fa-sync-alt mr-1"></i> Change Image
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="space-y-4">
+                            <div>
+                                <label for="width" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Width (px)</label>
+                                <input type="number" id="width" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="height" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Height (px)</label>
+                                <input type="number" id="height" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="lock-aspect" class="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded" checked>
+                                <label for="lock-aspect" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Lock Aspect Ratio</label>
+                            </div>
+                            <div>
+                                <label for="scale" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Scale (%)</label>
+                                <input type="range" id="scale" min="1" max="200" value="100" class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    <span>1%</span>
+                                    <span id="scale-value">100%</span>
+                                    <span>200%</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-3 pt-2">
+                                <button id="reset-btn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white">
+                                    <i class="fas fa-redo mr-2"></i> Reset
+                                </button>
+                                <button id="download-btn" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition disabled:opacity-50" disabled>
+                                    <i class="fas fa-download mr-2"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div class="md:w-1/2 bg-gray-50 dark:bg-gray-700 p-6 flex flex-col">
+                        <h3 class="text-lg font-medium text-gray-700 dark:text-gray-200 mb-4">Resized Preview</h3>
+                        <div class="flex-1 flex items-center justify-center bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-4 mb-4">
+                            <div id="resized-preview-container" class="text-center">
+                                <i class="fas fa-image text-4xl text-gray-300 dark:text-gray-500 mb-2"></i>
+                                <p class="text-gray-500 dark:text-gray-400">Your resized image will appear here</p>
+                            </div>
+                            <canvas id="resized-canvas" class="hidden max-w-full max-h-80"></canvas>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-3">
+                            <div class="flex justify-between text-sm text-gray-700 dark:text-gray-300 mb-1">
+                                <span>Original Size:</span>
+                                <span id="original-size">-</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-700 dark:text-gray-300 mb-1">
+                                <span>New Size:</span>
+                                <span id="new-size">-</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-700 dark:text-gray-300">
+                                <span>Quality:</span>
+                                <span id="quality-info">High (100%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="mb-16">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Latest Articles</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Blog Post 1 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-image text-4xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-blue-500 font-medium">Image Editing</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mt-2 mb-3">How to Resize Images Without Losing Quality</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Learn the best techniques to resize your images while maintaining crisp quality for web and print.</p>
+                        <a href="#" class="text-blue-500 hover:text-blue-600 font-medium inline-flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 2 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-camera text-4xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-blue-500 font-medium">Photography</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mt-2 mb-3">Optimal Image Sizes for Social Media</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">The complete guide to image dimensions for Instagram, Facebook, Twitter and more.</p>
+                        <a href="#" class="text-blue-500 hover:text-blue-600 font-medium inline-flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 3 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-file-image text-4xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-blue-500 font-medium">Tutorial</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mt-2 mb-3">WebP vs JPEG: Which Format to Choose?</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Compare the modern WebP format with traditional JPEG for your website images.</p>
+                        <a href="#" class="text-blue-500 hover:text-blue-600 font-medium inline-flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            <div class="text-center mt-8">
+                <a href="#" class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition">
+                    View All Articles <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="mb-16">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/3 bg-blue-500 p-8 text-white flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-tools text-5xl mb-4"></i>
+                            <h2 class="text-2xl font-bold mb-2">About Tools Hub</h2>
+                            <p class="opacity-90">Free online tools for everyone</p>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3 p-8">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Our Mission</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            At Tools Hub, we believe everyone should have access to simple, powerful online tools without 
+                            complicated sign-ups or hidden costs. Our mission is to provide free, easy-to-use utilities 
+                            that help you with everyday digital tasks.
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                            Whether you're a professional designer, a small business owner, or just someone who needs to 
+                            resize an image for social media, Tools Hub has you covered.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="text-gray-700 dark:text-gray-300">100% Free</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="text-gray-700 dark:text-gray-300">No Registration</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="text-gray-700 dark:text-gray-300">Privacy Focused</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mb-16">
+            <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 p-8">
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Contact Us</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                            Have questions or feedback? We'd love to hear from you! Fill out the form and 
+                            we'll get back to you as soon as possible.
+                        </p>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                                <input type="text" id="name" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                                <input type="email" id="email" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"></textarea>
+                            </div>
+                            <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition">
+                                Send Message
+                            </button>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 bg-gray-50 dark:bg-gray-700 p-8">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Other Ways to Reach Us</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-blue-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-700 dark:text-gray-300">Email</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">support@toolshub.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-globe text-blue-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-700 dark:text-gray-300">Website</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">toolshub-official.github.io/ToolsHub</p>
+                                </div>
+                            </div>
+                            <div class="pt-4">
+                                <h4 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Follow Us</h4>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-gray-500 hover:text-blue-500 dark:hover:text-blue-400">
+                                        <i class="fab fa-twitter text-xl"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-blue-500 dark:hover:text-blue-400">
+                                        <i class="fab fa-facebook text-xl"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-blue-500 dark:hover:text-blue-400">
+                                        <i class="fab fa-instagram text-xl"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-blue-500 dark:hover:text-blue-400">
+                                        <i class="fab fa-github text-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-lg font-medium mb-4">Tools Hub</h3>
+                    <p class="mb-4">Free online tools to make your digital life easier.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-medium mb-4">Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#resizer" class="hover:text-white">Image Resizer</a></li>
+                        <!-- Add more tools here -->
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-medium mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#blog" class="hover:text-white">Blog</a></li>
+                        <li><a href="#" class="hover:text-white">Tutorials</a></li>
+                        <li><a href="#" class="hover:text-white">Help Center</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-medium mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
+                <p>© 2023 Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg hidden toast">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span>Image resized successfully!</span>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('color-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        themeToggleMobile.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('color-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Image Resizer Logic
+        const fileInput = document.getElementById('file-input');
+        const dropzone = document.getElementById('dropzone');
+        const uploadContent = document.getElementById('upload-content');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const changeImageBtn = document.getElementById('change-image');
+        const widthInput = document.getElementById('width');
+        const heightInput = document.getElementById('height');
+        const lockAspect = document.getElementById('lock-aspect');
+        const scaleInput = document.getElementById('scale');
+        const scaleValue = document.getElementById('scale-value');
+        const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const resizedPreviewContainer = document.getElementById('resized-preview-container');
+        const resizedCanvas = document.getElementById('resized-canvas');
+        const originalSize = document.getElementById('original-size');
+        const newSize = document.getElementById('new-size');
+        const qualityInfo = document.getElementById('quality-info');
+        const toast = document.getElementById('toast');
+
+        let originalImage = null;
+        let originalWidth = 0;
+        let originalHeight = 0;
+        let aspectRatio = 0;
+
+        // Handle file selection
+        fileInput.addEventListener('change', handleFileSelect);
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('active');
+        });
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('active');
+        });
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('active');
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelect();
+            }
+        });
+        changeImageBtn.addEventListener('click', () => {
+            fileInput.value = '';
+            fileInput.click();
+        });
+
+        // Handle resizing controls
+        widthInput.addEventListener('input', updateSizeFromDimensions);
+        heightInput.addEventListener('input', updateSizeFromDimensions);
+        scaleInput.addEventListener('input', updateSizeFromScale);
+        lockAspect.addEventListener('change', () => {
+            if (lockAspect.checked && originalImage) {
+                aspectRatio = originalWidth / originalHeight;
+                updateSizeFromDimensions();
+            }
+        });
+        resetBtn.addEventListener('click', resetTool);
+        downloadBtn.addEventListener('click', downloadImage);
+
+        function handleFileSelect() {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file (JPG, PNG, GIF, etc.)');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImage = new Image();
+                originalImage.onload = () => {
+                    originalWidth = originalImage.width;
+                    originalHeight = originalImage.height;
+                    aspectRatio = originalWidth / originalHeight;
+
+                    // Update UI
+                    uploadContent.classList.add('hidden');
+                    imagePreviewContainer.classList.remove('hidden');
+                    imagePreview.src = e.target.result;
+                    widthInput.value = originalWidth;
+                    heightInput.value = originalHeight;
+                    scaleInput.value = 100;
+                    scaleValue.textContent = '100%';
+                    originalSize.textContent = `${originalWidth} × ${originalHeight} px`;
+                    newSize.textContent = `${originalWidth} × ${originalHeight} px`;
+                    downloadBtn.disabled = false;
+
+                    // Show preview
+                    updatePreview();
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateSizeFromDimensions() {
+            if (!originalImage) return;
+
+            const width = parseInt(widthInput.value) || 0;
+            const height = parseInt(heightInput.value) || 0;
+
+            if (lockAspect.checked) {
+                if (widthInput === document.activeElement) {
+                    const newHeight = Math.round(width / aspectRatio);
+                    heightInput.value = newHeight;
+                } else if (heightInput === document.activeElement) {
+                    const newWidth = Math.round(height * aspectRatio);
+                    widthInput.value = newWidth;
+                }
+            }
+
+            // Update scale
+            const scale = Math.round((width / originalWidth) * 100);
+            scaleInput.value = scale;
+            scaleValue.textContent = `${scale}%`;
+
+            updatePreview();
+        }
+
+        function updateSizeFromScale() {
+            if (!originalImage) return;
+
+            const scale = parseInt(scaleInput.value) || 100;
+            scaleValue.textContent = `${scale}%`;
+
+            const width = Math.round((originalWidth * scale) / 100);
+            const height = Math.round((originalHeight * scale) / 100);
+
+            widthInput.value = width;
+            heightInput.value = height;
+
+            updatePreview();
+        }
+
+        function updatePreview() {
+            if (!originalImage) return;
+
+            const width = parseInt(widthInput.value) || 1;
+            const height = parseInt(heightInput.value) || 1;
+
+            // Update canvas size
+            resizedCanvas.width = width;
+            resizedCanvas.height = height;
+
+            // Draw resized image
+            const ctx = resizedCanvas.getContext('2d');
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(originalImage, 0, 0, width, height);
+
+            // Show canvas and hide placeholder
+            resizedPreviewContainer.classList.add('hidden');
+            resizedCanvas.classList.remove('hidden');
+
+            // Update size info
+            newSize.textContent = `${width} × ${height} px`;
+
+            // Show toast
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        function resetTool() {
+            if (!originalImage) return;
+
+            widthInput.value = originalWidth;
+            heightInput.value = originalHeight;
+            scaleInput.value = 100;
+            scaleValue.textContent = '100%';
+            updatePreview();
+        }
+
+        function downloadImage() {
+            if (!originalImage) return;
+
+            const link = document.createElement('a');
+            link.download = `resized-${fileInput.files[0].name}`;
+            link.href = resizedCanvas.toDataURL('image/jpeg', 0.92);
+            link.click();
+        }
+    </script>
+</body>
+</html>
