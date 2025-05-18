@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixEdit Pro - Advanced Online Photo Editor</title>
+    <meta name="description" content="Free online photo editor with advanced tools. Edit, enhance and transform your images with our powerful web-based editor. No registration required.">
+    <meta name="keywords" content="photo editor, image editor, online editor, photo effects, photo filters, crop image, resize image, photo enhancer">
+    <meta name="author" content="PixEdit Pro">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --warning-color: #f72585;
+            --text-light: #f8f9fa;
+            --text-dark: #212529;
+            --bg-light: #ffffff;
+            --bg-dark: #1a1a2e;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg-dark: rgba(26, 26, 46, 0.9);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .dark-mode .logo h1 {
+            color: var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-dark);
+        }
+
+        .dark-mode .theme-toggle {
+            color: var(--text-light);
+        }
+
+        /* Ad Banner */
+        .ad-banner {
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 5px;
+            border: 1px dashed #ccc;
+        }
+
+        .dark-mode .ad-banner {
+            background-color: #2a2a3a;
+            border-color: #444;
+        }
+
+        /* Main Editor Layout */
+        .editor-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tool-panel {
+            width: 300px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .dark-mode .tool-panel {
+            background-color: var(--card-bg-dark);
+        }
+
+        .canvas-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .canvas-wrapper {
+            position: relative;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: var(--shadow);
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dark-mode .canvas-wrapper {
+            background-color: var(--card-bg-dark);
+        }
+
+        #canvas {
+            max-width: 100%;
+            max-height: 600px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .upload-area {
+            width: 100%;
+            height: 300px;
+            border: 2px dashed var(--primary-color);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .upload-area:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .dark-mode .upload-area {
+            border-color: var(--accent-color);
+        }
+
+        .dark-mode .upload-area:hover {
+            background-color: rgba(72, 149, 239, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .dark-mode .upload-icon {
+            color: var(--accent-color);
+        }
+
+        .upload-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .dark-mode .upload-subtext {
+            color: #aaa;
+        }
+
+        /* Tool Sections */
+        .tool-section {
+            margin-bottom: 20px;
+        }
+
+        .tool-section h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dark-mode .tool-section h3 {
+            border-bottom-color: #444;
+        }
+
+        .tool-section.collapsible h3 {
+            cursor: pointer;
+        }
+
+        .tool-section.collapsible h3::after {
+            content: '+';
+            font-size: 18px;
+        }
+
+        .tool-section.collapsible.active h3::after {
+            content: '-';
+        }
+
+        .tool-section-content {
+            display: none;
+        }
+
+        .tool-section.active .tool-section-content {
+            display: block;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .tool-btn {
+            background-color: var(--light-color);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .tool-btn:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .dark-mode .tool-btn {
+            background-color: #2a2a3a;
+            border-color: #444;
+            color: var(--text-light);
+        }
+
+        .dark-mode .tool-btn:hover {
+            background-color: #3a3a4a;
+        }
+
+        .tool-btn i {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .dark-mode .tool-btn i {
+            color: var(--accent-color);
+        }
+
+        .tool-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .dark-mode .tool-btn.active {
+            background-color: var(--accent-color);
+        }
+
+        .tool-btn.active i {
+            color: white;
+        }
+
+        /* Slider Controls */
+        .slider-control {
+            margin-bottom: 15px;
+        }
+
+        .slider-control label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .slider-control input[type="range"] {
+            width: 100%;
+        }
+
+        .slider-value {
+            font-size: 12px;
+            text-align: right;
+            color: #666;
+        }
+
+        .dark-mode .slider-value {
+            color: #aaa;
+        }
+
+        /* Filter Thumbnails */
+        .filter-thumbnails {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .filter-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .filter-thumb:hover {
+            transform: scale(1.05);
+        }
+
+        .filter-thumb.active {
+            border-color: var(--primary-color);
+        }
+
+        .dark-mode .filter-thumb.active {
+            border-color: var(--accent-color);
+        }
+
+        .filter-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .filter-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 3px;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .dark-mode .btn-primary {
+            background-color: var(--accent-color);
+        }
+
+        .dark-mode .btn-primary:hover {
+            background-color: #3a7bc8;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .dark-mode footer {
+            border-top-color: #444;
+            color: #aaa;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .dark-mode .footer-links a {
+            color: var(--accent-color);
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .editor-container {
+                flex-direction: column;
+            }
+
+            .tool-panel {
+                width: 100%;
+            }
+
+            .tool-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tool-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tool-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-camera-retro"></i>
+                <h1>PixEdit Pro</h1>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Ad Banner Top -->
+        <div class="ad-banner">
+            <!-- Google AdSense Code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                crossorigin="anonymous"></script>
+            <!-- Top Banner Ad -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <main>
+            <div class="editor-container">
+                <div class="tool-panel">
+                    <div class="tool-section active" id="uploadSection">
+                        <h3>Upload Image</h3>
+                        <div class="tool-section-content">
+                            <div class="upload-area" id="uploadArea">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <div class="upload-text">Drag & Drop your image here</div>
+                                <div class="upload-subtext">or click to browse files (JPG, PNG, WEBP)</div>
+                                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section collapsible active" id="adjustSection">
+                        <h3>Adjustments</h3>
+                        <div class="tool-section-content">
+                            <div class="slider-control">
+                                <label for="brightness">Brightness</label>
+                                <input type="range" id="brightness" min="-100" max="100" value="0">
+                                <div class="slider-value">0%</div>
+                            </div>
+                            <div class="slider-control">
+                                <label for="contrast">Contrast</label>
+                                <input type="range" id="contrast" min="-100" max="100" value="0">
+                                <div class="slider-value">0%</div>
+                            </div>
+                            <div class="slider-control">
+                                <label for="saturation">Saturation</label>
+                                <input type="range" id="saturation" min="-100" max="100" value="0">
+                                <div class="slider-value">0%</div>
+                            </div>
+                            <div class="slider-control">
+                                <label for="exposure">Exposure</label>
+                                <input type="range" id="exposure" min="-100" max="100" value="0">
+                                <div class="slider-value">0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section collapsible active" id="filterSection">
+                        <h3>Filters</h3>
+                        <div class="tool-section-content">
+                            <div class="filter-thumbnails">
+                                <div class="filter-thumb active" data-filter="normal">
+                                    <div class="filter-name">Normal</div>
+                                </div>
+                                <div class="filter-thumb" data-filter="vintage">
+                                    <div class="filter-name">Vintage</div>
+                                </div>
+                                <div class="filter-thumb" data-filter="blackwhite">
+                                    <div class="filter-name">B&W</div>
+                                </div>
+                                <div class="filter-thumb" data-filter="sepia">
+                                    <div class="filter-name">Sepia</div>
+                                </div>
+                                <div class="filter-thumb" data-filter="cool">
+                                    <div class="filter-name">Cool</div>
+                                </div>
+                                <div class="filter-thumb" data-filter="warm">
+                                    <div class="filter-name">Warm</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section collapsible" id="transformSection">
+                        <h3>Transform</h3>
+                        <div class="tool-section-content">
+                            <div class="tool-grid">
+                                <div class="tool-btn" id="cropBtn">
+                                    <i class="fas fa-crop"></i>
+                                    <span>Crop</span>
+                                </div>
+                                <div class="tool-btn" id="rotateLeftBtn">
+                                    <i class="fas fa-undo"></i>
+                                    <span>Rotate Left</span>
+                                </div>
+                                <div class="tool-btn" id="rotateRightBtn">
+                                    <i class="fas fa-redo"></i>
+                                    <span>Rotate Right</span>
+                                </div>
+                                <div class="tool-btn" id="flipHorizontalBtn">
+                                    <i class="fas fa-arrows-alt-h"></i>
+                                    <span>Flip H</span>
+                                </div>
+                                <div class="tool-btn" id="flipVerticalBtn">
+                                    <i class="fas fa-arrows-alt-v"></i>
+                                    <span>Flip V</span>
+                                </div>
+                                <div class="tool-btn" id="resizeBtn">
+                                    <i class="fas fa-expand"></i>
+                                    <span>Resize</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section collapsible" id="toolsSection">
+                        <h3>Tools</h3>
+                        <div class="tool-section-content">
+                            <div class="tool-grid">
+                                <div class="tool-btn" id="drawBtn">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span>Draw</span>
+                                </div>
+                                <div class="tool-btn" id="textBtn">
+                                    <i class="fas fa-font"></i>
+                                    <span>Text</span>
+                                </div>
+                                <div class="tool-btn" id="blurBtn">
+                                    <i class="fas fa-blur"></i>
+                                    <span>Blur</span>
+                                </div>
+                                <div class="tool-btn" id="sharpenBtn">
+                                    <i class="fas fa-cut"></i>
+                                    <span>Sharpen</span>
+                                </div>
+                                <div class="tool-btn" id="removeBgBtn">
+                                    <i class="fas fa-eraser"></i>
+                                    <span>Remove BG</span>
+                                </div>
+                                <div class="tool-btn" id="stickersBtn">
+                                    <i class="fas fa-sticky-note"></i>
+                                    <span>Stickers</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="undoBtn" disabled>
+                            <i class="fas fa-undo"></i> Undo
+                        </button>
+                        <button class="btn btn-secondary" id="redoBtn" disabled>
+                            <i class="fas fa-redo"></i> Redo
+                        </button>
+                        <button class="btn btn-danger" id="resetBtn">
+                            <i class="fas fa-trash"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="canvas-container">
+                    <div class="canvas-wrapper">
+                        <canvas id="canvas"></canvas>
+                        <div id="uploadAreaInside">
+                            <div class="upload-area">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <div class="upload-text">Upload an image to start editing</div>
+                                <div class="upload-subtext">Supported formats: JPG, PNG, WEBP</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ad Banner Bottom -->
+                    <div class="ad-banner">
+                        <!-- Google AdSense Code -->
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                            crossorigin="anonymous"></script>
+                        <!-- Bottom Banner Ad -->
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                            data-ad-slot="XXXXXXXXXX"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="saveBtn" disabled>
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                        <select id="formatSelect" style="padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                            <option value="jpg">JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WEBP</option>
+                        </select>
+                        <select id="qualitySelect" style="padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                            <option value="1">High Quality</option>
+                            <option value="0.8">Medium Quality</option>
+                            <option value="0.6">Low Quality</option>
+                        </select>
+                        <button class="btn btn-primary" id="shareBtn" disabled>
+                            <i class="fas fa-share-alt"></i> Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar Ad (for larger screens) -->
+        <div style="position: fixed; right: 20px; top: 100px; width: 160px; display: none;" id="sidebarAd">
+            <!-- Google AdSense Code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                crossorigin="anonymous"></script>
+            <!-- Sidebar Ad -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Blog</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+                <a href="#">FAQ</a>
+            </div>
+            <p>&copy; 2023 PixEdit Pro. All rights reserved.</p>
+            <p>Free online photo editor - No registration required.</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadAreaInside = document.getElementById('uploadAreaInside');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Tool sections
+        const toolSections = document.querySelectorAll('.tool-section.collapsible');
+        
+        // Sliders
+        const brightnessSlider = document.getElementById('brightness');
+        const contrastSlider = document.getElementById('contrast');
+        const saturationSlider = document.getElementById('saturation');
+        const exposureSlider = document.getElementById('exposure');
+        
+        // Buttons
+        const cropBtn = document.getElementById('cropBtn');
+        const rotateLeftBtn = document.getElementById('rotateLeftBtn');
+        const rotateRightBtn = document.getElementById('rotateRightBtn');
+        const flipHorizontalBtn = document.getElementById('flipHorizontalBtn');
+        const flipVerticalBtn = document.getElementById('flipVerticalBtn');
+        const resizeBtn = document.getElementById('resizeBtn');
+        const drawBtn = document.getElementById('drawBtn');
+        const textBtn = document.getElementById('textBtn');
+        const blurBtn = document.getElementById('blurBtn');
+        const sharpenBtn = document.getElementById('sharpenBtn');
+        const removeBgBtn = document.getElementById('removeBgBtn');
+        const stickersBtn = document.getElementById('stickersBtn');
+        const undoBtn = document.getElementById('undoBtn');
+        const redoBtn = document.getElementById('redoBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        
+        // State variables
+        let currentImage = null;
+        let originalImage = null;
+        let imageHistory = [];
+        let historyIndex = -1;
+        let isDrawing = false;
+        let currentTool = null;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // Initialize
+        init();
+        
+        function init() {
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            // File upload
+            uploadArea.addEventListener('click', () => fileInput.click());
+            uploadAreaInside.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileUpload);
+            
+            // Drag and drop
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.2)';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.backgroundColor = '';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.backgroundColor = '';
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileUpload();
+                }
+            });
+            
+            // Tool sections collapse/expand
+            toolSections.forEach(section => {
+                const header = section.querySelector('h3');
+                header.addEventListener('click', () => {
+                    section.classList.toggle('active');
+                });
+            });
+            
+            // Slider events
+            brightnessSlider.addEventListener('input', updateSliderValue);
+            contrastSlider.addEventListener('input', updateSliderValue);
+            saturationSlider.addEventListener('input', updateSliderValue);
+            exposureSlider.addEventListener('input', updateSliderValue);
+            
+            brightnessSlider.addEventListener('change', applyFilters);
+            contrastSlider.addEventListener('change', applyFilters);
+            saturationSlider.addEventListener('change', applyFilters);
+            exposureSlider.addEventListener('change', applyFilters);
+            
+            // Tool buttons
+            cropBtn.addEventListener('click', () => setActiveTool('crop'));
+            rotateLeftBtn.addEventListener('click', rotateLeft);
+            rotateRightBtn.addEventListener('click', rotateRight);
+            flipHorizontalBtn.addEventListener('click', flipHorizontal);
+            flipVerticalBtn.addEventListener('click', flipVertical);
+            resizeBtn.addEventListener('click', () => setActiveTool('resize'));
+            drawBtn.addEventListener('click', () => setActiveTool('draw'));
+            textBtn.addEventListener('click', () => setActiveTool('text'));
+            blurBtn.addEventListener('click', () => setActiveTool('blur'));
+            sharpenBtn.addEventListener('click', () => setActiveTool('sharpen'));
+            removeBgBtn.addEventListener('click', removeBackground);
+            stickersBtn.addEventListener('click', () => setActiveTool('stickers'));
+            
+            // Action buttons
+            undoBtn.addEventListener('click', undo);
+            redoBtn.addEventListener('click', redo);
+            resetBtn.addEventListener('click', reset);
+            saveBtn.addEventListener('click', saveImage);
+            shareBtn.addEventListener('click', shareImage);
+            
+            // Filter thumbnails
+            document.querySelectorAll('.filter-thumb').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-thumb').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                    applyFilters();
+                });
+            });
+            
+            // Show sidebar ad on larger screens
+            if (window.innerWidth > 1200) {
+                document.getElementById('sidebarAd').style.display = 'block';
+            }
+            
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 1200) {
+                    document.getElementById('sidebarAd').style.display = 'block';
+                } else {
+                    document.getElementById('sidebarAd').style.display = 'none';
+                }
+            });
+        }
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+        
+        function updateSliderValue(e) {
+            const slider = e.target;
+            const valueDisplay = slider.nextElementSibling;
+            valueDisplay.textContent = `${slider.value}%`;
+            applyFilters();
+        }
+        
+        function handleFileUpload() {
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file (JPG, PNG, WEBP)');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    // Set canvas dimensions
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    // Draw image on canvas
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Save original image
+                    originalImage = new Image();
+                    originalImage.src = canvas.toDataURL();
+                    
+                    // Save initial state to history
+                    saveToHistory();
+                    
+                    // Show canvas and hide upload area
+                    canvas.style.display = 'block';
+                    uploadAreaInside.style.display = 'none';
+                    
+                    currentImage = img;
+                    
+                    // Enable save and share buttons
+                    saveBtn.disabled = false;
+                    shareBtn.disabled = false;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function setActiveTool(tool) {
+            // Reset all tool buttons
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Set current tool
+            currentTool = tool;
+            
+            // Highlight active tool button
+            if (tool === 'crop') cropBtn.classList.add('active');
+            if (tool === 'draw') drawBtn.classList.add('active');
+            if (tool === 'text') textBtn.classList.add('active');
+            if (tool === 'blur') blurBtn.classList.add('active');
+            if (tool === 'sharpen') sharpenBtn.classList.add('active');
+            if (tool === 'stickers') stickersBtn.classList.add('active');
+            if (tool === 'resize') resizeBtn.classList.add('active');
+            
+            // Add event listeners based on tool
+            if (tool === 'draw') {
+                canvas.style.cursor = 'crosshair';
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('mouseup', stopDrawing);
+                canvas.addEventListener('mouseout', stopDrawing);
+            } else {
+                canvas.style.cursor = 'default';
+                canvas.removeEventListener('mousedown', startDrawing);
+                canvas.removeEventListener('mousemove', draw);
+                canvas.removeEventListener('mouseup', stopDrawing);
+                canvas.removeEventListener('mouseout', stopDrawing);
+            }
+        }
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            lastX = e.offsetX;
+            lastY = e.offsetY;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        }
+        
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                saveToHistory();
+            }
+        }
+        
+        function rotateLeft() {
+            if (!currentImage) return;
+            
+            // Create temporary canvas
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            // Swap width and height
+            tempCanvas.width = canvas.height;
+            tempCanvas.height = canvas.width;
+            
+            // Rotate and draw
+            tempCtx.translate(0, tempCanvas.height);
+            tempCtx.rotate(-Math.PI / 2);
+            tempCtx.drawImage(canvas, 0, 0);
+            
+            // Update main canvas
+            canvas.width = tempCanvas.width;
+            canvas.height = tempCanvas.height;
+            ctx.drawImage(tempCanvas, 0, 0);
+            
+            // Update current image
+            currentImage = new Image();
+            currentImage.src = canvas.toDataURL();
+            
+            saveToHistory();
+        }
+        
+        function rotateRight() {
+            if (!currentImage) return;
+            
+            // Create temporary canvas
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            // Swap width and height
+            tempCanvas.width = canvas.height;
+            tempCanvas.height = canvas.width;
+            
+            // Rotate and draw
+            tempCtx.translate(tempCanvas.width, 0);
+            tempCtx.rotate(Math.PI / 2);
+            tempCtx.drawImage(canvas, 0, 0);
+            
+            // Update main canvas
+            canvas.width = tempCanvas.width;
+            canvas.height = tempCanvas.height;
+            ctx.drawImage(tempCanvas, 0, 0);
+            
+            // Update current image
+            currentImage = new Image();
+            currentImage.src = canvas.toDataURL();
+            
+            saveToHistory();
+        }
+        
+        function flipHorizontal() {
+            if (!currentImage) return;
+            
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(currentImage, 0, 0);
+            
+            // Update current image
+            currentImage = new Image();
+            currentImage.src = canvas.toDataURL();
+            
+            saveToHistory();
+        }
+        
+        function flipVertical() {
+            if (!currentImage) return;
+            
+            ctx.translate(0, canvas.height);
+            ctx.scale(1, -1);
+            ctx.drawImage(currentImage, 0, 0);
+            
+            // Update current image
+            currentImage = new Image();
+            currentImage.src = canvas.toDataURL();
+            
+            saveToHistory();
+        }
+        
+        function removeBackground() {
+            if (!currentImage) return;
+            
+            // In a real implementation, this would call an API like remove.bg
+            alert('Background removal would be implemented using an API like remove.bg in a complete application.');
+        }
+        
+        function applyFilters() {
+            if (!currentImage) return;
+            
+            // Get filter values
+            const brightness = parseInt(brightnessSlider.value);
+            const contrast = parseInt(contrastSlider.value);
+            const saturation = parseInt(saturationSlider.value);
+            const exposure = parseInt(exposureSlider.value);
+            const selectedFilter = document.querySelector('.filter-thumb.active')?.dataset.filter || 'normal';
+            
+            // Draw original image first
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImage, 0, 0);
+            
+            // Apply brightness, contrast, saturation, exposure
+            if (brightness !== 0 || contrast !== 0 || saturation !== 0 || exposure !== 0) {
+                applyImageAdjustments(brightness, contrast, saturation, exposure);
+            }
+            
+            // Apply selected filter
+            applyImageFilter(selectedFilter);
+            
+            // Update current image
+            currentImage = new Image();
+            currentImage.src = canvas.toDataURL();
+            
+            // Don't save to history here to prevent flooding
+            // History is saved when user releases slider
+        }
+        
+        function applyImageAdjustments(brightness, contrast, saturation, exposure) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            
+            // Convert brightness from percentage to factor (-1 to 1)
+            const brightnessFactor = brightness / 100;
+            // Convert contrast from percentage to factor
+            const contrastFactor = (contrast + 100) / 100;
+            // Convert saturation from percentage to factor
+            const saturationFactor = saturation / 100;
+            // Convert exposure from percentage to factor
+            const exposureFactor = 1 + (exposure / 100);
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // Get RGB values
+                let r = data[i] / 255;
+                let g = data[i + 1] / 255;
+                let b = data[i + 2] / 255;
+                
+                // Apply exposure (simple multiplier)
+                r *= exposureFactor;
+                g *= exposureFactor;
+                b *= exposureFactor;
+                
+                // Apply brightness
+                r += brightnessFactor;
+                g += brightnessFactor;
+                b += brightnessFactor;
+                
+                // Apply contrast
+                r = ((r - 0.5) * contrastFactor) + 0.5;
+                g = ((g - 0.5) * contrastFactor) + 0.5;
+                b = ((b - 0.5) * contrastFactor) + 0.5;
+                
+                // Convert to HSL for saturation adjustment
+                const max = Math.max(r, g, b);
+                const min = Math.min(r, g, b);
+                let h, s, l = (max + min) / 2;
+                
+                if (max === min) {
+                    h = s = 0; // achromatic
+                } else {
+                    const d = max - min;
+                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                    switch (max) {
+                        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                        case g: h = (b - r) / d + 2; break;
+                        case b: h = (r - g) / d + 4; break;
+                    }
+                    h /= 6;
+                }
+                
+                // Apply saturation
+                if (saturationFactor !== 0) {
+                    s = Math.min(1, Math.max(0, s * (1 + saturationFactor)));
+                }
+                
+                // Convert back to RGB
+                if (s === 0) {
+                    r = g = b = l; // achromatic
+                } else {
+                    const hue2rgb = (p, q, t) => {
+                        if (t < 0) t += 1;
+                        if (t > 1) t -= 1;
+                        if (t < 1/6) return p + (q - p) * 6 * t;
+                        if (t < 1/2) return q;
+                        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                        return p;
+                    };
+                    
+                    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                    const p = 2 * l - q;
+                    r = hue2rgb(p, q, h + 1/3);
+                    g = hue2rgb(p, q, h);
+                    b = hue2rgb(p, q, h - 1/3);
+                }
+                
+                // Clamp values between 0 and 1
+                r = Math.max(0, Math.min(1, r));
+                g = Math.max(0, Math.min(1, g));
+                b = Math.max(0, Math.min(1, b));
+                
+                // Set back to image data
+                data[i] = r * 255;
+                data[i + 1] = g * 255;
+                data[i + 2] = b * 255;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+        
+        function applyImageFilter(filter) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            
+            switch (filter) {
+                case 'vintage':
+                    // Apply sepia-like effect
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i];
+                        const g = data[i + 1];
+                        const b = data[i + 2];
+                        
+                        data[i] = Math.min(255, r * 0.7 + g * 0.5 + b * 0.3);
+                        data[i + 1] = Math.min(255, r * 0.4 + g * 0.8 + b * 0.2);
+                        data[i + 2] = Math.min(255, r * 0.2 + g * 0.3 + b * 0.5);
+                    }
+                    break;
+                    
+                case 'blackwhite':
+                    // Convert to grayscale
+                    for (let i = 0; i < data.length; i += 4) {
+                        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                        data[i] = data[i + 1] = data[i + 2] = avg;
+                    }
+                    break;
+                    
+                case 'sepia':
+                    // Apply sepia effect
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i];
+                        const g = data[i + 1];
+                        const b = data[i + 2];
+                        
+                        data[i] = Math.min(255, (r * 0.393) + (g * 0.769) + (b * 0.189));
+                        data[i + 1] = Math.min(255, (r * 0.349) + (g * 0.686) + (b * 0.168));
+                        data[i + 2] = Math.min(255, (r * 0.272) + (g * 0.534) + (b * 0.131));
+                    }
+                    break;
+                    
+                case 'cool':
+                    // Increase blue channel
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.max(0, Math.min(255, data[i] * 0.9));
+                        data[i + 2] = Math.max(0, Math.min(255, data[i + 2] * 1.2));
+                    }
+                    break;
+                    
+                case 'warm':
+                    // Increase red channel
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.max(0, Math.min(255, data[i] * 1.2));
+                        data[i + 1] = Math.max(0, Math.min(255, data[i + 1] * 1.1));
+                        data[i + 2] = Math.max(0, Math.min(255, data[i + 2] * 0.9));
+                    }
+                    break;
+                
+                case 'normal':
+                default:
+                    // No filter applied
+                    break;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+        
+        function saveToHistory() {
+            // Remove any history after current index (if we've undone some actions)
+            imageHistory = imageHistory.slice(0, historyIndex + 1);
+            
+            // Add current state to history
+            imageHistory.push(canvas.toDataURL());
+            historyIndex = imageHistory.length - 1;
+            
+            // Update undo/redo buttons
+            updateHistoryButtons();
+        }
+        
+        function updateHistoryButtons() {
+            undoBtn.disabled = historyIndex <= 0;
+            redoBtn.disabled = historyIndex >= imageHistory.length - 1;
+        }
+        
+        function undo() {
+            if (historyIndex <= 0) return;
+            
+            historyIndex--;
+            restoreFromHistory();
+        }
+        
+        function redo() {
+            if (historyIndex >= imageHistory.length - 1) return;
+            
+            historyIndex++;
+            restoreFromHistory();
+        }
+        
+        function restoreFromHistory() {
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+                currentImage = img;
+                
+                // Update original image if we're at the first history state
+                if (historyIndex === 0) {
+                    originalImage = new Image();
+                    originalImage.src = imageHistory[0];
+                }
+            };
+            img.src = imageHistory[historyIndex];
+            
+            updateHistoryButtons();
+        }
+        
+        function reset() {
+            if (!currentImage) return;
+            
+            // Reset sliders
+            brightnessSlider.value = 0;
+            contrastSlider.value = 0;
+            saturationSlider.value = 0;
+            exposureSlider.value = 0;
+            
+            // Update slider displays
+            document.querySelectorAll('.slider-value').forEach(el => el.textContent = '0%');
+            
+            // Reset filters
+            document.querySelectorAll('.filter-thumb').forEach(thumb => thumb.classList.remove('active'));
+            document.querySelector('.filter-thumb[data-filter="normal"]').classList.add('active');
+            
+            // Reset tools
+            setActiveTool(null);
+            
+            // Draw original image
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImage, 0, 0);
+            
+            // Update current image
+            currentImage = new Image();
+            currentImage.src = canvas.toDataURL();
+            
+            // Reset history
+            imageHistory = [canvas.toDataURL()];
+            historyIndex = 0;
+            updateHistoryButtons();
+        }
+        
+        function saveImage() {
+            if (!currentImage) {
+                alert('Please upload an image first');
+                return;
+            }
+            
+            const format = document.getElementById('formatSelect').value;
+            const quality = parseFloat(document.getElementById('qualitySelect').value);
+            
+            let mimeType;
+            switch (format) {
+                case 'jpg':
+                    mimeType = 'image/jpeg';
+                    break;
+                case 'png':
+                    mimeType = 'image/png';
+                    break;
+                case 'webp':
+                    mimeType = 'image/webp';
+                    break;
+                default:
+                    mimeType = 'image/jpeg';
+            }
+            
+            const link = document.createElement('a');
+            link.download = `edited-image.${format}`;
+            link.href = canvas.toDataURL(mimeType, quality);
+            link.click();
+        }
+        
+        function shareImage() {
+            if (!currentImage) {
+                alert('Please upload an image first');
+                return;
+            }
+            
+            // In a complete implementation, this would use the Web Share API
+            alert('Image sharing would be implemented in a complete application, potentially using the Web Share API or social media links.');
+        }
+    </script>
+</body>
+</html>
