@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProCrop - Professional Image Cropping Tool</title>
+    <meta name="description" content="Free online tool to crop images with multiple aspect ratios. Supports drag & drop, live preview, and dark mode.">
+    <meta name="keywords" content="image cropper, crop tool, photo editor, image resizer, free online tool">
+    <meta property="og:title" content="ProCrop - Professional Image Cropping Tool">
+    <meta property="og:description" content="Free online tool to crop images with multiple aspect ratios.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✂️</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .dark .glassmorphism {
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.18);
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        #cropper-container {
+            max-height: 60vh;
+        }
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border: 8px solid #3b82f6;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #3b82f6 transparent transparent transparent;
+        }
+        .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .dropzone {
+            border: 2px dashed #ccc;
+            transition: all 0.3s;
+        }
+        .dropzone.active {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .dark .dropzone {
+            border-color: #555;
+        }
+        .dark .dropzone.active {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen transition-colors duration-300">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-600 dark:text-blue-400">✂️ ProCrop</h1>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <svg id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <svg id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </button>
+                <nav class="hidden md:flex space-x-6">
+                    <button onclick="showPage('home')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Home</button>
+                    <button onclick="showPage('about')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">About</button>
+                    <button onclick="showPage('blog')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Blog</button>
+                    <button onclick="showPage('faq')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">FAQ</button>
+                    <button onclick="showPage('contact')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Contact</button>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mb-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 glassmorphism">
+            <div class="flex flex-col space-y-3">
+                <button onclick="showPage('home')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Home</button>
+                <button onclick="showPage('about')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">About</button>
+                <button onclick="showPage('blog')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Blog</button>
+                <button onclick="showPage('faq')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">FAQ</button>
+                <button onclick="showPage('contact')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Contact</button>
+            </div>
+        </div>
+
+        <!-- Ad Banner -->
+        <div class="mb-8 p-4 bg-gray-200 dark:bg-gray-800 rounded-lg text-center">
+            <p class="text-sm text-gray-600 dark:text-gray-400">Advertisement</p>
+            <div class="h-[90px] w-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center mt-2">
+                <span class="text-gray-500 dark:text-gray-400">Google AdSense Banner</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Home Page -->
+            <div id="home-page" class="page active">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-6">Image Cropper Tool</h2>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Upload Section -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden glassmorphism">
+                                <div class="p-6">
+                                    <h3 class="text-lg font-semibold mb-4">Upload Image</h3>
+                                    
+                                    <div id="dropzone" class="dropzone rounded-lg p-8 text-center cursor-pointer mb-4">
+                                        <input type="file" id="image-input" class="hidden" accept="image/*">
+                                        <div id="upload-content">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 dark:text-gray-500 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            <p class="text-gray-600 dark:text-gray-400 mb-2">Drag & drop your image here</p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-500">or</p>
+                                            <button id="select-image-btn" class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Select Image</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="image-info" class="hidden mt-4 text-sm">
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-gray-600 dark:text-gray-400">Original Size:</span>
+                                            <span id="original-size" class="font-medium"></span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-400">Dimensions:</span>
+                                            <span id="original-dimensions" class="font-medium"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Aspect Ratio Selector -->
+                            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden mt-6 glassmorphism">
+                                <div class="p-6">
+                                    <h3 class="text-lg font-semibold mb-4">Aspect Ratio</h3>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <button data-ratio="free" class="aspect-ratio-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition active:bg-blue-100 dark:active:bg-blue-900 active:border-blue-500 dark:active:border-blue-400">
+                                            Free
+                                        </button>
+                                        <button data-ratio="1" class="aspect-ratio-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition active:bg-blue-100 dark:active:bg-blue-900 active:border-blue-500 dark:active:border-blue-400">
+                                            1:1 (Square)
+                                        </button>
+                                        <button data-ratio="1.777" class="aspect-ratio-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition active:bg-blue-100 dark:active:bg-blue-900 active:border-blue-500 dark:active:border-blue-400">
+                                            16:9 (Widescreen)
+                                        </button>
+                                        <button data-ratio="1.333" class="aspect-ratio-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition active:bg-blue-100 dark:active:bg-blue-900 active:border-blue-500 dark:active:border-blue-400">
+                                            4:3 (Standard)
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Actions -->
+                            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden mt-6 glassmorphism">
+                                <div class="p-6">
+                                    <h3 class="text-lg font-semibold mb-4">Actions</h3>
+                                    <div class="space-y-3">
+                                        <button id="crop-btn" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                            Crop Image
+                                        </button>
+                                        <button id="reset-btn" class="w-full px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                            Reset Image
+                                        </button>
+                                        <button id="download-btn" class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                            Download Cropped Image
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Cropper and Preview Section -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden glassmorphism">
+                                <div class="p-6">
+                                    <h3 class="text-lg font-semibold mb-4">Crop Image</h3>
+                                    
+                                    <div id="cropper-container" class="relative w-full bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden mb-4">
+                                        <img id="image-to-crop" class="block max-w-full" style="display: none;">
+                                        <div id="loading-spinner" class="absolute inset-0 flex items-center justify-center hidden">
+                                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                        <div class="flex justify-between">
+                                            <span>Drag to move</span>
+                                            <span>Resize from edges</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <h3 class="text-lg font-semibold mb-4">Preview</h3>
+                                    <div class="flex justify-center items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                                        <div id="preview-container" class="w-40 h-40 overflow-hidden bg-white dark:bg-gray-800 flex items-center justify-center">
+                                            <span class="text-gray-400 dark:text-gray-600">Preview will appear here</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="cropped-info" class="hidden mt-4 text-sm">
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-gray-600 dark:text-gray-400">Cropped Size:</span>
+                                            <span id="cropped-size" class="font-medium"></span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-400">Dimensions:</span>
+                                            <span id="cropped-dimensions" class="font-medium"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Page -->
+            <div id="about-page" class="page">
+                <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 glassmorphism">
+                    <h2 class="text-2xl font-bold mb-6">About ProCrop</h2>
+                    <div class="prose dark:prose-invert">
+                        <p>ProCrop is a free, online image cropping tool designed to help you quickly and easily crop your images to the perfect size and aspect ratio. Whether you're preparing images for social media, a website, or personal use, ProCrop provides all the tools you need in a simple, intuitive interface.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Our Mission</h3>
+                        <p>We believe that image editing should be accessible to everyone, without the need for expensive software or complicated tools. Our mission is to provide high-quality, browser-based tools that are:</p>
+                        <ul class="list-disc pl-5 space-y-1 mt-2">
+                            <li>Free to use with no hidden costs</li>
+                            <li>Simple and intuitive</li>
+                            <li>Private - your images never leave your browser</li>
+                            <li>Fast and responsive</li>
+                            <li>Accessible on any device</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Features</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg">
+                                <h4 class="font-semibold text-blue-700 dark:text-blue-400">Multiple Aspect Ratios</h4>
+                                <p class="mt-2 text-sm">Choose from standard ratios like 1:1, 16:9, and 4:3, or use freeform cropping.</p>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg">
+                                <h4 class="font-semibold text-green-700 dark:text-green-400">Drag & Drop</h4>
+                                <p class="mt-2 text-sm">Easily upload images by dragging and dropping them onto the page.</p>
+                            </div>
+                            <div class="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg">
+                                <h4 class="font-semibold text-purple-700 dark:text-purple-400">Live Preview</h4>
+                                <p class="mt-2 text-sm">See exactly how your cropped image will look before downloading.</p>
+                            </div>
+                            <div class="bg-yellow-50 dark:bg-yellow-900/30 p-4 rounded-lg">
+                                <h4 class="font-semibold text-yellow-700 dark:text-yellow-400">Dark Mode</h4>
+                                <p class="mt-2 text-sm">Work comfortably in any lighting condition with our dark mode support.</p>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">The Team</h3>
+                        <p>ProCrop is developed and maintained by a small team of web developers who are passionate about creating useful tools for the web. We're always working to improve our tools and add new features based on user feedback.</p>
+                        
+                        <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <p>Have questions or suggestions? <button onclick="showPage('contact')" class="text-blue-600 dark:text-blue-400 hover:underline">Contact us</button> - we'd love to hear from you!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Page -->
+            <div id="blog-page" class="page">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-6">Blog</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Blog Post 1 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden glassmorphism hover:shadow-lg transition">
+                            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Image cropping" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                                    <span>May 15, 2023</span>
+                                    <span class="mx-2">•</span>
+                                    <span>5 min read</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">The Importance of Proper Image Cropping</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">Learn how proper image cropping can dramatically improve your website's visual appeal and user engagement.</p>
+                                <button class="text-blue-600 dark:text-blue-400 font-medium hover:underline">Read More</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 2 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden glassmorphism hover:shadow-lg transition">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Aspect ratios" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                                    <span>April 28, 2023</span>
+                                    <span class="mx-2">•</span>
+                                    <span>4 min read</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Choosing the Right Aspect Ratio for Your Images</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">A guide to selecting the perfect aspect ratio for different platforms and use cases.</p>
+                                <button class="text-blue-600 dark:text-blue-400 font-medium hover:underline">Read More</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 3 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden glassmorphism hover:shadow-lg transition">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Web tools" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                                    <span>April 10, 2023</span>
+                                    <span class="mx-2">•</span>
+                                    <span>7 min read</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Browser-Based Tools vs. Desktop Software</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">The pros and cons of using web-based tools like ProCrop compared to traditional desktop software.</p>
+                                <button class="text-blue-600 dark:text-blue-400 font-medium hover:underline">Read More</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 4 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden glassmorphism hover:shadow-lg transition">
+                            <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Social media" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                                    <span>March 22, 2023</span>
+                                    <span class="mx-2">•</span>
+                                    <span>6 min read</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Optimizing Images for Social Media</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">The ultimate guide to image sizes and formats for all major social media platforms in 2023.</p>
+                                <button class="text-blue-600 dark:text-blue-400 font-medium hover:underline">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <button class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Load More Articles</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Page -->
+            <div id="faq-page" class="page">
+                <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 glassmorphism">
+                    <h2 class="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- FAQ Item 1 -->
+                        <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                            <button class="faq-question flex justify-between items-center w-full text-left font-medium hover:text-blue-600 dark:hover:text-blue-400">
+                                <span>Is ProCrop really free to use?</span>
+                                <svg class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer mt-2 text-gray-600 dark:text-gray-300 hidden">
+                                <p>Yes, ProCrop is completely free to use with no hidden costs. We may show non-intrusive ads to help cover our hosting costs, but all features are available without any payment required.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 2 -->
+                        <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                            <button class="faq-question flex justify-between items-center w-full text-left font-medium hover:text-blue-600 dark:hover:text-blue-400">
+                                <span>Are my images uploaded to your servers?</span>
+                                <svg class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer mt-2 text-gray-600 dark:text-gray-300 hidden">
+                                <p>No, all image processing happens directly in your browser. Your images never leave your device and are not uploaded to our servers. This ensures your privacy and makes the process faster.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 3 -->
+                        <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                            <button class="faq-question flex justify-between items-center w-full text-left font-medium hover:text-blue-600 dark:hover:text-blue-400">
+                                <span>What image formats are supported?</span>
+                                <svg class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer mt-2 text-gray-600 dark:text-gray-300 hidden">
+                                <p>ProCrop supports all common image formats including JPG, JPEG, PNG, GIF, and WebP. The cropped image will be downloaded in the same format as the original, except for GIFs which are converted to PNG to preserve quality.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 4 -->
+                        <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                            <button class="faq-question flex justify-between items-center w-full text-left font-medium hover:text-blue-600 dark:hover:text-blue-400">
+                                <span>Is there a limit to the image size I can crop?</span>
+                                <svg class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer mt-2 text-gray-600 dark:text-gray-300 hidden">
+                                <p>There's no hard limit, but very large images (above 10MB) may cause performance issues in some browsers. For best results, we recommend cropping images under 5MB.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 5 -->
+                        <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                            <button class="faq-question flex justify-between items-center w-full text-left font-medium hover:text-blue-600 dark:hover:text-blue-400">
+                                <span>Can I use ProCrop on mobile devices?</span>
+                                <svg class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer mt-2 text-gray-600 dark:text-gray-300 hidden">
+                                <p>Yes, ProCrop is fully responsive and works on smartphones and tablets. The touch interface is optimized for mobile use, allowing you to pinch-to-zoom and drag to adjust the crop area.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 6 -->
+                        <div class="pb-4">
+                            <button class="faq-question flex justify-between items-center w-full text-left font-medium hover:text-blue-600 dark:hover:text-blue-400">
+                                <span>How can I report a bug or suggest a feature?</span>
+                                <svg class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="faq-answer mt-2 text-gray-600 dark:text-gray-300 hidden">
+                                <p>We welcome all feedback! Please use our <button onclick="showPage('contact')" class="text-blue-600 dark:text-blue-400 hover:underline">contact form</button> to report any issues or suggest new features. We're constantly working to improve ProCrop based on user feedback.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Page -->
+            <div id="contact-page" class="page">
+                <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden glassmorphism">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold mb-6">Contact Us</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">Get in Touch</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-6">Have questions, suggestions, or feedback? We'd love to hear from you! Fill out the form and we'll get back to you as soon as possible.</p>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <h4 class="font-medium">Email</h4>
+                                        <p class="text-gray-600 dark:text-gray-400">support@procrop.com</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium">Social Media</h4>
+                                        <div class="flex space-x-4 mt-2">
+                                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                                                </svg>
+                                            </a>
+                                            <a href="#" class="text-blue-400 hover:text-blue-600">
+                                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                                                </svg>
+                                            </a>
+                                            <a href="#" class="text-pink-600 hover:text-pink-800">
+                                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <form id="contact-form" class="space-y-4">
+                                    <div>
+                                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" required>
+                                    </div>
+                                    <div>
+                                        <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subject</label>
+                                        <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                    </div>
+                                    <div>
+                                        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                                        <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" required></textarea>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Send Message</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Policy Page -->
+            <div id="privacy-page" class="page">
+                <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 glassmorphism">
+                    <h2 class="text-2xl font-bold mb-6">Privacy Policy</h2>
+                    
+                    <div class="prose dark:prose-invert">
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Last updated: May 20, 2023</p>
+                        
+                        <p>At ProCrop, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your information when you use our website and services.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Information We Don't Collect</h3>
+                        <p>ProCrop is designed to process your images entirely in your browser. This means:</p>
+                        <ul class="list-disc pl-5 space-y-1 mt-2">
+                            <li>We do not upload your images to our servers</li>
+                            <li>We do not store your images</li>
+                            <li>We do not have access to your images</li>
+                            <li>We do not collect any personal information through the image cropping process</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Information We Do Collect</h3>
+                        <p>For analytics and improvement purposes, we may collect anonymous usage data such as:</p>
+                        <ul class="list-disc pl-5 space-y-1 mt-2">
+                            <li>Browser type and version</li>
+                            <li>Device type</li>
+                            <li>Operating system</li>
+                            <li>Approximate geographic location (country level)</li>
+                            <li>Pages visited and features used</li>
+                            <li>Error reports (if you choose to send them)</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Cookies and Tracking</h3>
+                        <p>We use cookies and similar tracking technologies to:</p>
+                        <ul class="list-disc pl-5 space-y-1 mt-2">
+                            <li>Remember your preferences (like dark mode settings)</li>
+                            <li>Analyze site usage</li>
+                            <li>Support advertising (through third-party services like Google AdSense)</li>
+                        </ul>
+                        <p class="mt-2">You can control cookies through your browser settings.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Third-Party Services</h3>
+                        <p>We use the following third-party services that may collect information:</p>
+                        <ul class="list-disc pl-5 space-y-1 mt-2">
+                            <li><strong>Google Analytics:</strong> For understanding how visitors use our site</li>
+                            <li><strong>Google AdSense:</strong> For displaying relevant advertisements</li>
+                        </ul>
+                        <p class="mt-2">These services have their own privacy policies which we encourage you to review.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Changes to This Policy</h3>
+                        <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Contact Us</h3>
+                        <p>If you have any questions about this Privacy Policy, please <button onclick="showPage('contact')" class="text-blue-600 dark:text-blue-400 hover:underline">contact us</button>.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">ProCrop</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Free online image cropping tool with multiple aspect ratios and live preview.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><button onclick="showPage('home')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Home</button></li>
+                        <li><button onclick="showPage('about')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">About</button></li>
+                        <li><button onclick="showPage('blog')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Blog</button></li>
+                        <li><button onclick="showPage('faq')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">FAQ</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><button onclick="showPage('privacy')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Privacy Policy</button></li>
+                        <li><button onclick="showPage('terms')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Terms of Service</button></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Subscribe</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Get updates on new features and tips.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-l-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white text-sm w-full">
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-r-lg text-sm">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400">
+                <p>© 2023 ProCrop. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIconDark = document.getElementById('theme-icon-dark');
+        const themeIconLight = document.getElementById('theme-icon-light');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const imageInput = document.getElementById('image-input');
+        const selectImageBtn = document.getElementById('select-image-btn');
+        const dropzone = document.getElementById('dropzone');
+        const uploadContent = document.getElementById('upload-content');
+        const imageInfo = document.getElementById('image-info');
+        const originalSize = document.getElementById('original-size');
+        const originalDimensions = document.getElementById('original-dimensions');
+        const croppedInfo = document.getElementById('cropped-info');
+        const croppedSize = document.getElementById('cropped-size');
+        const croppedDimensions = document.getElementById('cropped-dimensions');
+        const cropBtn = document.getElementById('crop-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const aspectRatioBtns = document.querySelectorAll('.aspect-ratio-btn');
+        const imageToCrop = document.getElementById('image-to-crop');
+        const cropperContainer = document.getElementById('cropper-container');
+        const previewContainer = document.getElementById('preview-container');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const contactForm = document.getElementById('contact-form');
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        // Variables
+        let cropper;
+        let currentImageFile;
+        let croppedImageBlob;
+
+        // Initialize
+        initTheme();
+        initEventListeners();
+
+        // Functions
+        function initTheme() {
+            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeIconDark.classList.remove('hidden');
+                themeIconLight.classList.add('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIconDark.classList.add('hidden');
+                themeIconLight.classList.remove('hidden');
+            }
+        }
+
+        function initEventListeners() {
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // Mobile menu toggle
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+            // Image upload
+            selectImageBtn.addEventListener('click', () => imageInput.click());
+            imageInput.addEventListener('change', handleImageUpload);
+            
+            // Drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, highlightDropzone, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, unhighlightDropzone, false);
+            });
+
+            dropzone.addEventListener('drop', handleDrop, false);
+
+            // Aspect ratio buttons
+            aspectRatioBtns.forEach(btn => {
+                btn.addEventListener('click', () => setAspectRatio(btn.dataset.ratio));
+            });
+
+            // Action buttons
+            cropBtn.addEventListener('click', cropImage);
+            resetBtn.addEventListener('click', resetCropper);
+            downloadBtn.addEventListener('click', downloadCroppedImage);
+
+            // FAQ accordion
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', toggleFaqAnswer);
+            });
+
+            // Contact form
+            contactForm.addEventListener('submit', handleContactFormSubmit);
+
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('text-blue-600', 'dark:text-blue-400'));
+                    this.classList.add('text-blue-600', 'dark:text-blue-400');
+                });
+            });
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIconDark.classList.add('hidden');
+                themeIconLight.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIconDark.classList.remove('hidden');
+                themeIconLight.classList.add('hidden');
+            }
+        }
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function highlightDropzone() {
+            dropzone.classList.add('active');
+        }
+
+        function unhighlightDropzone() {
+            dropzone.classList.remove('active');
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0 && files[0].type.startsWith('image/')) {
+                handleImageFile(files[0]);
+            }
+        }
+
+        function handleImageUpload(e) {
+            if (e.target.files.length > 0) {
+                handleImageFile(e.target.files[0]);
+            }
+        }
+
+        function handleImageFile(file) {
+            currentImageFile = file;
+            
+            // Display file info
+            imageInfo.classList.remove('hidden');
+            originalSize.textContent = formatFileSize(file.size);
+            
+            // Create image preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadContent.classList.add('hidden');
+                
+                // Initialize cropper
+                initCropper(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initCropper(imageSrc) {
+            // Destroy previous cropper if exists
+            if (cropper) {
+                cropper.destroy();
+            }
+            
+            // Set up new image
+            imageToCrop.src = imageSrc;
+            imageToCrop.style.display = 'block';
+            
+            // Show original dimensions
+            imageToCrop.onload = function() {
+                originalDimensions.textContent = `${this.naturalWidth} × ${this.naturalHeight} px`;
+                
+                // Initialize cropper
+                cropper = new Cropper(imageToCrop, {
+                    aspectRatio: NaN, // Free ratio by default
+                    viewMode: 1,
+                    autoCropArea: 0.8,
+                    responsive: true,
+                    preview: previewContainer,
+                    ready: function() {
+                        // Enable buttons
+                        cropBtn.disabled = false;
+                        resetBtn.disabled = false;
+                    }
+                });
+            };
+        }
+
+        function setAspectRatio(ratio) {
+            if (!cropper) return;
+            
+            // Update active button
+            aspectRatioBtns.forEach(btn => {
+                btn.classList.remove('active:bg-blue-100', 'dark:active:bg-blue-900', 'active:border-blue-500', 'dark:active:border-blue-400');
+            });
+            event.target.classList.add('active:bg-blue-100', 'dark:active:bg-blue-900', 'active:border-blue-500', 'dark:active:border-blue-400');
+            
+            // Set ratio (NaN for free ratio)
+            ratio = ratio === 'free' ? NaN : parseFloat(ratio);
+            cropper.setAspectRatio(ratio);
+        }
+
+        function cropImage() {
+            if (!cropper) return;
+            
+            loadingSpinner.classList.remove('hidden');
+            
+            // Use setTimeout to allow UI to update before CPU-intensive operation
+            setTimeout(() => {
+                const canvas = cropper.getCroppedCanvas({
+                    minWidth: 256,
+                    minHeight: 256,
+                    maxWidth: 4096,
+                    maxHeight: 4096,
+                    fillColor: '#fff',
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high',
+                });
+                
+                if (canvas) {
+                    canvas.toBlob(blob => {
+                        croppedImageBlob = blob;
+                        
+                        // Display cropped info
+                        croppedInfo.classList.remove('hidden');
+                        croppedSize.textContent = formatFileSize(blob.size);
+                        croppedDimensions.textContent = `${canvas.width} × ${canvas.height} px`;
+                        
+                        // Enable download button
+                        downloadBtn.disabled = false;
+                        
+                        loadingSpinner.classList.add('hidden');
+                    }, currentImageFile.type || 'image/png', 0.9);
+                } else {
+                    loadingSpinner.classList.add('hidden');
+                    alert('Error cropping image. Please try again.');
+                }
+            }, 100);
+        }
+
+        function resetCropper() {
+            if (!cropper) return;
+            
+            cropper.reset();
+            croppedInfo.classList.add('hidden');
+            downloadBtn.disabled = true;
+        }
+
+        function downloadCroppedImage() {
+            if (!croppedImageBlob) return;
+            
+            const url = URL.createObjectURL(croppedImageBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            // Get original filename without extension
+            let filename = currentImageFile.name;
+            const lastDot = filename.lastIndexOf('.');
+            if (lastDot > 0) {
+                filename = filename.substring(0, lastDot);
+            }
+            
+            a.download = `${filename}-cropped.${croppedImageBlob.type.split('/')[1]}`;
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) {
+                return `${bytes} B`;
+            } else if (bytes < 1024 * 1024) {
+                return `${(bytes / 1024).toFixed(1)} KB`;
+            } else {
+                return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+            }
+        }
+
+        function toggleFaqAnswer(e) {
+            const answer = e.currentTarget.nextElementSibling;
+            const icon = e.currentTarget.querySelector('svg');
+            
+            answer.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        function handleContactFormSubmit(e) {
+            e.preventDefault();
+            
+            // In a real app, you would send this data to your server
+            alert('Thank you for your message! We will get back to you soon.');
+            contactForm.reset();
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(`${pageId}-page`).classList.add('active');
+            
+            // Close mobile menu if open
+            mobileMenu.classList.add('hidden');
+            
+            // Reset cropper if going back to home page
+            if (pageId === 'home' && cropper) {
+                resetCropper();
+            }
+        }
+    </script>
+</body>
+</html>
