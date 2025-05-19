@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProCrop - Professional Image Cropping Tool</title>
+    <title>Image cropper - Professional Image Cropping Tool</title>
     <meta name="description" content="Free online tool to crop images with multiple aspect ratios. Supports drag & drop, live preview, and dark mode.">
     <meta name="keywords" content="image cropper, crop tool, photo editor, image resizer, free online tool">
     <meta property="og:title" content="ProCrop - Professional Image Cropping Tool">
@@ -89,7 +89,7 @@
     <div class="container mx-auto px-4 py-8">
         <!-- Header -->
         <header class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-blue-600 dark:text-blue-400">✂️ ProCrop</h1>
+            <h1 class="text-3xl font-bold text-blue-600 dark:text-blue-400">✂️ Image cropper</h1>
             <div class="flex items-center space-x-4">
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
                     <svg id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,11 +100,11 @@
                     </svg>
                 </button>
                 <nav class="hidden md:flex space-x-6">
-                    <button onclick="showPage('home')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Home</button>
-                    <button onclick="showPage('about')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">About</button>
-                    <button onclick="showPage('blog')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Blog</button>
-                    <button onclick="showPage('faq')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">FAQ</button>
-                    <button onclick="showPage('contact')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Contact</button>
+                    <button onclick="showPage('index.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Home</button>
+                    <button onclick="showPage('about-us.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">About</button>
+                    <button onclick="showPage('blog.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Blog</button>
+                    <button onclick="showPage('faq.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">FAQ</button>
+                    <button onclick="showPage('contact-us.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400">Contact</button>
                 </nav>
                 <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,11 +117,11 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden mb-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 glassmorphism">
             <div class="flex flex-col space-y-3">
-                <button onclick="showPage('home')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Home</button>
-                <button onclick="showPage('about')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">About</button>
-                <button onclick="showPage('blog')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Blog</button>
-                <button onclick="showPage('faq')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">FAQ</button>
-                <button onclick="showPage('contact')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Contact</button>
+                <button onclick="showPage('index.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Home</button>
+                <button onclick="showPage('about-us.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">About</button>
+                <button onclick="showPage('blog.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Blog</button>
+                <button onclick="showPage('faq.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">FAQ</button>
+                <button onclick="showPage('contact-us.html')" class="nav-link font-medium hover:text-blue-600 dark:hover:text-blue-400 text-left">Contact</button>
             </div>
         </div>
 
@@ -591,23 +591,23 @@
         <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">ProCrop</h3>
+                    <h3 class="text-lg font-semibold mb-4">Image cropper</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm">Free online image cropping tool with multiple aspect ratios and live preview.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><button onclick="showPage('home')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Home</button></li>
-                        <li><button onclick="showPage('about')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">About</button></li>
-                        <li><button onclick="showPage('blog')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Blog</button></li>
-                        <li><button onclick="showPage('faq')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">FAQ</button></li>
+                        <li><button onclick="showPage('index.html')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Home</button></li>
+                        <li><button onclick="showPage('about-us.html')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">About</button></li>
+                        <li><button onclick="showPage('blog.html')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Blog</button></li>
+                        <li><button onclick="showPage('faq.html')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">FAQ</button></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Legal</h3>
                     <ul class="space-y-2">
-                        <li><button onclick="showPage('privacy')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Privacy Policy</button></li>
-                        <li><button onclick="showPage('terms')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Terms of Service</button></li>
+                        <li><button onclick="showPage('privacy-policy.html')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Privacy Policy</button></li>
+                        <li><button onclick="showPage('terms.html')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Terms of Service</button></li>
                         <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">Cookie Policy</a></li>
                     </ul>
                 </div>
