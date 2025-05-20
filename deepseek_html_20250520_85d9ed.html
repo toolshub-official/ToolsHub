@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PDF Converter - Free Online Tool | ToolsHub Pro</title>
+    <meta name="description" content="Convert multiple JPG, PNG, WebP images to PDF online for free. Merge images into single PDF with customizable settings. No registration required. Works on all devices.">
+    <meta name="keywords" content="image to pdf, jpg to pdf, png to pdf, convert images to pdf, merge images to pdf, online pdf converter">
+    <meta property="og:title" content="Image to PDF Converter - Free Online Tool | ToolsHub Pro">
+    <meta property="og:description" content="Convert multiple images to PDF online with customizable settings. Fast, secure and free!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolshubpro.com/image-to-pdf">
+    <meta property="og:image" content="https://toolshubpro.com/images/image-to-pdf-og.jpg">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="canonical" href="https://toolshubpro.com/image-to-pdf">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            /* Light Theme */
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #f5f7ff;
+            --text: #111827;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --primary: #6366f1;
+            --primary-hover: #818cf8;
+            --secondary: #1e1b4b;
+            --text: #f3f4f6;
+            --text-light: #9ca3af;
+            --bg: #111827;
+            --card-bg: #1f2937;
+            --border: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-icon {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Main Tool Container */
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .drop-area {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-sm);
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .drop-area.highlight {
+            border-color: var(--primary);
+            background-color: var(--secondary);
+        }
+
+        .upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .upload-icon {
+            width: 60px;
+            height: 60px;
+            fill: var(--primary);
+        }
+
+        .upload-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .upload-text p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .file-types {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 1rem;
+        }
+
+        /* Settings Section */
+        .settings-section {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .setting-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .setting-group label {
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .setting-group select, 
+        .setting-group input[type="text"] {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background-color: var(--card-bg);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .setting-group select:focus, 
+        .setting-group input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkbox-container input:checked ~ .custom-checkbox {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .checkmark {
+            width: 12px;
+            height: 12px;
+            fill: white;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .checkbox-container input:checked ~ .custom-checkbox .checkmark {
+            opacity: 1;
+        }
+
+        /* Preview Section */
+        .preview-section {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            display: none;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .image-count {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .preview-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .image-item {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-actions {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 30%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-item:hover .image-actions {
+            opacity: 1;
+        }
+
+        .remove-btn {
+            background-color: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background-color: rgba(220, 38, 38, 0.9);
+        }
+
+        .drag-handle {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: move;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .btn-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Ad Containers */
+        .ad-container {
+            margin: 2rem 0;
+            background-color: var(--card-bg);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ad-label svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            padding: 3rem 0 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .copyright {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            color: var(--text);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+            max-width: 350px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--error);
+        }
+
+        .toast.warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast-message {
+            font-size: 0.95rem;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loader {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(79, 70, 229, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .settings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tool-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .preview-controls {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .upload-section, 
+            .settings-section,
+            .preview-section {
+                padding: 1.5rem;
+            }
+            
+            .drop-area {
+                padding: 2rem 1rem;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <svg class="theme-icon" viewBox="0 0 24 24">
+                <path d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" />
+            </svg>
+        </button>
+        <div class="header-content">
+            <h1>Image to PDF Converter</h1>
+            <p class="tagline">Merge multiple images into a single PDF document with customizable settings</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Top Banner Ad -->
+        <div class="ad-container">
+            <div class="ad-label">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-7 7H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4z" />
+                </svg>
+                Advertisement
+            </div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="tool-container">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="drop-area" id="dropArea">
+                    <div class="upload-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24">
+                            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                        </svg>
+                        <div class="upload-text">
+                            <h3>Drag & Drop Images Here</h3>
+                            <p>or click the button below to select files</p>
+                        </div>
+                        <button class="btn" id="selectFilesBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                            </svg>
+                            Select Images
+                        </button>
+                        <input type="file" id="fileInput" accept="image/*" multiple style="display:none">
+                        <p class="file-types">Supported formats: JPG, PNG, WebP</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="settings-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
+                    </svg>
+                    PDF Settings
+                </h2>
+                <div class="settings-grid">
+                    <div class="setting-group">
+                        <label for="pageSize">Page Size</label>
+                        <select id="pageSize">
+                            <option value="a4">A4 (210 × 297 mm)</option>
+                            <option value="letter">Letter (216 × 279 mm)</option>
+                            <option value="auto">Auto-fit to images</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="orientation">Orientation</label>
+                        <select id="orientation">
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape">Landscape</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="margin">Margin Size</label>
+                        <select id="margin">
+                            <option value="0">None (0 mm)</option>
+                            <option value="10">Small (10 mm)</option>
+                            <option value="20" selected>Medium (20 mm)</option>
+                            <option value="30">Large (30 mm)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="imageFit">Image Fit</label>
+                        <select id="imageFit">
+                            <option value="fit">Fit to page (keep ratio)</option>
+                            <option value="stretch">Stretch to fill page</option>
+                            <option value="original">Original size</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="fileName">PDF Filename</label>
+                        <input type="text" id="fileName" placeholder="my-document.pdf" value="output.pdf">
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="compressPdf">
+                            <span class="custom-checkbox">
+                                <svg class="checkmark" viewBox="0 0 24 24">
+                                    <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                                </svg>
+                            </span>
+                            Compress PDF (smaller file size)
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mid-content Ad -->
+            <div class="ad-container">
+                <div class="ad-label">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-7 7H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4z" />
+                    </svg>
+                    Advertisement
+                </div>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="YYYYYYYYYY"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- Preview Section -->
+            <section class="preview-section" id="previewSection">
+                <div class="preview-header">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19M13.96,12.29L11.21,15.83L9.25,13.47L6.5,17H17.5L13.96,12.29Z" />
+                        </svg>
+                        Image Preview <span class="image-count" id="imageCount">(0 images)</span>
+                    </h2>
+                    <div class="preview-controls">
+                        <button class="btn" id="generatePdfBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M17,17H7V15H17V17M13,13H7V11H13V13M17,9H13V4.5L17.5,9H17Z" />
+                            </svg>
+                            Generate PDF
+                        </button>
+                        <button class="btn btn-secondary" id="clearAllBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24">
+                                <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                            </svg>
+                            Clear All
+                        </button>
+                    </div>
+                </div>
+                <div class="image-grid" id="imageGrid"></div>
+            </section>
+        </div>
+
+        <!-- Bottom Ad -->
+        <div class="ad-container">
+            <div class="ad-label">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-7 7H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4z" />
+                </svg>
+                Advertisement
+            </div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="ZZZZZZZZZZ"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ToolsHub Pro</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/features">Features</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Popular Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="/image-to-pdf">Image to PDF</a></li>
+                        <li><a href="/pdf-to-word">PDF to Word</a></li>
+                        <li><a href="/jpg-to-png">JPG to PNG</a></li>
+                        <li><a href="/file-converter">File Converter</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/faq">FAQs</a></li>
+                        <li><a href="/tutorials">Tutorials</a></li>
+                        <li><a href="/api">Developer API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/cookies">Cookie Policy</a></li>
+                        <li><a href="/dmca">DMCA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© <span id="year"></span> ToolsHub Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <svg class="toast-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+        </svg>
+        <div class="toast-message" id="toastMessage">PDF generated successfully!</div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Generating your PDF document...</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p>Please wait while we process your images</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+
+        // DOM Elements
+        const dropArea = document.getElementById('dropArea');
+        const fileInput = document.getElementById('fileInput');
+        const selectFilesBtn = document.getElementById('selectFilesBtn');
+        const previewSection = document.getElementById('previewSection');
+        const imageGrid = document.getElementById('imageGrid');
+        const generatePdfBtn = document.getElementById('generatePdfBtn');
+        const clearAllBtn = document.getElementById('clearAllBtn');
+        const imageCount = document.getElementById('imageCount');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const progressBar = document.getElementById('progressBar');
+        const fileNameInput = document.getElementById('fileName');
+        const themeToggle = document.getElementById('themeToggle');
+
+        // PDF Settings Elements
+        const pageSizeSelect = document.getElementById('pageSize');
+        const orientationSelect = document.getElementById('orientation');
+        const marginSelect = document.getElementById('margin');
+        const imageFitSelect = document.getElementById('imageFit');
+        const compressPdfCheckbox = document.getElementById('compressPdf');
+
+        // Store uploaded images
+        let uploadedImages = [];
+        let draggedItem = null;
+
+        // Event Listeners
+        selectFilesBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+        dropArea.addEventListener('dragover', handleDragOver);
+        dropArea.addEventListener('dragleave', handleDragLeave);
+        dropArea.addEventListener('drop', handleDrop);
+        generatePdfBtn.addEventListener('click', generatePdf);
+        clearAllBtn.addEventListener('click', clearAllImages);
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme Toggle
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check for saved theme preference
+        function checkSavedTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        // Handle file selection
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            if (files.length > 0) {
+                processFiles(files);
+            }
+        }
+
+        // Handle drag over
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea.classList.add('highlight');
+        }
+
+        // Handle drag leave
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea.classList.remove('highlight');
+        }
+
+        // Handle drop
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea.classList.remove('highlight');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                processFiles(files);
+            }
+        }
+
+        // Process uploaded files
+        function processFiles(files) {
+            const validImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            const newImages = [];
+            
+            Array.from(files).forEach(file => {
+                if (validImageTypes.includes(file.type)) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        newImages.push({
+                            name: file.name,
+                            data: e.target.result
+                        });
+                        
+                        // When all files are processed
+                        if (newImages.length === Array.from(files).filter(f => validImageTypes.includes(f.type)).length) {
+                            uploadedImages = [...uploadedImages, ...newImages];
+                            updatePreview();
+                            showToast(`${newImages.length} image(s) added successfully`, 'success');
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    showToast(`Skipped ${file.name} - Invalid file type`, 'error');
+                }
+            });
+        }
+
+        // Update image preview
+        function updatePreview() {
+            if (uploadedImages.length > 0) {
+                previewSection.style.display = 'block';
+                imageCount.textContent = `(${uploadedImages.length} ${uploadedImages.length === 1 ? 'image' : 'images'})`;
+                
+                imageGrid.innerHTML = '';
+                uploadedImages.forEach((image, index) => {
+                    const imageItem = document.createElement('div');
+                    imageItem.className = 'image-item';
+                    imageItem.draggable = true;
+                    imageItem.dataset.index = index;
+                    
+                    imageItem.innerHTML = `
+                        <img src="${image.data}" alt="${image.name}">
+                        <div class="image-actions">
+                            <button class="remove-btn" data-index="${index}">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                </svg>
+                            </button>
+                            <button class="drag-handle">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path fill="currentColor" d="M7,19V17H9V19H7M11,19V17H13V19H11M15,19V17H17V19H15M7,15V13H9V15H7M11,15V13H13V15H11M15,15V13H17V15H15M7,11V9H9V11H7M11,11V9H13V11H11M15,11V9H17V11H15M7,7V5H9V7H7M11,7V5H13V7H11M15,7V5H17V7H15Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+                    
+                    imageGrid.appendChild(imageItem);
+                    
+                    // Add drag events
+                    imageItem.addEventListener('dragstart', handleDragStart);
+                    imageItem.addEventListener('dragover', handleDragOverItem);
+                    imageItem.addEventListener('dragleave', handleDragLeaveItem);
+                    imageItem.addEventListener('drop', handleDropItem);
+                    imageItem.addEventListener('dragend', handleDragEnd);
+                    
+                    // Add remove button event
+                    imageItem.querySelector('.remove-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        removeImage(index);
+                    });
+                });
+            } else {
+                previewSection.style.display = 'none';
+            }
+        }
+
+        // Drag and Drop functions for reordering
+        function handleDragStart(e) {
+            draggedItem = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragOverItem(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            this.classList.add('drag-over');
+        }
+
+        function handleDragLeaveItem() {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDropItem(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            
+            if (draggedItem !== this) {
+                const fromIndex = parseInt(draggedItem.dataset.index);
+                const toIndex = parseInt(this.dataset.index);
+                
+                // Reorder the array
+                const itemToMove = uploadedImages[fromIndex];
+                uploadedImages.splice(fromIndex, 1);
+                uploadedImages.splice(toIndex, 0, itemToMove);
+                
+                updatePreview();
+            }
+        }
+
+        function handleDragEnd() {
+            this.classList.remove('dragging');
+            draggedItem = null;
+        }
+
+        // Remove an image
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            updatePreview();
+            showToast('Image removed', 'success');
+        }
+
+        // Clear all images
+        function clearAllImages() {
+            if (uploadedImages.length === 0) return;
+            
+            uploadedImages = [];
+            updatePreview();
+            fileInput.value = '';
+            showToast('All images removed', 'success');
+        }
+
+        // Generate PDF
+        async function generatePdf() {
+            if (uploadedImages.length === 0) {
+                showToast('Please upload at least one image', 'error');
+                return;
+            }
+            
+            // Show loading overlay
+            loadingOverlay.classList.add('active');
+            
+            try {
+                // Get PDF settings
+                const pageSize = pageSizeSelect.value;
+                const orientation = orientationSelect.value;
+                const margin = parseInt(marginSelect.value);
+                const imageFit = imageFitSelect.value;
+                const compress = compressPdfCheckbox.checked;
+                const fileName = fileNameInput.value.trim() || 'output.pdf';
+                
+                // Create PDF
+                const pdf = new jsPDF({
+                    orientation: orientation,
+                    unit: 'mm'
+                });
+                
+                // Set page size
+                let pageWidth, pageHeight;
+                if (pageSize === 'a4') {
+                    pageWidth = 210;
+                    pageHeight = 297;
+                } else if (pageSize === 'letter') {
+                    pageWidth = 216;
+                    pageHeight = 279;
+                }
+                
+                // Process each image
+                for (let i = 0; i < uploadedImages.length; i++) {
+                    // Update progress
+                    const progress = ((i + 1) / uploadedImages.length) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    const imgData = uploadedImages[i].data;
+                    const img = new Image();
+                    
+                    // Wait for image to load
+                    await new Promise((resolve) => {
+                        img.onload = resolve;
+                        img.src = imgData;
+                    });
+                    
+                    // Calculate dimensions based on settings
+                    let imgWidth, imgHeight;
+                    
+                    if (pageSize === 'auto') {
+                        // Auto-fit: Use image dimensions (converted to mm)
+                        imgWidth = img.width * 0.264583;
+                        imgHeight = img.height * 0.264583;
+                        pdf.addPage([imgWidth, imgHeight], imgWidth > imgHeight ? 'landscape' : 'portrait');
+                        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+                    } else {
+                        // For fixed page sizes
+                        if (imageFit === 'fit') {
+                            // Fit to page (maintain aspect ratio)
+                            const ratio = Math.min(
+                                (pageWidth - margin * 2) / img.width,
+                                (pageHeight - margin * 2) / img.height
+                            );
+                            imgWidth = img.width * ratio;
+                            imgHeight = img.height * ratio;
+                        } else if (imageFit === 'stretch') {
+                            // Stretch to fill page
+                            imgWidth = pageWidth - margin * 2;
+                            imgHeight = pageHeight - margin * 2;
+                        } else {
+                            // Original size (in mm)
+                            imgWidth = img.width * 0.264583;
+                            imgHeight = img.height * 0.264583;
+                        }
+                        
+                        // Add image to PDF
+                        const x = (pageWidth - imgWidth) / 2;
+                        const y = (pageHeight - imgHeight) / 2;
+                        
+                        if (i > 0) pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', x, y, imgWidth, imgHeight);
+                    }
+                }
+                
+                // Save PDF
+                if (compress) {
+                    // Simple compression (reduce quality)
+                    pdf.save(fileName, { compression: true });
+                } else {
+                    pdf.save(fileName);
+                }
+                
+                showToast('PDF generated successfully!', 'success');
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                showToast('Error generating PDF. Please try again.', 'error');
+            } finally {
+                loadingOverlay.classList.remove('active');
+                progressBar.style.width = '0%';
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            toast.className = 'toast';
+            toast.classList.add(type);
+            toastMessage.textContent = message;
+            
+            // Set appropriate icon
+            const toastIcon = toast.querySelector('.toast-icon');
+            if (type === 'success') {
+                toastIcon.innerHTML = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />';
+            } else if (type === 'error') {
+                toastIcon.innerHTML = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />';
+            } else if (type === 'warning') {
+                toastIcon.innerHTML = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />';
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize the app
+        function init() {
+            checkSavedTheme();
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
