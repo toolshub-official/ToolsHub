@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Metadata Remover - Clean EXIF Data Online | PrivacyTools</title>
+    <meta name="description" content="Free online tool to remove EXIF, GPS, and metadata from images. Protect your privacy by stripping camera info, location data from JPEG, PNG, WebP files.">
+    <meta name="keywords" content="remove image metadata, EXIF remover, clean photo data, privacy tool, image anonymizer">
+    <meta property="og:title" content="Image Metadata Remover - Clean EXIF Data Online | PrivacyTools">
+    <meta property="og:description" content="Free online tool to remove EXIF, GPS, and metadata from images. Protect your privacy by stripping camera info, location data.">
+    <meta property="og:image" content="https://privacy-tools.example.com/preview.jpg">
+    <meta property="og:url" content="https://privacy-tools.example.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://privacy-tools.example.com">
+    <script src="https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #10b981;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.8);
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --nav-height: 80px;
+        }
+
+        [data-theme="dark"] {
+            --primary: #818cf8;
+            --primary-hover: #6366f1;
+            --text: #e2e8f0;
+            --text-light: #94a3b8;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --header-bg: rgba(15, 23, 42, 0.8);
+            --border: #334155;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            margin-top: var(--nav-height);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Tool Card */
+        .tool-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background-color: rgba(99, 102, 241, 0.03);
+        }
+
+        .upload-area.active {
+            border-color: var(--primary);
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .upload-text {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .upload-subtext {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .file-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.75rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background-color: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            border-left: 4px solid transparent;
+        }
+
+        .alert-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .alert-warning {
+            background-color: rgba(234, 179, 8, 0.1);
+            border-left-color: #eab308;
+            color: #eab308;
+        }
+
+        .alert-info {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-left-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left-color: #10b981;
+            color: #10b981;
+        }
+
+        /* Preview Section */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .preview-container {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+            }
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            object-fit: contain;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+        }
+
+        .file-info {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid var(--border);
+        }
+
+        .file-info h3 {
+            margin-bottom: 1.25rem;
+            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-label {
+            color: var(--text-light);
+            font-size: 0.9375rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9375rem;
+        }
+
+        /* Ad Containers */
+        .ad-container {
+            margin: 2.5rem 0;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .ad-container.leaderboard {
+            min-height: 90px;
+        }
+
+        .ad-container.sidebar {
+            min-height: 600px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .ad-label {
+            color: var(--text-light);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        .mt-5 { margin-top: 3rem; }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            padding: 3rem 0 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 0.9375rem;
+        }
+
+        .footer-link a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        /* Other Pages */
+        .page-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .page-content {
+            line-height: 1.7;
+        }
+
+        .page-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .page-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+
+        .page-content ul, .page-content ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+        }
+
+        .page-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.25rem;
+            background-color: var(--card-bg);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+
+        .faq-answer {
+            padding: 1.25rem;
+            border-top: 1px solid var(--border);
+            background-color: var(--bg);
+            display: none;
+        }
+
+        .faq-answer.show {
+            display: block;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background-color: var(--card-bg);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .tool-card {
+                padding: 1.5rem;
+            }
+
+            .upload-area {
+                padding: 2rem 1.5rem;
+            }
+
+            .file-info {
+                padding: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.9375rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">PT</span>
+                <span>PrivacyTools</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <button class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">🌓</span>
+            </button>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                ☰
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Page (Default) -->
+        <div id="homePage">
+            <div class="container">
+                <div class="hero">
+                    <h1>Remove Hidden Metadata From Your Images</h1>
+                    <p>Protect your privacy by stripping EXIF data, GPS locations, and camera information from photos before sharing them online. Fast, secure, and 100% free.</p>
+                    
+                    <!-- Leaderboard Ad -->
+                    <div class="ad-container leaderboard mt-4">
+                        <div>
+                            <div class="ad-label">Advertisement</div>
+                            <!-- AdSense Code -->
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                            <!-- Homepage Leaderboard -->
+                            <ins class="adsbygoogle"
+                                style="display:block"
+                                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                                data-ad-slot="1234567890"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="alert alert-info">
+                        <div class="alert-icon">ℹ️</div>
+                        <div class="alert-content">
+                            <div class="alert-title">Your privacy matters</div>
+                            <p>All processing happens in your browser. We never upload your images to any server.</p>
+                        </div>
+                    </div>
+
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <p class="upload-text">Drag & drop your image here</p>
+                        <p class="upload-subtext">or click to browse files (JPEG, PNG, WebP - Max 10MB)</p>
+                        <input type="file" id="fileInput" class="file-input" accept="image/jpeg, image/png, image/webp">
+                    </div>
+
+                    <div id="gpsAlert" class="alert alert-warning hidden">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-content">
+                            <div class="alert-title">GPS Data Detected</div>
+                            <p>This image contains location information. We recommend removing this metadata to protect your privacy.</p>
+                        </div>
+                    </div>
+
+                    <div class="actions text-center">
+                        <button id="removeBtn" class="btn" disabled>
+                            <span class="btn-icon">🔍</span> Remove Metadata
+                        </button>
+                        <button id="downloadBtn" class="btn hidden mt-2">
+                            <span class="btn-icon">⬇️</span> Download Clean Image
+                        </button>
+                    </div>
+
+                    <div id="resultContainer" class="preview-container hidden mt-4">
+                        <div>
+                            <h3 class="text-center">Processed Image</h3>
+                            <img id="imagePreview" class="image-preview mt-2" src="#" alt="Processed image preview">
+                        </div>
+                        <div class="file-info">
+                            <h3>File Information</h3>
+                            <div class="info-row">
+                                <span class="info-label">Original Size:</span>
+                                <span class="info-value" id="originalSize">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Cleaned Size:</span>
+                                <span class="info-value" id="cleanedSize">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Format:</span>
+                                <span class="info-value" id="imageFormat">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Metadata Removed:</span>
+                                <span class="info-value" id="metadataRemoved">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Processing Time:</span>
+                                <span class="info-value" id="processingTime">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- In-content Ad -->
+                <div class="ad-container mt-5">
+                    <div>
+                        <div class="ad-label">Advertisement</div>
+                        <!-- AdSense Code -->
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                        <!-- In-content Ad -->
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                            data-ad-slot="0987654321"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="tool-card mt-4">
+                    <h2 class="text-center">Why Remove Image Metadata?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Privacy Protection</h3>
+                            <p>Remove GPS location data that could reveal where you live or work.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📷</div>
+                            <h3>Anonymity</h3>
+                            <p>Strip camera details that can identify the device used to take the photo.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>Faster Loading</h3>
+                            <p>Smaller file sizes without unnecessary metadata.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="aboutPage" class="hidden">
+            <div class="container">
+                <div class="page-header">
+                    <h1>About PrivacyTools</h1>
+                </div>
+
+                <div class="page-content">
+                    <p>PrivacyTools is a free online service dedicated to helping individuals protect their digital privacy. Our mission is to provide easy-to-use tools that empower people to take control of their personal information online.</p>
+
+                    <h2>Our Story</h2>
+                    <p>Founded in 2023, PrivacyTools was created by a team of privacy-conscious developers who recognized the need for simple, accessible tools to help people protect their digital footprint. What started as a single metadata removal tool has grown into a suite of privacy-focused utilities.</p>
+
+                    <h2>How We Work</h2>
+                    <p>Unlike many online tools, we prioritize your privacy by processing all files directly in your browser whenever possible. This means your sensitive data never needs to be uploaded to our servers. When server-side processing is required, we implement strict data retention policies to ensure your files are deleted immediately after processing.</p>
+
+                    <h2>The Team</h2>
+                    <p>Our small but dedicated team includes privacy advocates, security researchers, and web developers united by a common goal: making privacy tools accessible to everyone.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Page -->
+        <div id="blogPage" class="hidden">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Privacy Blog</h1>
+                </div>
+
+                <div class="page-content">
+                    <div class="blog-post">
+                        <h2>Why You Should Remove Metadata From Your Images</h2>
+                        <p class="post-meta">Published on May 15, 2023 • 5 min read</p>
+                        <p>When you take a photo with your smartphone or digital camera, the image file contains more than just the picture. Hidden within the file is metadata - information about when, where, and how the photo was taken. This metadata, often called EXIF data, can include:</p>
+                        <ul>
+                            <li>GPS coordinates showing exactly where the photo was taken</li>
+                            <li>The date and time the photo was captured</li>
+                            <li>Camera make and model</li>
+                            <li>Camera settings like aperture, shutter speed, and ISO</li>
+                            <li>Software used to edit the image</li>
+                        </ul>
+                        <p>While this information can be useful for photographers organizing their work, it can also pose privacy risks when sharing images online...</p>
+                        <a href="#" class="btn btn-secondary mt-2">Read More</a>
+                    </div>
+
+                    <div class="blog-post mt-5">
+                        <h2>The Hidden Dangers of Location Tagging in Photos</h2>
+                        <p class="post-meta">Published on April 28, 2023 • 4 min read</p>
+                        <p>Modern smartphones automatically embed GPS coordinates into photos by default. While this feature can help you organize your vacation photos, it can also reveal sensitive locations like your home, workplace, or children's school to anyone who views the image file...</p>
+                        <a href="#" class="btn btn-secondary mt-2">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Page -->
+        <div id="faqPage" class="hidden">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Frequently Asked Questions</h1>
+                </div>
+
+                <div class="page-content">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>What types of metadata does this tool remove?</span>
+                            <span>➕</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our tool removes all common types of image metadata including:</p>
+                            <ul>
+                                <li>EXIF data (camera settings, date/time, etc.)</li>
+                                <li>GPS location coordinates</li>
+                                <li>Camera make and model information</li>
+                                <li>Thumbnail previews embedded in the image</li>
+                                <li>IPTC and XMP metadata (used by professional photographers)</li>
+                                <li>Any other proprietary metadata formats</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Is my image data secure?</span>
+                            <span>➕</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! All image processing happens directly in your web browser. Your images are never uploaded to our servers or any third-party services. This ensures maximum privacy and security for your sensitive photos.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>What image formats are supported?</span>
+                            <span>➕</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We currently support the most common image formats:</p>
+                            <ul>
+                                <li>JPEG/JPG (best support for metadata removal)</li>
+                                <li>PNG</li>
+                                <li>WebP</li>
+                            </ul>
+                            <p>We're working to add support for additional formats in future updates.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Will removing metadata affect image quality?</span>
+                            <span>➕</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No, the visual quality of your image will remain exactly the same. Metadata removal only affects the hidden information stored with the image, not the actual image pixels.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Policy Page -->
+        <div id="privacyPage" class="hidden">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Privacy Policy</h1>
+                </div>
+
+                <div class="page-content">
+                    <p>Last Updated: May 15, 2023</p>
+
+                    <h2>1. Information We Collect</h2>
+                    <p>PrivacyTools is designed to respect your privacy. Our Image Metadata Remover tool processes your images entirely in your web browser. We do not collect, store, or have access to any images you process with this tool.</p>
+
+                    <h2>2. Analytics</h2>
+                    <p>We use basic website analytics to understand how visitors use our site. This includes information like:</p>
+                    <ul>
+                        <li>Pages visited</li>
+                        <li>Time spent on site</li>
+                        <li>Country of origin</li>
+                        <li>Device type</li>
+                    </ul>
+                    <p>This information is aggregated and cannot be used to identify individual users.</p>
+
+                    <h2>3. Advertising</h2>
+                    <p>We use Google AdSense to display advertisements. Google may use cookies to personalize ads based on your browsing history across websites. You can opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank">Google's Ads Settings</a>.</p>
+
+                    <h2>4. Changes to This Policy</h2>
+                    <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contactPage" class="hidden">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Contact Us</h1>
+                </div>
+
+                <div class="page-content">
+                    <p>Have questions, suggestions, or feedback? We'd love to hear from you!</p>
+
+                    <div class="contact-form mt-4">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="your@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Question about...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-control" placeholder="Your message here..."></textarea>
+                        </div>
+
+                        <button class="btn">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Tools</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Image Metadata Remover</a></li>
+                    <li class="footer-link"><a href="#">Password Generator</a></li>
+                    <li class="footer-link"><a href="#">File Shredder</a></li>
+                    <li class="footer-link"><a href="#">Email Anonymizer</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="about.html">About Us</a></li>
+                    <li class="footer-link"><a href="#">Our Mission</a></li>
+                    <li class="footer-link"><a href="#">Careers</a></li>
+                    <li class="footer-link"><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="blog.html">Blog</a></li>
+                    <li class="footer-link"><a href="faq.html">FAQ</a></li>
+                    <li class="footer-link"><a href="#">Privacy Guides</a></li>
+                    <li class="footer-link"><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="privacy.html">Privacy Policy</a></li>
+                    <li class="footer-link"><a href="#">Terms of Service</a></li>
+                    <li class="footer-link"><a href="#">Cookie Policy</a></li>
+                    <li class="footer-link"><a href="#">GDPR</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2023 PrivacyTools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'dark' ? '🌞' : '🌙';
+        }
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Handle page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('[id$="Page"]').forEach(page => {
+                page.classList.add('hidden');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.querySelector(`.nav-link[href="${pageId.replace('Page', '.html')}"]`);
+            if (activeLink) activeLink.classList.add('active');
+        }
+
+        // Check URL hash for page navigation
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                showPage(`${hash}Page`);
+            }
+        });
+
+        // FAQ toggle functionality
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('span:last-child');
+            
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                icon.textContent = '➕';
+            } else {
+                answer.classList.add('show');
+                icon.textContent = '➖';
+            }
+        }
+
+        // Image processing functionality
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const removeBtn = document.getElementById('removeBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resultContainer = document.getElementById('resultContainer');
+        const imagePreview = document.getElementById('imagePreview');
+        const originalSizeEl = document.getElementById('originalSize');
+        const cleanedSizeEl = document.getElementById('cleanedSize');
+        const imageFormatEl = document.getElementById('imageFormat');
+        const metadataRemovedEl = document.getElementById('metadataRemoved');
+        const processingTimeEl = document.getElementById('processingTime');
+        const gpsAlert = document.getElementById('gpsAlert');
+
+        let originalFile = null;
+        let cleanedFile = null;
+        let hasGPSData = false;
+
+        // Drag and drop events
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelection();
+            }
+        });
+
+        fileInput.addEventListener('change', handleFileSelection);
+
+        function handleFileSelection() {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            // Check file type
+            const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                alert('Please upload a valid image file (JPEG, PNG, or WebP).');
+                return;
+            }
+
+            // Check file size (10MB max)
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File size exceeds 10MB limit.');
+                return;
+            }
+
+            originalFile = file;
+            removeBtn.disabled = false;
+
+            // Check for GPS data
+            checkForGPSData(file);
+        }
+
+        function checkForGPSData(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    if (file.type === 'image/jpeg') {
+                        const exifData = piexif.load(e.target.result);
+                        if (exifData.GPS && Object.keys(exifData.GPS).length > 0) {
+                            hasGPSData = true;
+                            gpsAlert.classList.remove('hidden');
+                        } else {
+                            hasGPSData = false;
+                            gpsAlert.classList.add('hidden');
+                        }
+                    } else {
+                        // PNG and WebP might have different metadata formats
+                        hasGPSData = false;
+                        gpsAlert.classList.add('hidden');
+                    }
+                } catch (error) {
+                    console.error('Error reading metadata:', error);
+                    hasGPSData = false;
+                    gpsAlert.classList.add('hidden');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        removeBtn.addEventListener('click', removeMetadata);
+
+        function removeMetadata() {
+            if (!originalFile) return;
+
+            const startTime = performance.now();
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    let cleanedImageData = e.target.result;
+                    let metadataCount = 0;
+
+                    // Handle different image types
+                    if (originalFile.type === 'image/jpeg') {
+                        // JPEG - use piexif to remove EXIF
+                        const exifObj = piexif.load(e.target.result);
+                        metadataCount = Object.keys(exifObj).filter(key => key !== 'thumbnail').length;
+                        
+                        if (metadataCount > 0) {
+                            cleanedImageData = piexif.remove(e.target.result);
+                        }
+                    } else if (originalFile.type === 'image/png' || originalFile.type === 'image/webp') {
+                        // PNG/WebP - simpler approach as piexif doesn't handle these well
+                        const img = new Image();
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0);
+                            cleanedImageData = canvas.toDataURL(originalFile.type);
+                            finishProcessing(cleanedImageData, metadataCount, startTime);
+                        };
+                        img.src = e.target.result;
+                        return;
+                    }
+
+                    finishProcessing(cleanedImageData, metadataCount, startTime);
+                } catch (error) {
+                    console.error('Error removing metadata:', error);
+                    alert('An error occurred while removing metadata. Please try another image.');
+                }
+            };
+            reader.readAsDataURL(originalFile);
+        }
+
+        function finishProcessing(cleanedImageData, metadataCount, startTime) {
+            // Convert data URL to Blob
+            const byteString = atob(cleanedImageData.split(',')[1]);
+            const mimeString = cleanedImageData.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            
+            cleanedFile = new Blob([ab], { type: mimeString });
+
+            // Calculate processing time
+            const endTime = performance.now();
+            const processingTime = ((endTime - startTime) / 1000).toFixed(2);
+
+            // Update UI
+            imagePreview.src = cleanedImageData;
+            originalSizeEl.textContent = formatFileSize(originalFile.size);
+            cleanedSizeEl.textContent = formatFileSize(cleanedFile.size);
+            imageFormatEl.textContent = originalFile.type.split('/')[1].toUpperCase();
+            metadataRemovedEl.textContent = metadataCount > 0 ? `${metadataCount} items` : 'None found';
+            processingTimeEl.textContent = `${processingTime} seconds`;
+            
+            resultContainer.classList.remove('hidden');
+            downloadBtn.classList.remove('hidden');
+            gpsAlert.classList.add('hidden');
+        }
+
+        downloadBtn.addEventListener('click', downloadCleanedImage);
+
+        function downloadCleanedImage() {
+            if (!cleanedFile) return;
+            
+            const url = URL.createObjectURL(cleanedFile);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            // Generate filename
+            const originalName = originalFile.name;
+            const extension = originalName.split('.').pop();
+            const baseName = originalName.replace(/\.[^/.]+$/, '');
+            a.download = `${baseName}-cleaned.${extension}`;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Initialize the home page
+        showPage('homePage');
+    </script>
+</body>
+</html>
