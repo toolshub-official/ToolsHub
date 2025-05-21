@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapCraft Pro | Advanced Website Screenshot Tool</title>
+    <meta name="description" content="Free online tool to capture stunning full-page website screenshots instantly. Perfect for designers, developers, and marketers. No registration required.">
+    <meta name="keywords" content="website screenshot, free screenshot tool, webpage capture, full page screenshot, online screenshot tool">
+    <meta name="author" content="SnapCraft Pro">
+    <meta property="og:title" content="SnapCraft Pro | Advanced Website Screenshot Tool">
+    <meta property="og:description" content="Capture high-quality website screenshots in seconds with our free online tool">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📸</text></svg>">
+    <style>
+        :root {
+            /* Light Theme */
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --error: #dc2626;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --ad-bg: #f1f5f9;
+        }
+
+        [data-theme="dark"] {
+            --primary: #818cf8;
+            --primary-dark: #6366f1;
+            --text: #e2e8f0;
+            --text-light: #94a3b8;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --nav-bg: rgba(15, 23, 42, 0.9);
+            --error: #f87171;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+            --ad-bg: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background-color: var(--nav-bg);
+            box-shadow: var(--shadow);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin: 3rem 0 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Tool Section */
+        .tool-section {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), #8b5cf6);
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .tool-header h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .tool-header p {
+            color: var(--text-light);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background-color: var(--card-bg);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Results */
+        .result-container {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .screenshot-container {
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            border: 5px solid rgba(99, 102, 241, 0.2);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error {
+            color: var(--error);
+            text-align: center;
+            margin: 1rem 0;
+            font-weight: 500;
+            display: none;
+            padding: 1rem;
+            background-color: rgba(220, 38, 38, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), #8b5cf6);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+        }
+
+        /* Ad Spaces */
+        .ad-container {
+            background-color: var(--ad-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px dashed var(--border);
+        }
+
+        .ad-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+            color: var(--primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.25rem;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--card-bg);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1.5rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .tool-section {
+                padding: 1.5rem;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Other Pages Content */
+        .page-content {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), #8b5cf6);
+        }
+
+        .page-content h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .page-content h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--primary);
+        }
+
+        .page-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .page-content ul, .page-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .page-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Blog Styles */
+        .blog-posts {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            height: 200px;
+            background-color: var(--primary);
+            background: linear-gradient(to right, var(--primary), #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo" data-page="home">
+                <i class="fas fa-camera"></i>
+                <span>SnapCraft Pro</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#" data-page="home">Home</a>
+                <a href="#" data-page="about">About</a>
+                <a href="#" data-page="blog">Blog</a>
+                <a href="#" data-page="faq">FAQ</a>
+                <a href="#" data-page="contact">Contact</a>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            
+            <button class="mobile-menu-btn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="close-menu" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#" data-page="home">Home</a>
+        <a href="#" data-page="about">About</a>
+        <a href="#" data-page="blog">Blog</a>
+        <a href="#" data-page="faq">FAQ</a>
+        <a href="#" data-page="contact">Contact</a>
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <section class="hero">
+                <h1>Capture Stunning Website Screenshots in Seconds</h1>
+                <p>Our free online tool lets you take full-page screenshots of any website with just one click. No registration required.</p>
+                
+                <!-- Ad Space (Top) -->
+                <div class="ad-container">
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Replace with your AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                         crossorigin="anonymous"></script>
+                    <!-- Home Top Banner -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </section>
+
+            <!-- Tool Section -->
+            <section class="tool-section">
+                <div class="tool-header">
+                    <h2>Website Screenshot Tool</h2>
+                    <p>Enter any website URL below to capture a full-page screenshot</p>
+                </div>
+
+                <div class="input-group">
+                    <input type="url" id="urlInput" placeholder="Enter website URL (e.g. https://example.com)" required>
+                    <button id="captureBtn" class="btn">
+                        <i class="fas fa-camera"></i> Capture Screenshot
+                    </button>
+                </div>
+                <div class="error" id="errorMsg"></div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Capturing screenshot...</p>
+                </div>
+
+                <div class="result-container" id="resultContainer">
+                    <h3>Your Screenshot</h3>
+                    <div class="screenshot-container">
+                        <img id="screenshotImg" class="screenshot" alt="Website screenshot">
+                    </div>
+                    <div class="actions">
+                        <button id="downloadBtn" class="btn">
+                            <i class="fas fa-download"></i> Download PNG
+                        </button>
+                        <button id="newCaptureBtn" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i> New Capture
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ad Space (Middle) -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Replace with your AdSense code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Home Middle Rectangle -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                     data-ad-slot="YOUR_AD_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3>Full-Page Capture</h3>
+                    <p>Capture entire webpages from top to bottom, not just the visible portion.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Our optimized system delivers screenshots in seconds, no waiting required.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Privacy Focused</h3>
+                    <p>We don't store your screenshots or track your activity. Your data stays private.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div class="page" id="about">
+            <div class="page-content">
+                <h2>About SnapCraft Pro</h2>
+                <p>SnapCraft Pro is a free online tool that allows anyone to capture high-quality screenshots of websites with ease. Our mission is to provide a simple, fast, and reliable solution for designers, developers, marketers, and anyone who needs website screenshots.</p>
+                
+                <h3>Our Story</h3>
+                <p>Founded in 2023, SnapCraft Pro was created to solve the common frustration of capturing full-page website screenshots. Traditional methods often require browser extensions or complex software, but we've simplified the process into a single web-based tool.</p>
+                
+                <h3>How It Works</h3>
+                <p>We use the powerful ScreenshotOne API to generate accurate, high-resolution screenshots of any public website. The process happens entirely in the cloud, so there's no software to install and it works on any device.</p>
+                
+                <h3>Features</h3>
+                <ul>
+                    <li>Full-page website screenshots</li>
+                    <li>Mobile and desktop view options</li>
+                    <li>No registration required</li>
+                    <li>Fast processing times</li>
+                    <li>Secure and private</li>
+                    <li>Works on all devices</li>
+                </ul>
+            </div>
+
+            <!-- Ad Space (About Page) -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Replace with your AdSense code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                     crossorigin="anonymous"></script>
+                <!-- About Page Banner -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                     data-ad-slot="YOUR_AD_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <!-- Blog Page -->
+        <div class="page" id="blog">
+            <div class="page-content">
+                <h2>Latest Articles</h2>
+                <p>Read our latest blog posts about web design, development, and screenshot techniques.</p>
+                
+                <div class="blog-posts">
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">10 Tips for Perfect Website Screenshots</h3>
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> June 15, 2023</span>
+                                <span><i class="far fa-user"></i> Admin</span>
+                            </div>
+                            <p class="blog-excerpt">Learn professional techniques for capturing stunning website screenshots that impress clients and colleagues alike.</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">Mobile vs Desktop Screenshots: Best Practices</h3>
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> May 28, 2023</span>
+                                <span><i class="far fa-user"></i> Admin</span>
+                            </div>
+                            <p class="blog-excerpt">Discover when to use mobile versus desktop screenshots and how to optimize both for your projects.</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">How Screenshots Can Boost Your SEO Strategy</h3>
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> April 10, 2023</span>
+                                <span><i class="far fa-user"></i> Admin</span>
+                            </div>
+                            <p class="blog-excerpt">Learn how to effectively use screenshots in your content to improve engagement and search rankings.</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Ad Space (Blog Page) -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Replace with your AdSense code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Blog Page Banner -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                     data-ad-slot="YOUR_AD_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <!-- FAQ Page -->
+        <div class="page" id="faq">
+            <div class="page-content">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is SnapCraft Pro really free to use?</div>
+                    <p>Yes! SnapCraft Pro is completely free to use with no hidden costs. We may offer premium features in the future, but the basic screenshot functionality will always remain free.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do you store my screenshots?</div>
+                    <p>No, we don't store your screenshots permanently. The images are generated on-demand and served directly to your browser. Once you close the page, the screenshot is no longer available on our servers.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I capture password-protected websites?</div>
+                    <p>No, our tool can only capture publicly accessible websites. Password-protected or private pages cannot be captured for security reasons.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Why is my screenshot not loading?</div>
+                    <p>There could be several reasons: the website might be blocking screenshots, the URL might be incorrect, or the site might be temporarily unavailable. Try checking the URL and trying again.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I capture mobile views of websites?</div>
+                    <p>Currently, we capture desktop views by default. We're working on adding mobile view options in a future update.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How can I support SnapCraft Pro?</div>
+                    <p>The best way to support us is by sharing our tool with others! You can also support us by clicking on our ads or contacting us about sponsorship opportunities.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div class="page" id="contact">
+            <div class="page-content">
+                <h2>Contact Us</h2>
+                <p>Have questions, suggestions, or feedback? We'd love to hear from you!</p>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+
+            <!-- Ad Space (Contact Page) -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Replace with your AdSense code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Contact Page Banner -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                     data-ad-slot="YOUR_AD_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <!-- Privacy Policy Page -->
+        <div class="page" id="privacy">
+            <div class="page-content">
+                <h2>Privacy Policy</h2>
+                <p><em>Last Updated: January 1, 2023</em></p>
+                
+                <h3>Information We Collect</h3>
+                <p>When you use SnapCraft Pro, we may collect certain information automatically, including:</p>
+                <ul>
+                    <li>Website URLs you submit for screenshot capture</li>
+                    <li>IP address and browser information for analytics</li>
+                    <li>Usage data to improve our service</li>
+                </ul>
+                
+                <h3>How We Use Your Information</h3>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Provide and maintain our service</li>
+                    <li>Improve user experience</li>
+                    <li>Monitor usage and analyze trends</li>
+                    <li>Prevent abuse of our service</li>
+                </ul>
+                
+                <h3>Data Retention</h3>
+                <p>We do not permanently store the screenshots you generate. They are temporarily processed and then served directly to your browser. Logs containing URLs and IP addresses are retained for up to 30 days for security and analytics purposes.</p>
+                
+                <h3>Third-Party Services</h3>
+                <p>We use third-party services such as:</p>
+                <ul>
+                    <li>ScreenshotOne API for generating screenshots</li>
+                    <li>Google Analytics for understanding usage patterns</li>
+                    <li>Google AdSense for displaying advertisements</li>
+                </ul>
+                
+                <h3>Cookies</h3>
+                <p>We use cookies to:</p>
+                <ul>
+                    <li>Remember your theme preference (dark/light mode)</li>
+                    <li>Provide analytics data</li>
+                    <li>Support advertising services</li>
+                </ul>
+                
+                <h3>Changes to This Policy</h3>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+            </div>
+        </div>
+
+        <!-- Ad Space (Bottom) -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Replace with your AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                 crossorigin="anonymous"></script>
+            <!-- Bottom Banner -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                 data-ad-slot="YOUR_AD_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>SnapCraft Pro</h3>
+                <p>The easiest way to capture full-page website screenshots online. Free and no registration required.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" data-page="home">Home</a></li>
+                    <li><a href="#" data-page="about">About</a></li>
+                    <li><a href="#" data-page="blog">Blog</a></li>
+                    <li><a href="#" data-page="faq">FAQ</a></li>
+                    <li><a href="#" data-page="contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#" data-page="privacy">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">API Documentation</a></li>
+                    <li><a href="#">Developer Tools</a></li>
+                    <li><a href="#">Browser Extensions</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 SnapCraft Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const urlInput = document.getElementById('urlInput');
+            const captureBtn = document.getElementById('captureBtn');
+            const errorMsg = document.getElementById('errorMsg');
+            const loading = document.getElementById('loading');
+            const resultContainer = document.getElementById('resultContainer');
+            const screenshotImg = document.getElementById('screenshotImg');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const newCaptureBtn = document.getElementById('newCaptureBtn');
+            const themeToggle = document.querySelector('.theme-toggle');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const closeMenuBtn = document.querySelector('.close-menu');
+            const pageLinks = document.querySelectorAll('[data-page]');
+            const pages = document.querySelectorAll('.page');
+            const contactForm = document.getElementById('contactForm');
+
+            // ScreenshotOne API configuration - REPLACE WITH YOUR KEY
+            const API_TOKEN = 'Your_API_Key'; // 🔴 Replace with your ScreenshotOne API key
+            const API_ENDPOINT = 'https://api.screenshotone.com/take';
+
+            // Dark/Light Mode Toggle
+            function initTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                
+                if (savedTheme === 'dark') {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            }
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                if (newTheme === 'dark') {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            });
+
+            // Mobile Menu Toggle
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+            });
+
+            closeMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+
+            // Page Navigation
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    
+                    // Hide all pages
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    
+                    // Show selected page
+                    document.getElementById(pageId).classList.add('active');
+                    
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            // Contact Form Submission
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                });
+            }
+
+            // Screenshot Tool Functionality
+            captureBtn.addEventListener('click', captureScreenshot);
+            downloadBtn.addEventListener('click', downloadScreenshot);
+            newCaptureBtn.addEventListener('click', resetTool);
+            urlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') captureScreenshot();
+            });
+
+            function captureScreenshot() {
+                let url = urlInput.value.trim();
+                
+                // Validate URL
+                if (!url) {
+                    showError('Please enter a website URL');
+                    return;
+                }
+
+                // Add https:// if missing
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    url = 'https://' + url;
+                }
+
+                try {
+                    new URL(url); // Validate URL format
+                } catch (e) {
+                    showError('Please enter a valid URL (e.g. https://example.com)');
+                    return;
+                }
+
+                // Prepare API request
+                const apiUrl = `${API_ENDPOINT}?access_key=${API_TOKEN}&url=${encodeURIComponent(url)}&full_page=true`;
+                
+                // UI Updates
+                loading.style.display = 'block';
+                errorMsg.style.display = 'none';
+                captureBtn.disabled = true;
+
+                // Fetch screenshot
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to capture screenshot. Please check the URL and try again.');
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const imageUrl = URL.createObjectURL(blob);
+                        screenshotImg.src = imageUrl;
+                        screenshotImg.dataset.blobUrl = imageUrl; // Store for download
+                        
+                        // Show result
+                        loading.style.display = 'none';
+                        resultContainer.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showError(error.message);
+                        loading.style.display = 'none';
+                        captureBtn.disabled = false;
+                    });
+            }
+
+            function downloadScreenshot() {
+                const blobUrl = screenshotImg.dataset.blobUrl;
+                if (!blobUrl) return;
+
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = `screenshot-${new Date().getTime()}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+            function resetTool() {
+                urlInput.value = '';
+                resultContainer.style.display = 'none';
+                errorMsg.style.display = 'none';
+                captureBtn.disabled = false;
+                
+                // Clean up
+                if (screenshotImg.dataset.blobUrl) {
+                    URL.revokeObjectURL(screenshotImg.dataset.blobUrl);
+                }
+            }
+
+            function showError(message) {
+                errorMsg.textContent = message;
+                errorMsg.style.display = 'block';
+            }
+
+            // Initialize theme on load
+            initTheme();
+
+            // Initialize AdSense (replace with your actual AdSense code)
+            function initAdSense() {
+                // Load Google AdSense script
+                const script = document.createElement('script');
+                script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID";
+                script.async = true;
+                script.crossOrigin = "anonymous";
+                document.head.appendChild(script);
+            }
+
+            // Uncomment to initialize AdSense when ready
+            // initAdSense();
+        });
+    </script>
+</body>
+</html>
