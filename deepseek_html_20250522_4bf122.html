@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online age calculator tool. Calculate your exact age in years, months, days, hours, minutes and seconds. Compare ages between two dates.">
+    <meta name="keywords" content="age calculator, birthday calculator, date calculator, how old am I, age finder">
+    <title>Age Calculator Pro | Calculate Your Exact Age in Multiple Units</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4cc9f0;
+            --secondary-color: #4895ef;
+            --text-color: #f8f9fa;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+        /* Navigation */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: var(--card-bg);
+            z-index: 1000;
+            padding: 2rem;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            left: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .close-nav {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .mobile-nav-menu {
+            list-style: none;
+        }
+
+        .mobile-nav-menu li {
+            margin-bottom: 1rem;
+        }
+
+        .mobile-nav-menu a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Calculator Styles */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .calculator-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .calculator-title i {
+            margin-right: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .result-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(67, 97, 238, 0.1);
+            border-radius: 5px;
+            border-left: 4px solid var(--primary-color);
+            display: none;
+        }
+
+        .result-container h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .result-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .result-item strong {
+            font-weight: 600;
+        }
+
+        /* Ad Spaces */
+        .ad-space {
+            background-color: var(--border-color);
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            margin: 2rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            border: 1px dashed var(--text-color);
+        }
+
+        .ad-space.leaderboard {
+            grid-column: 1 / -1;
+        }
+
+        /* Features Section */
+        .features {
+            margin: 3rem 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .calculator-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-calculator"></i>
+                <span>AgeCalc Pro</span>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li>
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo">
+                <i class="fas fa-calculator"></i>
+                <span>AgeCalc Pro</span>
+            </div>
+            <button class="close-nav" id="closeNav">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-menu">
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="#blog"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
+            <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+            <li>
+                <button class="theme-toggle mobile-theme-toggle" id="mobileThemeToggle">
+                    <i class="fas fa-moon"></i> Dark Mode
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Leaderboard Ad -->
+    <div class="container">
+        <div class="ad-space leaderboard" id="leaderboardAd">
+            <!-- AdSense Leaderboard Ad -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_LEADERBOARD_SLOT"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="hero">
+            <h1>Advanced Age Calculator</h1>
+            <p>Calculate your exact age in years, months, days, hours, minutes and seconds. Perfect for finding out how old you are or the time between any two dates.</p>
+        </section>
+
+        <div class="calculator-container">
+            <div class="calculator-card">
+                <h2 class="calculator-title">
+                    <i class="fas fa-birthday-cake"></i>
+                    Age Calculator
+                </h2>
+                
+                <div class="input-group">
+                    <label for="birthDate">Date of Birth</label>
+                    <input type="date" id="birthDate" name="birthDate">
+                </div>
+                
+                <div class="input-group">
+                    <label for="targetDate">Age at the Date of</label>
+                    <input type="date" id="targetDate" name="targetDate">
+                </div>
+                
+                <button class="btn" id="calculateBtn">
+                    <i class="fas fa-calculator"></i>
+                    Calculate Age
+                </button>
+                
+                <div class="result-container" id="resultContainer">
+                    <h3>Age Calculation Result</h3>
+                    <div id="ageResult"></div>
+                </div>
+            </div>
+            
+            <div class="calculator-card">
+                <h2 class="calculator-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Date Difference Calculator
+                </h2>
+                
+                <div class="input-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" name="startDate">
+                </div>
+                
+                <div class="input-group">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" name="endDate">
+                </div>
+                
+                <button class="btn" id="calculateDiffBtn">
+                    <i class="fas fa-clock"></i>
+                    Calculate Difference
+                </button>
+                
+                <div class="result-container" id="diffResultContainer">
+                    <h3>Time Between Dates</h3>
+                    <div id="diffResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rectangle Ad -->
+        <div class="ad-space" id="rectangleAd">
+            <!-- AdSense Rectangle Ad -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_RECTANGLE_SLOT"
+                data-ad-format="rectangle"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features" id="about">
+            <h2>Why Use Our Age Calculator?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Get instant results with our optimized calculation engine that works in milliseconds.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Fully Responsive</h3>
+                    <p>Works perfectly on all devices from smartphones to desktop computers.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Privacy Focused</h3>
+                    <p>All calculations happen in your browser - we don't store any of your data.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Multiple Formats</h3>
+                    <p>View your age in years, months, days, or even hours and seconds.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section class="features" id="blog">
+            <h2>Recent Blog Posts</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>How Age is Calculated in Different Cultures</h3>
+                    <p>Explore how different cultures around the world calculate and celebrate age.</p>
+                    <a href="#" class="btn" style="margin-top: 10px; padding: 0.5rem 1rem;">Read More</a>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>The Science of Time Measurement</h3>
+                    <p>Learn about how humans have measured time throughout history.</p>
+                    <a href="#" class="btn" style="margin-top: 10px; padding: 0.5rem 1rem;">Read More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="features" id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>How accurate is this age calculator?</h3>
+                    <p>Our calculator is 100% accurate for all dates after 1582 (Gregorian calendar). It accounts for leap years and varying month lengths.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Can I calculate age at a future date?</h3>
+                    <p>Yes! Simply enter a future date as the "Age at the Date of" value to see how old you'll be on that date.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Why do months show different lengths?</h3>
+                    <p>Our calculator shows actual calendar months, which vary between 28-31 days. This provides the most accurate age calculation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Is my data stored anywhere?</h3>
+                    <p>No, all calculations happen in your browser. We don't store any of your personal data or date information.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="features" id="contact">
+            <h2>Contact Us</h2>
+            <div class="calculator-card">
+                <form id="contactForm">
+                    <div class="input-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 5px; background-color: var(--bg-color); color: var(--text-color);" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Privacy Policy Section -->
+        <section class="features" id="privacy">
+            <h2>Privacy Policy</h2>
+            <div class="calculator-card">
+                <h3>Information We Collect</h3>
+                <p>Our age calculator operates entirely in your browser. We do not collect, store, or transmit any personal data you enter into the calculator.</p>
+                
+                <h3>Third-Party Services</h3>
+                <p>We use Google AdSense to display advertisements. Google may use cookies to personalize ads based on your browsing history.</p>
+                
+                <h3>Changes to This Policy</h3>
+                <p>We may update our Privacy Policy from time to time. Any changes will be posted on this page.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">AgeCalc Pro</div>
+                <p>The most accurate age calculator on the web. Calculate your age in multiple units with our free tool.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> contact@agecalcpro.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Calculator St, Mathville</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container copyright">
+            <p>&copy; 2023 AgeCalc Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const navToggle = document.getElementById('navToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeNav = document.getElementById('closeNav');
+        const overlay = document.getElementById('overlay');
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const calculateDiffBtn = document.getElementById('calculateDiffBtn');
+        const contactForm = document.getElementById('contactForm');
+        
+        // Mobile Navigation Toggle
+        navToggle.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeNav.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Theme Toggle
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                mobileThemeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+            }
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+        mobileThemeToggle.addEventListener('click', toggleTheme);
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+        
+        // Set default dates to today
+        window.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            document.getElementById('targetDate').value = todayStr;
+            document.getElementById('endDate').value = todayStr;
+        });
+        
+        // Age Calculator Function
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const targetDate = new Date(document.getElementById('targetDate').value);
+            
+            if (isNaN(birthDate.getTime())) {
+                alert("Please enter a valid birth date");
+                return;
+            }
+            
+            if (isNaN(targetDate.getTime())) {
+                alert("Please enter a valid target date");
+                return;
+            }
+            
+            if (birthDate > targetDate) {
+                alert("Birth date cannot be after the target date");
+                return;
+            }
+            
+            const age = getAge(birthDate, targetDate);
+            displayResult(age, birthDate, targetDate, 'ageResult', 'resultContainer');
+        }
+        
+        // Date Difference Calculator Function
+        function calculateDateDifference() {
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            
+            if (isNaN(startDate.getTime())) {
+                alert("Please enter a valid start date");
+                return;
+            }
+            
+            if (isNaN(endDate.getTime())) {
+                alert("Please enter a valid end date");
+                return;
+            }
+            
+            if (startDate > endDate) {
+                alert("Start date cannot be after the end date");
+                return;
+            }
+            
+            const diff = getAge(startDate, endDate);
+            displayResult(diff, startDate, endDate, 'diffResult', 'diffResultContainer', true);
+        }
+        
+        // Core Age Calculation Logic
+        function getAge(startDate, endDate) {
+            let years = endDate.getFullYear() - startDate.getFullYear();
+            let months = endDate.getMonth() - startDate.getMonth();
+            let days = endDate.getDate() - startDate.getDate();
+            
+            // Adjust for negative days
+            if (days < 0) {
+                months--;
+                // Get days in previous month
+                const prevMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            
+            // Adjust for negative months
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            // Calculate total time difference
+            const diffMs = endDate - startDate;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const diffWeeks = Math.floor(diffDays / 7);
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMinutes = Math.floor(diffMs / (1000 * 60));
+            const diffSeconds = Math.floor(diffMs / 1000);
+            
+            return {
+                years,
+                months,
+                days,
+                weeks: diffWeeks,
+                totalDays: diffDays,
+                hours: diffHours,
+                minutes: diffMinutes,
+                seconds: diffSeconds
+            };
+        }
+        
+        // Display Results
+        function displayResult(data, date1, date2, resultElementId, containerId, isDifference = false) {
+            const resultDiv = document.getElementById(resultElementId);
+            const resultContainer = document.getElementById(containerId);
+            
+            resultDiv.innerHTML = `
+                <div class="result-item">
+                    <strong>${isDifference ? 'Duration' : 'Age'}:</strong> 
+                    ${data.years} years, ${data.months} months, ${data.days} days
+                </div>
+                <div class="result-item">
+                    <strong>or</strong> ${Math.floor(data.totalDays/365.25)} years (${data.totalDays} days)
+                </div>
+                <div class="result-item">
+                    <strong>or</strong> ${data.weeks} weeks and ${data.totalDays % 7} days
+                </div>
+                <div class="result-item">
+                    <strong>or</strong> ${data.hours} hours
+                </div>
+                <div class="result-item">
+                    <strong>or</strong> ${data.minutes} minutes
+                </div>
+                <div class="result-item">
+                    <strong>or</strong> ${data.seconds} seconds
+                </div>
+                <div class="result-item">
+                    <strong>${isDifference ? 'From' : 'Born on'}:</strong> ${date1.toDateString()}
+                </div>
+                <div class="result-item">
+                    <strong>${isDifference ? 'To' : 'Age on'}:</strong> ${date2.toDateString()}
+                </div>
+            `;
+            
+            resultContainer.style.display = 'block';
+            
+            // Scroll to results for mobile
+            if (window.innerWidth < 768) {
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Event Listeners
+        calculateBtn.addEventListener('click', calculateAge);
+        calculateDiffBtn.addEventListener('click', calculateDateDifference);
+        
+        // Contact Form Submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+        
+        // SEO: Add structured data
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "AgeCalc Pro",
+            "url": "https://agecalcpro.com",
+            "description": "Free online age calculator tool to calculate your exact age in years, months, days, hours, minutes and seconds.",
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Web Browser"
+        };
+        
+        const scriptTag = document.createElement('script');
+        scriptTag.type = 'application/ld+json';
+        scriptTag.text = JSON.stringify(structuredData);
+        document.head.appendChild(scriptTag);
+    </script>
+</body>
+</html>
