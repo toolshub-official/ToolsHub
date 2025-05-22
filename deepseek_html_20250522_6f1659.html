@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free advanced timezone converter tool. Convert, compare, and plan meetings across timezones with ease.">
+  <meta name="keywords" content="timezone converter, world clock, meeting planner, time difference calculator">
+  <meta name="author" content="Timezone Master">
+  <title>Timezone Master | Convert, Compare & Plan Across Timezones</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6C63FF;
+      --secondary: #4D44DB;
+      --accent: #FF6584;
+      --light: #FFFFFF;
+      --dark: #1A1A2E;
+      --text: #2D3748;
+      --text-light: #FFFFFF;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-bg-dark: rgba(26, 26, 46, 0.95);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --success: #4ADE80;
+    }
+
+    [data-theme="dark"] {
+      --primary: #6C63FF;
+      --secondary: #4D44DB;
+      --accent: #FF6584;
+      --light: #1A1A2E;
+      --dark: #F8F9FF;
+      --text: #F8F9FF;
+      --text-light: #2D3748;
+      --card-bg: rgba(26, 26, 46, 0.95);
+      --glass-border: rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light); /* White background */
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header & Navigation */
+    header {
+      padding: 1.5rem 0;
+      background: var(--light);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logo i {
+      font-size: 1.8rem;
+    }
+
+    .nav-toggle {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-menu a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .nav-menu a:hover {
+      color: var(--primary);
+    }
+
+    .theme-toggle {
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100vh;
+      background: var(--card-bg);
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 2rem;
+      transition: right 0.3s ease;
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-nav-close {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .mobile-nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mobile-nav-menu a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .mobile-nav-menu a:hover {
+      background: rgba(108, 99, 255, 0.1);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Main Content */
+    main {
+      padding-top: 100px;
+      padding-bottom: 3rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      opacity: 0.8;
+    }
+
+    /* Converter Card */
+    .converter-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .card-header h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-header p {
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: white;
+      color: var(--text);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+    }
+
+    .btn-block {
+      display: flex;
+      width: 100%;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-swap {
+      background: transparent;
+      color: var(--primary);
+      padding: 0.5rem;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .btn-swap:hover {
+      background: rgba(108, 99, 255, 0.1);
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    /* Result Section */
+    .result {
+      background: rgba(108, 99, 255, 0.1);
+      border-left: 4px solid var(--primary);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      display: none;
+    }
+
+    .result h3 {
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .converted-time {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .timezone-info {
+      color: var(--text);
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .time-difference {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .btn-copy {
+      background: var(--accent);
+      margin-top: 1rem;
+    }
+
+    .btn-copy:hover {
+      background: #e04f6d;
+    }
+
+    /* Features Section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .feature-card p {
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    /* Ad Spaces */
+    .ad-space {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      margin: 3rem 0;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      border: 1px dashed #e2e8f0;
+    }
+
+    .ad-space.horizontal {
+      grid-column: span 2;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .footer-logo i {
+      color: white;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      opacity: 0.8;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      color: white;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .converter-card {
+        padding: 1.5rem;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .converter-card {
+        padding: 1.5rem;
+      }
+
+      .btn {
+        padding: 0.8rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fas fa-globe"></i>
+        <span>Timezone Master</span>
+      </div>
+      <button class="nav-toggle" id="navToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="nav-menu">
+        <a href="#"><i class="fas fa-home"></i> Home</a>
+        <a href="#"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#"><i class="fas fa-blog"></i> Blog</a>
+        <a href="#"><i class="fas fa-shield-alt"></i> Privacy</a>
+        <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="#"><i class="fas fa-question-circle"></i> FAQ</a>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="overlay" id="overlay"></div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+      <div class="logo">
+        <i class="fas fa-globe"></i>
+        <span>Timezone Master</span>
+      </div>
+      <button class="mobile-nav-close" id="mobileNavClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="mobile-nav-menu">
+      <a href="#"><i class="fas fa-home"></i> Home</a>
+      <a href="#"><i class="fas fa-info-circle"></i> About</a>
+      <a href="#"><i class="fas fa-blog"></i> Blog</a>
+      <a href="#"><i class="fas fa-shield-alt"></i> Privacy</a>
+      <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+      <a href="#"><i class="fas fa-question-circle"></i> FAQ</a>
+      <button class="btn btn-block" id="mobileThemeToggle">
+        <i class="fas fa-moon"></i> Toggle Theme
+      </button>
+    </nav>
+  </div>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <h1>Timezone Converter</h1>
+        <p>Convert, compare, and plan meetings across timezones with our powerful tool. Perfect for remote teams, travelers, and global businesses.</p>
+      </section>
+
+      <!-- Ad Space (Top) -->
+      <div class="ad-space">
+        <!-- Google AdSense Ad Unit -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+        <!-- Timezone Converter Top Banner -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <div class="converter-card">
+        <div class="card-header">
+          <h2>Timezone Converter</h2>
+          <p>Convert any time between different timezones instantly</p>
+        </div>
+        <form id="timezoneForm">
+          <div class="form-group">
+            <label for="fromTz"><i class="fas fa-map-marker-alt"></i> From Timezone:</label>
+            <select id="fromTz" class="form-control"></select>
+          </div>
+
+          <div class="form-group" style="position: relative;">
+            <label for="toTz"><i class="fas fa-flag"></i> To Timezone:</label>
+            <select id="toTz" class="form-control"></select>
+            <button type="button" class="btn-swap" id="swapTz" title="Swap timezones">
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+          </div>
+
+          <div class="form-group">
+            <label for="datetime"><i class="fas fa-calendar-alt"></i> Date & Time:</label>
+            <input type="datetime-local" id="datetime" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="timeFormat"><i class="fas fa-clock"></i> Time Format:</label>
+            <select id="timeFormat" class="form-control">
+              <option value="12">12-hour format</option>
+              <option value="24">24-hour format</option>
+            </select>
+          </div>
+
+          <button type="button" class="btn btn-block" id="convertBtn">
+            <i class="fas fa-exchange-alt"></i> Convert Time
+          </button>
+        </form>
+
+        <div class="result" id="result">
+          <h3><i class="fas fa-clock"></i> Conversion Result</h3>
+          <div class="converted-time" id="convertedTime"></div>
+          <div class="timezone-info" id="timezoneInfo"></div>
+          <div class="time-difference" id="timeDifference"></div>
+          <button class="btn btn-copy" id="copyBtn">
+            <i class="fas fa-copy"></i> Copy to Clipboard
+          </button>
+        </div>
+      </div>
+
+      <!-- Ad Space (Middle) -->
+      <div class="ad-space">
+        <!-- Google AdSense Ad Unit -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+        <!-- Timezone Converter Middle Rectangle -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"
+             data-ad-format="rectangle"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <section class="features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-globe-americas"></i>
+          </div>
+          <h3>Global Coverage</h3>
+          <p>Supports all timezones worldwide with automatic daylight saving adjustments.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Lightning Fast</h3>
+          <p>Instant conversions with our optimized algorithm. No waiting time.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Mobile Friendly</h3>
+          <p>Works perfectly on all devices from smartphones to desktops.</p>
+        </div>
+      </section>
+
+      <!-- Ad Space (Bottom) -->
+      <div class="ad-space horizontal">
+        <!-- Google AdSense Ad Unit -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+        <!-- Timezone Converter Bottom Wide -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-logo">
+        <i class="fas fa-globe"></i>
+        <span>Timezone Master</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; <span id="currentYear"></span> Timezone Master. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // DOM Elements
+    const navToggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavClose = document.getElementById('mobileNavClose');
+    const overlay = document.getElementById('overlay');
+    const themeToggle = document.getElementById('themeToggle');
+    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+    const fromTz = document.getElementById('fromTz');
+    const toTz = document.getElementById('toTz');
+    const swapTz = document.getElementById('swapTz');
+    const datetime = document.getElementById('datetime');
+    const timeFormat = document.getElementById('timeFormat');
+    const convertBtn = document.getElementById('convertBtn');
+    const result = document.getElementById('result');
+    const convertedTime = document.getElementById('convertedTime');
+    const timezoneInfo = document.getElementById('timezoneInfo');
+    const timeDifference = document.getElementById('timeDifference');
+    const copyBtn = document.getElementById('copyBtn');
+    const currentYear = document.getElementById('currentYear');
+
+    // Mobile Navigation Toggle
+    navToggle.addEventListener('click', () => {
+      mobileNav.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    mobileNavClose.addEventListener('click', () => {
+      mobileNav.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileNav.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // Theme Toggle
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    mobileThemeToggle.addEventListener('click', toggleTheme);
+
+    // Check for saved theme preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    // Populate Timezone Selects
+    const timezones = Intl.supportedValuesOf('timeZone');
+    
+    timezones.forEach(tz => {
+      const opt1 = document.createElement("option");
+      opt1.value = tz;
+      opt1.textContent = tz;
+      fromTz.appendChild(opt1);
+
+      const opt2 = document.createElement("option");
+      opt2.value = tz;
+      opt2.textContent = tz;
+      toTz.appendChild(opt2);
+    });
+
+    // Set defaults
+    fromTz.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    toTz.value = "UTC";
+
+    // Swap Timezones
+    swapTz.addEventListener('click', () => {
+      const temp = fromTz.value;
+      fromTz.value = toTz.value;
+      toTz.value = temp;
+    });
+
+    // Set current datetime
+    function setCurrentDateTime() {
+      const now = new Date();
+      const timezoneOffset = now.getTimezoneOffset() * 60000;
+      const localISOTime = new Date(now - timezoneOffset).toISOString().slice(0, 16);
+      datetime.value = localISOTime;
+    }
+
+    setCurrentDateTime();
+
+    // Time Conversion Function
+    function convertTime() {
+      const selectedDatetime = datetime.value;
+      if (!selectedDatetime) {
+        result.style.display = 'block';
+        convertedTime.textContent = "⚠️ Please select a valid date and time.";
+        timezoneInfo.textContent = "";
+        timeDifference.textContent = "";
+        return;
+      }
+
+      const inputDate = new Date(selectedDatetime);
+      const fromTimezone = fromTz.value;
+      const toTimezone = toTz.value;
+      const format = timeFormat.value;
+
+      // Calculate time difference
+      const fromTime = new Date(inputDate.toLocaleString("en-US", { timeZone: fromTimezone }));
+      const toTime = new Date(inputDate.toLocaleString("en-US", { timeZone: toTimezone }));
+      const diffHours = Math.abs((toTime - fromTime) / (1000 * 60 * 60));
+
+      // Format options
+      const options = {
+        timeZone: toTimezone,
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: format === '12'
+      };
+
+      if (diffHours % 1 === 0) {
+        options.second = '2-digit'; // Show seconds if no minutes difference
+      }
+
+      const formatter = new Intl.DateTimeFormat("en-US", options);
+      const formattedDate = formatter.format(inputDate);
+
+      result.style.display = 'block';
+      convertedTime.textContent = formattedDate;
+      timezoneInfo.textContent = `🌍 ${fromTimezone} → ${toTimezone}`;
+      timeDifference.textContent = `⏱️ ${diffHours.toFixed(1)} hours difference`;
+    }
+
+    convertBtn.addEventListener('click', convertTime);
+
+    // Copy to Clipboard
+    copyBtn.addEventListener('click', () => {
+      const textToCopy = `${convertedTime.textContent}\n${timezoneInfo.textContent}\n${timeDifference.textContent}`;
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+          copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    });
+
+    // Set current year in footer
+    currentYear.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
