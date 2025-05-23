@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online barcode generator tool. Create QR codes, EAN-13, UPC-A, Code 39, and more. No registration required.">
+    <meta name="keywords" content="barcode generator, QR code, EAN-13, UPC-A, Code 39, free tool">
+    <meta name="author" content="Barcode Generator Pro">
+    <meta property="og:title" content="Free Online Barcode Generator">
+    <meta property="og:description" content="Create professional barcodes instantly for free. Supports all major barcode formats.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com">
+    <title>Barcode Generator Pro | Create Free Barcodes Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --text-color: #2b2d42;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #e9ecef;
+            --error-color: #ef233c;
+            --success-color: #4cc9f0;
+            --dark-bg: #1a1a2e;
+            --dark-card: #16213e;
+            --dark-text: #e6e6e6;
+            --dark-border: #2d4059;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4895ef;
+            --secondary-color: #4361ee;
+            --accent-color: #3f37c9;
+            --text-color: #e6e6e6;
+            --bg-color: #1a1a2e;
+            --card-bg: #16213e;
+            --border-color: #2d4059;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-color);
+        }
+
+        .ad-container {
+            margin: 30px auto;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .tool-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-title i {
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        }
+
+        .requirements {
+            font-size: 0.85rem;
+            margin-top: 5px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            font-size: 1.1rem;
+        }
+
+        .barcode-result {
+            margin: 30px 0;
+            text-align: center;
+            padding: 30px;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .barcode-result img {
+            max-width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .placeholder-text {
+            font-size: 1rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .success-message {
+            color: var(--success-color);
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .download-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .download-btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 0;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 30px;
+                gap: 25px;
+                transition: left 0.3s;
+                z-index: 99;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 40px 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .tool-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .tool-title {
+                font-size: 1.3rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-barcode"></i>
+                <span>BarcodeGenPro</span>
+            </a>
+            
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-right">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Free Online Barcode Generator</h1>
+            <p>Create professional barcodes in seconds. Supports QR codes, EAN-13, UPC-A, Code 39, and more. No registration required.</p>
+        </section>
+
+        <!-- Top Ad Banner -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Replace with your Google AdSense code -->
+            <div id="top-ad">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Top Banner Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                     data-ad-slot="YOUR_AD_SLOT_ID"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <section class="tool-container">
+            <h2 class="tool-title">
+                <i class="fas fa-qrcode"></i>
+                Barcode Generator
+            </h2>
+            
+            <div class="input-group">
+                <label for="barcode-data">Enter Data to Encode</label>
+                <input type="text" id="barcode-data" placeholder="Enter data based on barcode type">
+                <div id="data-requirements" class="requirements"></div>
+            </div>
+            
+            <div class="input-group">
+                <label for="barcode-type">Barcode Type</label>
+                <select id="barcode-type" onchange="updatePlaceholder()">
+                    <option value="QRCode">QR Code</option>
+                    <option value="MobileSemaUrl">Mobile Tag (URL)</option>
+                    <option value="Code39">Code 39</option>
+                    <option value="Code128">Code 128</option>
+                    <option value="EAN13">EAN-13</option>
+                    <option value="UPCA">UPC-A</option>
+                </select>
+            </div>
+            
+            <button class="btn" onclick="generateBarcode()">
+                <i class="fas fa-barcode"></i>
+                Generate Barcode
+            </button>
+            
+            <div class="barcode-result">
+                <img id="barcode-image" alt="Generated Barcode">
+                <p id="placeholder-text" class="placeholder-text">Your barcode will appear here</p>
+                <p id="error-message" class="error-message"></p>
+                <p id="success-message" class="success-message"></p>
+                
+                <div class="download-options" id="download-options" style="display: none;">
+                    <a href="#" id="download-png" class="download-btn" download="barcode.png">
+                        <i class="fas fa-download"></i> PNG
+                    </a>
+                    <a href="#" id="download-jpg" class="download-btn" download="barcode.jpg">
+                        <i class="fas fa-download"></i> JPG
+                    </a>
+                    <a href="#" id="download-svg" class="download-btn" download="barcode.svg">
+                        <i class="fas fa-download"></i> SVG
+                    </a>
+                    <a href="#" id="download-pdf" class="download-btn" download="barcode.pdf">
+                        <i class="fas fa-download"></i> PDF
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Middle Ad Banner -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Replace with your Google AdSense code -->
+            <div id="middle-ad">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Middle Rectangle Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                     data-ad-slot="YOUR_AD_SLOT_ID"
+                     data-ad-format="rectangle"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Fast & Easy</h3>
+                <p>Generate barcodes in seconds with our simple, intuitive interface. No software installation required.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>No Registration</h3>
+                <p>Use our tool without signing up or providing personal information. Your data remains private.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Friendly</h3>
+                <p>Works perfectly on all devices - smartphones, tablets, and desktop computers.</p>
+            </div>
+        </section>
+
+        <!-- Bottom Ad Banner -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Replace with your Google AdSense code -->
+            <div id="bottom-ad">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Bottom Banner Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                     data-ad-slot="YOUR_AD_SLOT_ID"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BarcodeGenPro</h3>
+                    <p>The fastest and easiest way to generate professional barcodes online for free.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Barcode Types</h3>
+                    <ul>
+                        <li><a href="#">QR Code Generator</a></li>
+                        <li><a href="#">EAN-13 Generator</a></li>
+                        <li><a href="#">UPC-A Generator</a></li>
+                        <li><a href="#">Code 39 Generator</a></li>
+                        <li><a href="#">Code 128 Generator</a></li>
+                        <li><a href="#">All Barcode Types</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@barcodegenpro.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Barcode St, Digital City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BarcodeGenPro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        // Barcode generator functions
+        function updatePlaceholder() {
+            const type = document.getElementById('barcode-type').value;
+            const inputField = document.getElementById('barcode-data');
+            const requirements = document.getElementById('data-requirements');
+            
+            switch(type) {
+                case 'EAN13':
+                    inputField.placeholder = 'Enter 12 or 13 digits (e.g., 5901234123457)';
+                    requirements.textContent = 'EAN-13 requires 12 or 13 numeric digits only';
+                    break;
+                case 'UPCA':
+                    inputField.placeholder = 'Enter 11 or 12 digits (e.g., 036000291452)';
+                    requirements.textContent = 'UPC-A requires 11 or 12 numeric digits only';
+                    break;
+                case 'Code39':
+                    inputField.placeholder = 'Alphanumeric (A-Z, 0-9, -, ., $, /, +, %, space)';
+                    requirements.textContent = 'Code 39 supports: A-Z, 0-9, and -.$/+% and space';
+                    break;
+                case 'MobileSemaUrl':
+                    inputField.placeholder = 'Enter URL (e.g., https://www.example.com)';
+                    requirements.textContent = '';
+                    break;
+                case 'QRCode':
+                    inputField.placeholder = 'Enter any text or URL';
+                    requirements.textContent = '';
+                    break;
+                default:
+                    inputField.placeholder = 'Enter text to encode';
+                    requirements.textContent = '';
+            }
+        }
+
+        function validateInput(data, type) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = '';
+            errorElement.style.display = 'none';
+            
+            if (!data) {
+                errorElement.textContent = 'Please enter data to encode';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            if (type === 'EAN13') {
+                if (!/^\d{12,13}$/.test(data)) {
+                    errorElement.textContent = 'EAN-13 requires exactly 12 or 13 numeric digits';
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+            }
+            
+            if (type === 'UPCA') {
+                if (!/^\d{11,12}$/.test(data)) {
+                    errorElement.textContent = 'UPC-A requires exactly 11 or 12 numeric digits';
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+            }
+            
+            if (type === 'Code39') {
+                if (!/^[A-Z0-9\-\.\ \$\/\+\%]+$/i.test(data)) {
+                    errorElement.textContent = 'Code 39 only supports: A-Z, 0-9, and -.$/+% and space';
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function generateBarcode() {
+            const data = document.getElementById('barcode-data').value.trim();
+            const type = document.getElementById('barcode-type').value;
+            
+            if (!validateInput(data, type)) {
+                return;
+            }
+            
+            // Encode the data for URL
+            const encodedData = encodeURIComponent(data);
+            const baseUrl = `https://barcode.tec-it.com/barcode.ashx?data=${encodedData}&code=${type}&dpi=96`;
+            
+            const barcodeImg = document.getElementById('barcode-image');
+            const placeholderText = document.getElementById('placeholder-text');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            const downloadOptions = document.getElementById('download-options');
+            
+            // Set the image source
+            barcodeImg.src = baseUrl + '&imagetype=Png';
+            
+            barcodeImg.onload = function() {
+                placeholderText.style.display = 'none';
+                barcodeImg.style.display = 'block';
+                errorMessage.style.display = 'none';
+                successMessage.textContent = 'Barcode generated successfully!';
+                successMessage.style.display = 'block';
+                downloadOptions.style.display = 'flex';
+                
+                // Set up download links with proper URLs
+                document.getElementById('download-png').href = baseUrl + '&imagetype=Png';
+                document.getElementById('download-jpg').href = baseUrl + '&imagetype=Jpg';
+                document.getElementById('download-svg').href = baseUrl + '&imagetype=Svg';
+                document.getElementById('download-pdf').href = baseUrl + '&imagetype=Pdf';
+                
+                // Add download functionality
+                setupDownloadButtons(baseUrl);
+            };
+            
+            barcodeImg.onerror = function() {
+                errorMessage.textContent = 'Error generating barcode. Please try again.';
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                downloadOptions.style.display = 'none';
+            };
+        }
+        
+        function setupDownloadButtons(baseUrl) {
+            // PNG Download
+            document.getElementById('download-png').addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = document.createElement('a');
+                link.href = baseUrl + '&imagetype=Png';
+                link.download = 'barcode.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+            
+            // JPG Download
+            document.getElementById('download-jpg').addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = document.createElement('a');
+                link.href = baseUrl + '&imagetype=Jpg';
+                link.download = 'barcode.jpg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+            
+            // SVG Download
+            document.getElementById('download-svg').addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = document.createElement('a');
+                link.href = baseUrl + '&imagetype=Svg';
+                link.download = 'barcode.svg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+            
+            // PDF Download
+            document.getElementById('download-pdf').addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = document.createElement('a');
+                link.href = baseUrl + '&imagetype=Pdf';
+                link.download = 'barcode.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+        
+        // Initialize on page load
+        window.onload = function() {
+            updatePlaceholder();
+            
+            // Generate a sample barcode on first load
+            document.getElementById('barcode-data').value = 'https://www.tec-it.com';
+            generateBarcode();
+        };
+    </script>
+</body>
+</html>
