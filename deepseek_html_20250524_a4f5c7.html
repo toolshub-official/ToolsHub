@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RegexPro - Advanced Regular Expression Tester Tool | Test & Debug Patterns</title>
+    <meta name="description" content="Free online regex tester tool with real-time highlighting, pattern explanation, and match details. Perfect for developers to test, debug, and learn regular expressions.">
+    <meta name="keywords" content="regex tester, regular expression, regex debugger, pattern matching, regex tool, regex online">
+    <meta name="author" content="RegexPro">
+    <link rel="canonical" href="https://regexpro.example.com">
+    <meta property="og:title" content="RegexPro - Advanced Regular Expression Tester Tool">
+    <meta property="og:description" content="Free online regex tester tool with real-time highlighting, pattern explanation, and match details.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://regexpro.example.com">
+    <meta property="og:image" content="https://regexpro.example.com/images/regexpro-og.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <style>
+        :root {
+            /* Light Theme */
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --text: #2b2d42;
+            --text-light: #8d99ae;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border: #e9ecef;
+            --success: #4cc9f0;
+            --error: #f72585;
+            --warning: #f8961e;
+            --highlight: #fff3b0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            
+            /* Dark Theme */
+            --dark-primary: #4895ef;
+            --dark-primary-dark: #3a7bc8;
+            --dark-secondary: #4361ee;
+            --dark-accent: #4cc9f0;
+            --dark-text: #f8f9fa;
+            --dark-text-light: #adb5bd;
+            --dark-bg: #121212;
+            --dark-card-bg: #1e1e1e;
+            --dark-border: #333333;
+            --dark-success: #4cc9f0;
+            --dark-error: #f72585;
+            --dark-warning: #f8961e;
+            --dark-highlight: #4a4e69;
+            --dark-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] {
+            --primary: var(--dark-primary);
+            --primary-dark: var(--dark-primary-dark);
+            --secondary: var(--dark-secondary);
+            --accent: var(--dark-accent);
+            --text: var(--dark-text);
+            --text-light: var(--dark-text-light);
+            --bg: var(--dark-bg);
+            --card-bg: var(--dark-card-bg);
+            --border: var(--dark-border);
+            --success: var(--dark-success);
+            --error: var(--dark-error);
+            --warning: var(--dark-warning);
+            --highlight: var(--dark-highlight);
+            --shadow: var(--dark-shadow);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--border);
+            border-radius: 30px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .theme-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            color: var(--text);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(72, 149, 239, 0.1) 100%);
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tool Section */
+        .tool-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .tool-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 25px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title .icon {
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            background-color: var(--card-bg);
+            color: var(--text);
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        input[type="text"] {
+            min-height: auto;
+        }
+
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-checkbox {
+            display: flex;
+            align-items: center;
+            background: var(--border);
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .option-checkbox:hover {
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .option-checkbox input {
+            margin-right: 8px;
+            accent-color: var(--primary);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-light);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--card-bg);
+            min-width: 250px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            z-index: 1;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 10px 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            color: var(--text);
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--border);
+        }
+
+        /* Results Section */
+        .results-section {
+            margin-top: 30px;
+        }
+
+        .match-highlight {
+            background-color: var(--highlight);
+            color: #000;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .matches-container {
+            margin-top: 25px;
+        }
+
+        .match-item {
+            background-color: rgba(67, 97, 238, 0.05);
+            border-left: 3px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .match-position {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .match-groups {
+            margin-top: 15px;
+        }
+
+        .match-group {
+            display: inline-block;
+            background-color: rgba(67, 97, 238, 0.1);
+            padding: 5px 10px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-message {
+            background-color: rgba(247, 37, 133, 0.1);
+            border-left: 3px solid var(--error);
+            color: var(--error);
+        }
+
+        .success-message {
+            background-color: rgba(76, 201, 240, 0.1);
+            border-left: 3px solid var(--success);
+            color: var(--success);
+        }
+
+        .regex-explanation {
+            margin-top: 30px;
+        }
+
+        .explanation-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .explanation-item:hover {
+            background-color: var(--border);
+        }
+
+        .explanation-token {
+            font-family: 'Fira Code', monospace;
+            background-color: rgba(67, 97, 238, 0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 15px;
+            min-width: 50px;
+            text-align: center;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ad-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .ad-container.horizontal {
+            min-height: 100px;
+        }
+
+        /* Blog Preview */
+        .blog-preview {
+            margin-top: 30px;
+        }
+
+        .blog-preview h2 {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .blog-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .blog-card-content {
+            padding: 20px;
+        }
+
+        .blog-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .blog-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .blog-card .meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            padding: 50px 0 20px;
+            margin-top: 60px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Page specific styles */
+        .page-header {
+            padding: 60px 0 40px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(72, 149, 239, 0.1) 100%);
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .content-section h2 {
+            margin: 30px 0 15px;
+            color: var(--primary);
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--primary);
+        }
+
+        .team-member h3 {
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            color: var(--text-light);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        .form-row label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-row input,
+        .form-row textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            color: var(--text);
+        }
+
+        .form-row textarea {
+            min-height: 150px;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .faq-item h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        /* Syntax highlighting */
+        .regex-syntax {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        /* Loading animation */
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">R</div>
+                <div class="logo-text">Regex<span>Pro</span></div>
+            </a>
+            <nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+                <div class="theme-toggle" id="themeToggle">
+                    <div class="theme-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Advanced Regex Tester Tool</h1>
+            <p>Test, debug, and learn regular expressions with our powerful online tool. Get instant results with detailed match information and pattern explanations.</p>
+        </section>
+
+        <!-- Ad Banner Top -->
+        <div class="ad-container horizontal">
+            <!-- Google AdSense Ad Unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+            <!-- Top Banner Ad -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="main-content">
+            <!-- Tool Section -->
+            <div class="tool-content">
+                <div class="tool-section">
+                    <!-- Regex Input Card -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span>Regular Expression</span>
+                            <div class="dropdown">
+                                <button class="btn btn-outline btn-sm">
+                                    <i class="fas fa-lightbulb"></i> Examples
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="#" onclick="loadExample('email', 'Email Validation', '^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$')">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </a>
+                                    <a href="#" onclick="loadExample('url', 'URL Validation', '^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w .-]*)*\\/?$')">
+                                        <i class="fas fa-link"></i> URL
+                                    </a>
+                                    <a href="#" onclick="loadExample('phone', 'US Phone Number', '^\\+?1?[ -]?\\(?[0-9]{3}\\)?[ -]?[0-9]{3}[ -]?[0-9]{4}$')">
+                                        <i class="fas fa-phone"></i> Phone
+                                    </a>
+                                    <a href="#" onclick="loadExample('date', 'Date (YYYY-MM-DD)', '^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$')">
+                                        <i class="fas fa-calendar"></i> Date
+                                    </a>
+                                    <a href="#" onclick="loadExample('credit-card', 'Credit Card', '^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\\d{3})\\d{11})$')">
+                                        <i class="fas fa-credit-card"></i> Credit Card
+                                    </a>
+                                    <a href="#" onclick="loadExample('password', 'Strong Password', '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')">
+                                        <i class="fas fa-lock"></i> Password
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="regex-input" placeholder="Enter your regular expression (e.g., ^[A-Za-z]+$)"></textarea>
+                        </div>
+                        <div class="options-group">
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="global-option" checked>
+                                <span>Global (g)</span>
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="case-insensitive-option">
+                                <span>Case Insensitive (i)</span>
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="multiline-option">
+                                <span>Multiline (m)</span>
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="dotall-option">
+                                <span>Dot All (s)</span>
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <button id="test-btn" class="btn">
+                                <i class="fas fa-play"></i> Test Regex
+                            </button>
+                            <button id="copy-regex-btn" class="btn btn-secondary">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button id="clear-btn" class="btn btn-secondary">
+                                <i class="fas fa-trash-alt"></i> Clear
+                            </button>
+                            <button id="save-btn" class="btn btn-secondary">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Test String Card -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span>Test String</span>
+                            <button id="sample-data-btn" class="btn btn-outline btn-sm">
+                                <i class="fas fa-magic"></i> Sample Data
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="test-string" placeholder="Enter text to test against the regular expression"></textarea>
+                        </div>
+                        <div class="btn-group">
+                            <button id="copy-text-btn" class="btn btn-secondary">
+                                <i class="fas fa-copy"></i> Copy Text
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="card results-section">
+                    <div class="card-title">
+                        <span>Results</span>
+                        <button id="copy-results-btn" class="btn btn-outline btn-sm">
+                            <i class="fas fa-copy"></i> Copy Results
+                        </button>
+                    </div>
+                    
+                    <div id="error-message" class="message error-message" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="error-text"></span>
+                    </div>
+                    
+                    <div id="success-message" class="message success-message" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="success-text"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Highlighted Matches:</label>
+                        <div id="highlighted-text" class="results"></div>
+                    </div>
+                    
+                    <div id="matches-container" class="matches-container" style="display: none;">
+                        <h3>Match Details</h3>
+                        <div id="match-items"></div>
+                    </div>
+                    
+                    <div id="regex-explanation" class="regex-explanation" style="display: none;">
+                        <h3>Pattern Explanation</h3>
+                        <div id="explanation-items"></div>
+                    </div>
+                </div>
+
+                <!-- Blog Preview -->
+                <div class="blog-preview">
+                    <h2>Latest Regex Articles</h2>
+                    <div class="blog-grid">
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex Basics">
+                            <div class="blog-card-content">
+                                <h3>Mastering Regular Expressions: A Beginner's Guide</h3>
+                                <p>Learn the fundamentals of regex and how to use them effectively in your projects.</p>
+                                <div class="meta">
+                                    <span><i class="far fa-calendar"></i> May 15, 2023</span>
+                                    <span><i class="far fa-clock"></i> 5 min read</span>
+                                </div>
+                                <a href="blog/regex-basics.html" class="btn btn-outline btn-sm">Read More</a>
+                            </div>
+                        </div>
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex Performance">
+                            <div class="blog-card-content">
+                                <h3>Optimizing Regex Performance: Best Practices</h3>
+                                <p>Discover techniques to make your regular expressions faster and more efficient.</p>
+                                <div class="meta">
+                                    <span><i class="far fa-calendar"></i> April 28, 2023</span>
+                                    <span><i class="far fa-clock"></i> 7 min read</span>
+                                </div>
+                                <a href="blog/regex-performance.html" class="btn btn-outline btn-sm">Read More</a>
+                            </div>
+                        </div>
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex in JavaScript">
+                            <div class="blog-card-content">
+                                <h3>Using Regular Expressions in JavaScript</h3>
+                                <p>A comprehensive guide to regex methods and features in JavaScript.</p>
+                                <div class="meta">
+                                    <span><i class="far fa-calendar"></i> April 10, 2023</span>
+                                    <span><i class="far fa-clock"></i> 6 min read</span>
+                                </div>
+                                <a href="blog/regex-javascript.html" class="btn btn-outline btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <a href="blog.html" class="btn">View All Articles</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Ad Unit 1 -->
+                <div class="ad-container">
+                    <!-- Google AdSense Sidebar Ad -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+                    <!-- Sidebar Ad -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
+                <!-- Popular Patterns -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>Popular Patterns</span>
+                        <i class="fas fa-fire icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 10px;">
+                                <a href="#" onclick="loadExample('email', 'Email', '^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$')" style="color: var(--primary); text-decoration: none;">
+                                    <i class="fas fa-envelope"></i> Email Validation
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 10px;">
+                                <a href="#" onclick="loadExample('password', 'Password', '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')" style="color: var(--primary); text-decoration: none;">
+                                    <i class="fas fa-lock"></i> Strong Password
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 10px;">
+                                <a href="#" onclick="loadExample('url', 'URL', '^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w .-]*)*\\/?$')" style="color: var(--primary); text-decoration: none;">
+                                    <i class="fas fa-link"></i> URL Validation
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 10px;">
+                                <a href="#" onclick="loadExample('html', 'HTML Tags', '<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)')" style="color: var(--primary); text-decoration: none;">
+                                    <i class="fas fa-code"></i> HTML Tags
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="loadExample('hex', 'Hex Color', '^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$')" style="color: var(--primary); text-decoration: none;">
+                                    <i class="fas fa-palette"></i> Hex Colors
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Recent Tests -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>Recent Tests</span>
+                        <i class="fas fa-history icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <div id="recent-tests" style="font-size: 0.9rem;">
+                            <p style="color: var(--text-light);">Your recent tests will appear here</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ad Unit 2 -->
+                <div class="ad-container">
+                    <!-- Google AdSense Square Ad -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+                    <!-- Square Ad -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ad Banner Bottom -->
+        <div class="ad-container horizontal">
+            <!-- Google AdSense Bottom Banner Ad -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+            <!-- Bottom Banner Ad -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>RegexPro</h3>
+                    <p style="color: var(--text-light); margin-bottom: 15px;">The most advanced online regex tester and debugger tool for developers.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="blog/regex-cheatsheet.html">Regex Cheat Sheet</a></li>
+                        <li><a href="blog/regex-examples.html">Common Patterns</a></li>
+                        <li><a href="blog/regex-tutorial.html">Regex Tutorial</a></li>
+                        <li><a href="blog/regex-tools.html">Other Tools</a></li>
+                        <li><a href="blog/regex-performance.html">Performance Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="contact.html">Help Center</a></li>
+                        <li><a href="privacy.html">Terms of Service</a></li>
+                        <li><a href="privacy.html">Cookie Policy</a></li>
+                        <li><a href="contact.html">Report an Issue</a></li>
+                        <li><a href="contact.html">Feature Request</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 RegexPro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- About Page Content (hidden by default) -->
+    <div id="about-page" style="display: none;">
+        <section class="page-header">
+            <h1>About RegexPro</h1>
+            <p>Learn more about our mission, team, and the technology behind our regex tester tool.</p>
+        </section>
+
+        <div class="container">
+            <div class="content-section">
+                <h2>Our Mission</h2>
+                <p>At RegexPro, we believe that regular expressions should be accessible to everyone. Our mission is to simplify the process of creating, testing, and debugging regex patterns through an intuitive, powerful online tool.</p>
+                <p>Founded in 2023 by a team of developers who were frustrated with existing regex tools, we set out to build a solution that would make working with regular expressions a pleasure rather than a chore.</p>
+
+                <h2>Meet the Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe">
+                        <h3>John Doe</h3>
+                        <p>Founder & Lead Developer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith">
+                        <h3>Jane Smith</h3>
+                        <p>UI/UX Designer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Mike Johnson">
+                        <h3>Mike Johnson</h3>
+                        <p>Backend Developer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Williams">
+                        <h3>Sarah Williams</h3>
+                        <p>Technical Writer</p>
+                    </div>
+                </div>
+
+                <h2>Our Technology</h2>
+                <p>RegexPro is built with modern web technologies to ensure fast, reliable performance:</p>
+                <ul>
+                    <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+)</li>
+                    <li><strong>Backend:</strong> Node.js, Express</li>
+                    <li><strong>Database:</strong> MongoDB for storing user preferences</li>
+                    <li><strong>Hosting:</strong> AWS with CloudFront CDN</li>
+                </ul>
+
+                <h2>Contact Us</h2>
+                <p>Have questions or feedback? We'd love to hear from you!</p>
+                <p>Email: <a href="mailto:contact@regexpro.example.com">contact@regexpro.example.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Page Content (hidden by default) -->
+    <div id="blog-page" style="display: none;">
+        <section class="page-header">
+            <h1>Regex Blog</h1>
+            <p>Learn regex concepts, best practices, and advanced techniques from our expert team.</p>
+        </section>
+
+        <div class="container">
+            <div class="blog-grid" style="margin-bottom: 40px;">
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex Basics">
+                    <div class="blog-card-content">
+                        <h3>Mastering Regular Expressions: A Beginner's Guide</h3>
+                        <p>Learn the fundamentals of regex and how to use them effectively in your projects.</p>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> May 15, 2023</span>
+                            <span><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                        <a href="blog/regex-basics.html" class="btn btn-outline btn-sm">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex Performance">
+                    <div class="blog-card-content">
+                        <h3>Optimizing Regex Performance: Best Practices</h3>
+                        <p>Discover techniques to make your regular expressions faster and more efficient.</p>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> April 28, 2023</span>
+                            <span><i class="far fa-clock"></i> 7 min read</span>
+                        </div>
+                        <a href="blog/regex-performance.html" class="btn btn-outline btn-sm">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex in JavaScript">
+                    <div class="blog-card-content">
+                        <h3>Using Regular Expressions in JavaScript</h3>
+                        <p>A comprehensive guide to regex methods and features in JavaScript.</p>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> April 10, 2023</span>
+                            <span><i class="far fa-clock"></i> 6 min read</span>
+                        </div>
+                        <a href="blog/regex-javascript.html" class="btn btn-outline btn-sm">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex in Python">
+                    <div class="blog-card-content">
+                        <h3>Python Regex: Complete Guide</h3>
+                        <p>Everything you need to know about using regular expressions in Python.</p>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> March 22, 2023</span>
+                            <span><i class="far fa-clock"></i> 8 min read</span>
+                        </div>
+                        <a href="blog/regex-python.html" class="btn btn-outline btn-sm">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1581093057305-25a0a6b6f0b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex Validation">
+                    <div class="blog-card-content">
+                        <h3>Form Validation with Regex</h3>
+                        <p>How to use regular expressions for robust form validation in web applications.</p>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> March 5, 2023</span>
+                            <span><i class="far fa-clock"></i> 6 min read</span>
+                        </div>
+                        <a href="blog/regex-validation.html" class="btn btn-outline btn-sm">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1581093057305-25a0a6b6f0b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Regex Cheatsheet">
+                    <div class="blog-card-content">
+                        <h3>Regex Cheat Sheet</h3>
+                        <p>A handy reference guide for all common regex patterns and syntax.</p>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> February 18, 2023</span>
+                            <span><i class="far fa-clock"></i> 4 min read</span>
+                        </div>
+                        <a href="blog/regex-cheatsheet.html" class="btn btn-outline btn-sm">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Page Content (hidden by default) -->
+    <div id="privacy-page" style="display: none;">
+        <section class="page-header">
+            <h1>Privacy Policy</h1>
+            <p>How we collect, use, and protect your personal information.</p>
+        </section>
+
+        <div class="container">
+            <div class="content-section">
+                <h2>Introduction</h2>
+                <p>At RegexPro, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.</p>
+                
+                <h2>Information We Collect</h2>
+                <p>We may collect information about you in a variety of ways:</p>
+                <ul>
+                    <li><strong>Personal Data:</strong> While using our service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you.</li>
+                    <li><strong>Usage Data:</strong> We may collect information on how the service is accessed and used.</li>
+                    <li><strong>Cookies:</strong> We use cookies and similar tracking technologies to track activity on our service.</li>
+                </ul>
+                
+                <h2>How We Use Your Information</h2>
+                <p>We use the collected data for various purposes:</p>
+                <ul>
+                    <li>To provide and maintain our service</li>
+                    <li>To notify you about changes to our service</li>
+                    <li>To allow you to participate in interactive features of our service</li>
+                    <li>To provide customer support</li>
+                    <li>To gather analysis or valuable information so that we can improve our service</li>
+                    <li>To monitor the usage of our service</li>
+                    <li>To detect, prevent and address technical issues</li>
+                </ul>
+                
+                <h2>Security of Data</h2>
+                <p>The security of your data is important to us, but remember that no method of transmission over the Internet or method of electronic storage is 100% secure.</p>
+                
+                <h2>Service Providers</h2>
+                <p>We may employ third-party companies and individuals to facilitate our service, provide the service on our behalf, perform service-related services, or assist us in analyzing how our service is used.</p>
+                
+                <h2>Changes to This Privacy Policy</h2>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+                
+                <h2>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@regexpro.example.com">privacy@regexpro.example.com</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page Content (hidden by default) -->
+    <div id="contact-page" style="display: none;">
+        <section class="page-header">
+            <h1>Contact Us</h1>
+            <p>Have questions or feedback? We'd love to hear from you!</p>
+        </section>
+
+        <div class="container">
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="email">Email Address</label>
+                        <input type="text" id="email" name="email" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <button type="submit" class="btn">Send Message</button>
+                    </div>
+                </form>
+                
+                <div class="content-section" style="margin-top: 40px;">
+                    <h2>Other Ways to Reach Us</h2>
+                    <p><strong>Email:</strong> <a href="mailto:contact@regexpro.example.com">contact@regexpro.example.com</a></p>
+                    <p><strong>Twitter:</strong> <a href="https://twitter.com/regexpro" target="_blank">@RegexPro</a></p>
+                    <p><strong>GitHub:</strong> <a href="https://github.com/regexpro" target="_blank">github.com/regexpro</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Page Content (hidden by default) -->
+    <div id="faq-page" style="display: none;">
+        <section class="page-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about RegexPro and regular expressions.</p>
+        </section>
+
+        <div class="container">
+            <div class="content-section">
+                <div class="faq-item">
+                    <h3>What is RegexPro?</h3>
+                    <p>RegexPro is an advanced online tool for testing, debugging, and learning regular expressions. It provides real-time feedback, detailed match information, and pattern explanations to help developers work with regex more effectively.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Is RegexPro free to use?</h3>
+                    <p>Yes, RegexPro is completely free to use with no hidden costs. We may offer premium features in the future, but the core functionality will always remain free.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Does RegexPro store my regex patterns?</h3>
+                    <p>RegexPro can store your recent patterns in your browser's local storage for convenience, but we don't send or store your patterns on our servers unless you explicitly choose to save them to your account (future feature).</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What regex flavors are supported?</h3>
+                    <p>RegexPro uses JavaScript's RegExp implementation, which is similar to Perl-style regular expressions. Most common regex features are supported, including lookaheads, backreferences, and character classes.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>How do I learn regular expressions?</h3>
+                    <p>We recommend starting with our <a href="blog/regex-basics.html">Regex Basics</a> tutorial and practicing with simple patterns. Our <a href="blog/regex-cheatsheet.html">Cheat Sheet</a> is also a great reference as you're learning.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Can I use RegexPro on mobile devices?</h3>
+                    <p>Yes! RegexPro is fully responsive and works on smartphones, tablets, and desktop computers. The interface adapts to your screen size for optimal usability.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>How accurate are the regex explanations?</h3>
+                    <p>Our explanation system covers most common regex syntax accurately. For very complex patterns, some explanations might be simplified. We're continually improving our explanation engine.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Can I suggest a feature?</h3>
+                    <p>Absolutely! We welcome feature requests and feedback. Please use our <a href="contact.html">contact form</a> to share your ideas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const regexInput = document.getElementById('regex-input');
+        const testString = document.getElementById('test-string');
+        const globalOption = document.getElementById('global-option');
+        const caseInsensitiveOption = document.getElementById('case-insensitive-option');
+        const multilineOption = document.getElementById('multiline-option');
+        const dotallOption = document.getElementById('dotall-option');
+        const testBtn = document.getElementById('test-btn');
+        const copyRegexBtn = document.getElementById('copy-regex-btn');
+        const copyTextBtn = document.getElementById('copy-text-btn');
+        const copyResultsBtn = document.getElementById('copy-results-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const sampleDataBtn = document.getElementById('sample-data-btn');
+        const highlightedText = document.getElementById('highlighted-text');
+        const matchItems = document.getElementById('match-items');
+        const matchesContainer = document.getElementById('matches-container');
+        const regexExplanation = document.getElementById('regex-explanation');
+        const explanationItems = document.getElementById('explanation-items');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        const successMessage = document.getElementById('success-message');
+        const successText = document.getElementById('success-text');
+        const recentTests = document.getElementById('recent-tests');
+
+        // Page state
+        let currentPage = 'home';
+        const savedRegexes = JSON.parse(localStorage.getItem('savedRegexes')) || [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.querySelector('.theme-icon').innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeToggle.querySelector('.theme-icon').innerHTML = '<i class="fas fa-moon"></i>';
+            }
+
+            // Load recent tests
+            updateRecentTestsDisplay();
+
+            // Check URL for page hash
+            const hash = window.location.hash.substring(1);
+            if (hash && ['about', 'blog', 'privacy', 'contact', 'faq'].includes(hash)) {
+                showPage(hash);
+            }
+        });
+
+        // Theme toggle
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeToggle.querySelector('.theme-icon').innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.querySelector('.theme-icon').innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = this.getAttribute('href').replace('.html', '');
+                showPage(page);
+                window.location.hash = page;
+            });
+        });
+
+        function showPage(page) {
+            // Hide all pages
+            document.querySelectorAll('[id$="-page"]').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show selected page
+            if (page === 'index') page = 'home';
+            const pageElement = document.getElementById(`${page}-page`);
+            if (pageElement) {
+                pageElement.style.display = 'block';
+                currentPage = page;
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    if (link.getAttribute('href').replace('.html', '') === page) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+            
+            // For home page, ensure main content is visible
+            if (page === 'home') {
+                document.querySelector('main').style.display = 'block';
+            } else {
+                document.querySelector('main').style.display = 'none';
+            }
+        }
+
+        // Test regex when inputs change
+        regexInput.addEventListener('input', debounce(testRegex, 300));
+        testString.addEventListener('input', debounce(testRegex, 300));
+        globalOption.addEventListener('change', testRegex);
+        caseInsensitiveOption.addEventListener('change', testRegex);
+        multilineOption.addEventListener('change', testRegex);
+        dotallOption.addEventListener('change', testRegex);
+        testBtn.addEventListener('click', testRegex);
+
+        // Copy buttons
+        copyRegexBtn.addEventListener('click', () => {
+            copyToClipboard(regexInput.value, 'Regular expression copied to clipboard');
+        });
+
+        copyTextBtn.addEventListener('click', () => {
+            copyToClipboard(testString.value, 'Test text copied to clipboard');
+        });
+
+        copyResultsBtn.addEventListener('click', () => {
+            const results = getResultsText();
+            copyToClipboard(results, 'Results copied to clipboard');
+        });
+
+        // Clear button
+        clearBtn.addEventListener('click', () => {
+            regexInput.value = '';
+            testString.value = '';
+            highlightedText.innerHTML = '';
+            matchesContainer.style.display = 'none';
+            regexExplanation.style.display = 'none';
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        });
+
+        // Save button
+        saveBtn.addEventListener('click', () => {
+            const regex = regexInput.value.trim();
+            if (!regex) {
+                showError('Please enter a regular expression to save');
+                return;
+            }
+            
+            if (savedRegexes.some(r => r.pattern === regex)) {
+                showError('This pattern is already saved');
+                return;
+            }
+            
+            const name = prompt('Enter a name for this pattern:', `Pattern ${savedRegexes.length + 1}`);
+            if (name) {
+                savedRegexes.unshift({
+                    name: name,
+                    pattern: regex,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Keep only the last 10 saved patterns
+                if (savedRegexes.length > 10) {
+                    savedRegexes.pop();
+                }
+                
+                localStorage.setItem('savedRegexes', JSON.stringify(savedRegexes));
+                updateRecentTestsDisplay();
+                showSuccess('Pattern saved successfully');
+            }
+        });
+
+        // Sample data button
+        sampleDataBtn.addEventListener('click', () => {
+            const samples = [
+                "Hello world! This is a sample text with numbers 123 and symbols #$%.",
+                "Contact us at info@example.com or call 555-123-4567 for assistance.",
+                "The quick brown fox jumps over the lazy dog. The date is 2023-05-15.",
+                "Colors: #FF0000 (red), #00FF00 (green), #0000FF (blue), #FFFF00 (yellow).",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor 123-45-6789."
+            ];
+            
+            const randomSample = samples[Math.floor(Math.random() * samples.length)];
+            testString.value = randomSample;
+            testRegex();
+            showSuccess('Sample text loaded');
+        });
+
+        // Load example
+        function loadExample(id, name, regex) {
+            regexInput.value = regex;
+            testString.value = getExampleText(id);
+            testRegex();
+            showSuccess(`Loaded ${name} example`);
+        }
+
+        function getExampleText(id) {
+            const examples = {
+                email: 'Contact us at info@example.com or support@company.org for assistance.',
+                url: 'Visit our website at https://www.example.com/path or http://sub.domain.co.uk',
+                phone: 'Call us at 555-123-4567, (555) 987-6543, or +1 800 555 1234',
+                date: 'Dates: 2023-05-15, 1999-12-31, 2020-02-29 (leap day)',
+                'credit-card': 'Cards: 4111-1111-1111-1111, 5500 0000 0000 0004, 3400-000000-00009',
+                password: 'Strong passwords: P@ssw0rd, Secur3P@$$, Weak: password123',
+                html: '<div class="container"><p>Hello</p></div><img src="image.jpg"/>',
+                hex: 'Colors: #FF0000 (red), #00FF00 (green), #0000FF (blue), #FFFF00 (yellow)'
+            };
+            return examples[id] || 'Enter text to test against the regular expression';
+        }
+
+        // Update recent tests display
+        function updateRecentTestsDisplay() {
+            if (savedRegexes.length === 0) {
+                recentTests.innerHTML = '<p style="color: var(--text-light);">Your recent tests will appear here</p>';
+                return;
+            }
+            
+            recentTests.innerHTML = '';
+            savedRegexes.slice(0, 5).forEach((item, index) => {
+                const div = document.createElement('div');
+                div.style.marginBottom = '10px';
+                div.style.paddingBottom = '10px';
+                if (index < savedRegexes.length - 1) {
+                    div.style.borderBottom = '1px solid var(--border)';
+                }
+                
+                const name = document.createElement('div');
+                name.style.fontWeight = '500';
+                name.textContent = item.name;
+                
+                const pattern = document.createElement('div');
+                pattern.style.fontFamily = "'Fira Code', monospace";
+                pattern.style.fontSize = '0.8rem';
+                pattern.style.color = 'var(--text-light)';
+                pattern.style.margin = '5px 0';
+                pattern.textContent = item.pattern.length > 30 ? 
+                    item.pattern.substring(0, 30) + '...' : 
+                    item.pattern;
+                
+                const loadBtn = document.createElement('button');
+                loadBtn.textContent = 'Load';
+                loadBtn.style.background = 'none';
+                loadBtn.style.border = 'none';
+                loadBtn.style.color = 'var(--primary)';
+                loadBtn.style.cursor = 'pointer';
+                loadBtn.style.fontSize = '0.8rem';
+                loadBtn.style.padding = '0';
+                loadBtn.addEventListener('click', () => {
+                    regexInput.value = item.pattern;
+                    testRegex();
+                    showSuccess(`Loaded "${item.name}" pattern`);
+                });
+                
+                div.appendChild(name);
+                div.appendChild(pattern);
+                div.appendChild(loadBtn);
+                recentTests.appendChild(div);
+            });
+        }
+
+        // Debounce function to limit how often a function is called
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    func.apply(context, args);
+                }, wait);
+            };
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, successMsg) {
+            if (!text) {
+                showError('Nothing to copy');
+                return;
+            }
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showSuccess(successMsg);
+            }).catch(err => {
+                showError('Failed to copy text: ' + err);
+            });
+        }
+
+        // Get formatted results text
+        function getResultsText() {
+            let results = `Regex: ${regexInput.value}\n`;
+            results += `Test String: ${testString.value}\n\n`;
+            
+            const matches = document.querySelectorAll('.match-item');
+            if (matches.length > 0) {
+                results += `Found ${matches.length} match${matches.length !== 1 ? 'es' : ''}:\n\n`;
+                
+                matches.forEach(match => {
+                    const position = match.querySelector('.match-position').textContent;
+                    const fullMatch = match.querySelector('.match-highlight').textContent;
+                    
+                    results += `${position}\n`;
+                    results += `Full match: "${fullMatch}"\n`;
+                    
+                    const groups = match.querySelectorAll('.match-group');
+                    if (groups.length > 0) {
+                        results += 'Groups:\n';
+                        groups.forEach(group => {
+                            results += `  ${group.textContent}\n`;
+                        });
+                    }
+                    
+                    results += '\n';
+                });
+            } else {
+                results += 'No matches found.\n';
+            }
+            
+            return results;
+        }
+
+        // Show error message
+        function showError(msg) {
+            errorText.textContent = msg;
+            errorMessage.style.display = 'flex';
+            successMessage.style.display = 'none';
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show success message
+        function showSuccess(msg) {
+            successText.textContent = msg;
+            successMessage.style.display = 'flex';
+            errorMessage.style.display = 'none';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Main function to test the regex
+        function testRegex() {
+            const regexStr = regexInput.value.trim();
+            const text = testString.value;
+            
+            // Hide previous messages and results
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            matchesContainer.style.display = 'none';
+            regexExplanation.style.display = 'none';
+            
+            if (!regexStr) {
+                highlightedText.innerHTML = escapeHtml(text);
+                return;
+            }
+            
+            try {
+                // Build flags string
+                let flags = '';
+                if (globalOption.checked) flags += 'g';
+                if (caseInsensitiveOption.checked) flags += 'i';
+                if (multilineOption.checked) flags += 'm';
+                if (dotallOption.checked) flags += 's';
+                
+                const regex = new RegExp(regexStr, flags);
+                
+                // Test the regex
+                const matches = [];
+                let match;
+                while ((match = regex.exec(text)) !== null) {
+                    matches.push(match);
+                    if (!globalOption.checked) break; // Only first match if not global
+                }
+                
+                // Highlight matches in text
+                if (matches.length > 0) {
+                    highlightMatches(text, regex);
+                    displayMatchDetails(matches);
+                    showSuccess(`Found ${matches.length} match${matches.length !== 1 ? 'es' : ''}`);
+                } else {
+                    highlightedText.innerHTML = escapeHtml(text);
+                    showSuccess('No matches found');
+                }
+                
+                // Explain the regex pattern
+                explainRegex(regexStr);
+                regexExplanation.style.display = 'block';
+                
+            } catch (err) {
+                highlightedText.innerHTML = escapeHtml(text);
+                showError('Regex Error: ' + err.message);
+            }
+        }
+
+        // Highlight all matches in the text
+        function highlightMatches(text, regex) {
+            // Reset regex lastIndex for global search
+            if (regex.global) regex.lastIndex = 0;
+            
+            const escapedText = escapeHtml(text);
+            const highlighted = escapedText.replace(regex, match => 
+                `<span class="match-highlight">${escapeHtml(match)}</span>`
+            );
+            
+            highlightedText.innerHTML = highlighted || escapedText;
+        }
+
+        // Display detailed match information
+        function displayMatchDetails(matches) {
+            matchItems.innerHTML = '';
+            
+            matches.forEach((match, index) => {
+                const matchItem = document.createElement('div');
+                matchItem.className = 'match-item';
+                
+                const position = document.createElement('div');
+                position.className = 'match-position';
+                position.textContent = `Match ${index + 1} at position ${match.index}-${match.index + match[0].length}`;
+                matchItem.appendChild(position);
+                
+                const fullMatch = document.createElement('div');
+                fullMatch.innerHTML = `<strong>Full match:</strong> <span class="match-highlight">${escapeHtml(match[0])}</span>`;
+                matchItem.appendChild(fullMatch);
+                
+                if (match.length > 1) {
+                    const groups = document.createElement('div');
+                    groups.className = 'match-groups';
+                    groups.innerHTML = '<strong>Groups:</strong>';
+                    
+                    for (let i = 1; i < match.length; i++) {
+                        const group = document.createElement('span');
+                        group.className = 'match-group';
+                        group.innerHTML = `$${i}: <code>${escapeHtml(match[i] || 'undefined')}</code>`;
+                        groups.appendChild(group);
+                    }
+                    
+                    matchItem.appendChild(groups);
+                }
+                
+                matchItems.appendChild(matchItem);
+            });
+            
+            matchesContainer.style.display = 'block';
+        }
+
+        // Explain the regex pattern
+        function explainRegex(pattern) {
+            explanationItems.innerHTML = '';
+            
+            const explanations = [];
+            let i = 0;
+            
+            while (i < pattern.length) {
+                const char = pattern[i];
+                
+                // Check for escape sequences
+                if (char === '\\') {
+                    if (i + 1 < pattern.length) {
+                        const nextChar = pattern[i + 1];
+                        const explanation = getEscapeSequenceExplanation(nextChar);
+                        explanations.push({
+                            token: `\\${nextChar}`,
+                            explanation: explanation
+                        });
+                        i += 2;
+                    } else {
+                        explanations.push({
+                            token: '\\',
+                            explanation: 'Escaped backslash (literal backslash)'
+                        });
+                        i++;
+                    }
+                    continue;
+                }
+                
+                // Check for quantifiers
+                if (['*', '+', '?', '{'].includes(char)) {
+                    let quantifier = char;
+                    if (char === '{') {
+                        const end = pattern.indexOf('}', i);
+                        if (end !== -1) {
+                            quantifier = pattern.substring(i, end + 1);
+                            i = end + 1;
+                        } else {
+                            i++;
+                        }
+                    } else {
+                        i++;
+                    }
+                    
+                    explanations.push({
+                        token: quantifier,
+                        explanation: getQuantifierExplanation(quantifier)
+                    });
+                    continue;
+                }
+                
+                // Check for character classes
+                if (char === '[') {
+                    const end = pattern.indexOf(']', i);
+                    if (end !== -1) {
+                        const charClass = pattern.substring(i, end + 1);
+                        explanations.push({
+                            token: charClass,
+                            explanation: getCharacterClassExplanation(charClass)
+                        });
+                        i = end + 1;
+                    } else {
+                        explanations.push({
+                            token: char,
+                            explanation: 'Literal [ character'
+                        });
+                        i++;
+                    }
+                    continue;
+                }
+                
+                // Check for groups
+                if (char === '(') {
+                    // Check for non-capturing group
+                    if (i + 2 < pattern.length && pattern[i + 1] === '?' && pattern[i + 2] === ':') {
+                        const end = pattern.indexOf(')', i);
+                        if (end !== -1) {
+                            const group = pattern.substring(i, end + 1);
+                            explanations.push({
+                                token: group,
+                                explanation: 'Non-capturing group (does not create a backreference)'
+                            });
+                            i = end + 1;
+                        } else {
+                            explanations.push({
+                                token: char,
+                                explanation: 'Literal ( character'
+                            });
+                            i++;
+                        }
+                    } 
+                    // Check for lookahead/lookbehind
+                    else if (i + 2 < pattern.length && pattern[i + 1] === '?') {
+                        const type = pattern[i + 2] === '=' ? 'Positive lookahead' :
+                                    pattern[i + 2] === '!' ? 'Negative lookahead' :
+                                    pattern[i + 2] === '<' && i + 3 < pattern.length ?
+                                        (pattern[i + 3] === '=' ? 'Positive lookbehind' :
+                                         pattern[i + 3] === '!' ? 'Negative lookbehind' : '') : '';
+                        
+                        if (type) {
+                            const end = pattern.indexOf(')', i);
+                            if (end !== -1) {
+                                const group = pattern.substring(i, end + 1);
+                                explanations.push({
+                                    token: group,
+                                    explanation: type
+                                });
+                                i = end + 1;
+                            } else {
+                                explanations.push({
+                                    token: char,
+                                    explanation: 'Literal ( character'
+                                });
+                                i++;
+                            }
+                        } else {
+                            explanations.push({
+                                token: char,
+                                explanation: 'Literal ( character'
+                            });
+                            i++;
+                        }
+                    } 
+                    // Capturing group
+                    else {
+                        const end = pattern.indexOf(')', i);
+                        if (end !== -1) {
+                            const group = pattern.substring(i, end + 1);
+                            explanations.push({
+                                token: group,
+                                explanation: `Capturing group (creates backreference $${explanations.filter(e => e.explanation.includes('Capturing group')).length + 1})`
+                            });
+                            i = end + 1;
+                        } else {
+                            explanations.push({
+                                token: char,
+                                explanation: 'Literal ( character'
+                            });
+                            i++;
+                        }
+                    }
+                    continue;
+                }
+                
+                // Check for anchors
+                if (char === '^' || char === '$') {
+                    explanations.push({
+                        token: char,
+                        explanation: char === '^' ? 
+                            'Start of line (or start of string if multiline mode is off)' : 
+                            'End of line (or end of string if multiline mode is off)'
+                    });
+                    i++;
+                    continue;
+                }
+                
+                // Check for alternation
+                if (char === '|') {
+                    explanations.push({
+                        token: char,
+                        explanation: 'Alternation (OR)'
+                    });
+                    i++;
+                    continue;
+                }
+                
+                // Default to literal character
+                explanations.push({
+                    token: char,
+                    explanation: `Literal '${char}' character`
+                });
+                i++;
+            }
+            
+            // Display explanations
+            explanations.forEach(item => {
+                const explanationItem = document.createElement('div');
+                explanationItem.className = 'explanation-item';
+                
+                const tokenSpan = document.createElement('span');
+                tokenSpan.className = 'explanation-token';
+                tokenSpan.textContent = item.token;
+                
+                const explanationSpan = document.createElement('span');
+                explanationSpan.textContent = item.explanation;
+                
+                explanationItem.appendChild(tokenSpan);
+                explanationItem.appendChild(explanationSpan);
+                explanationItems.appendChild(explanationItem);
+            });
+        }
+
+        // Helper functions for regex explanation
+        function getEscapeSequenceExplanation(char) {
+            const explanations = {
+                'd': 'Digit (equivalent to [0-9])',
+                'D': 'Non-digit (equivalent to [^0-9])',
+                'w': 'Word character (equivalent to [a-zA-Z0-9_])',
+                'W': 'Non-word character (equivalent to [^a-zA-Z0-9_])',
+                's': 'Whitespace character (space, tab, newline, etc.)',
+                'S': 'Non-whitespace character',
+                'b': 'Word boundary',
+                'B': 'Non-word boundary',
+                'n': 'Newline character',
+                'r': 'Carriage return character',
+                't': 'Tab character',
+                'f': 'Form feed character',
+                'v': 'Vertical tab character',
+                '0': 'Null character',
+                'c': 'Control character (e.g., \\cM is control-M)',
+                'x': 'Hexadecimal escape (e.g., \\x41 is "A")',
+                'u': 'Unicode escape (e.g., \\u0041 is "A")',
+                'p': 'Unicode property (e.g., \\p{L} for any letter)',
+                'P': 'Negated Unicode property',
+                'k': 'Named backreference (e.g., \\k<name>)'
+            };
+            
+            return explanations[char] || `Escaped '${char}' (literal character)`;
+        }
+
+        function getQuantifierExplanation(quantifier) {
+            if (quantifier === '*') return 'Zero or more occurrences (greedy)';
+            if (quantifier === '+') return 'One or more occurrences (greedy)';
+            if (quantifier === '?') return 'Zero or one occurrence (greedy)';
+            if (quantifier === '*?') return 'Zero or more occurrences (lazy)';
+            if (quantifier === '+?') return 'One or more occurrences (lazy)';
+            if (quantifier === '??') return 'Zero or one occurrence (lazy)';
+            
+            if (quantifier.startsWith('{')) {
+                const parts = quantifier.slice(1, -1).split(',');
+                if (parts.length === 1) {
+                    return `Exactly ${parts[0]} occurrences`;
+                } else if (parts[1] === '') {
+                    return `At least ${parts[0]} occurrences`;
+                } else {
+                    return `Between ${parts[0]} and ${parts[1]} occurrences`;
+                }
+            }
+            
+            return 'Quantifier';
+        }
+
+        function getCharacterClassExplanation(charClass) {
+            if (charClass === '[]') return 'Empty character class (matches nothing)';
+            if (charClass === '[^]') return 'Negated empty character class (matches any character)';
+            
+            const negated = charClass.startsWith('[^');
+            const chars = charClass.slice(negated ? 2 : 1, -1);
+            
+            let explanation = negated ? 'Negated character class (matches any character NOT in: ' : 
+                                       'Character class (matches any character in: ';
+            
+            // Simplify explanation for common character classes
+            if (chars === 'a-zA-Z') return explanation + 'any letter)';
+            if (chars === '0-9') return explanation + 'any digit)';
+            if (chars === 'a-zA-Z0-9_') return explanation + 'any word character)';
+            
+            // Handle ranges and individual characters
+            let ranges = [];
+            let i = 0;
+            while (i < chars.length) {
+                if (i + 2 < chars.length && chars[i + 1] === '-') {
+                    ranges.push(`${chars[i]}-${chars[i + 2]}`);
+                    i += 3;
+                } else {
+                    ranges.push(chars[i]);
+                    i++;
+                }
+            }
+            
+            explanation += ranges.join(', ') + ')';
+            return explanation;
+        }
+
+        // Utility function to escape HTML
+        function escapeHtml(unsafe) {
+            if (typeof unsafe !== 'string') return unsafe;
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Initial test if there's any content
+        if (regexInput.value || testString.value) {
+            testRegex();
+        }
+    </script>
+</body>
+</html>
