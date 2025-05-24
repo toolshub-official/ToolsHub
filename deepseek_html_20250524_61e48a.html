@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Agent Parser – Identify Your Browser, OS & Device</title>
+    <meta name="description" content="Free client-side User Agent parsing tool. Detect browser, operating system, device type and more without any external API calls.">
+    <meta property="og:title" content="User Agent Parser – Identify Your Browser, OS & Device">
+    <meta property="og:description" content="Free client-side User Agent parsing tool. Detect browser, operating system, device type and more without any external API calls.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com">
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.35/src/ua-parser.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --card-bg: #ffffff;
+            --toast-bg: #1e293b;
+            --toast-text: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --text: #e2e8f0;
+            --text-light: #94a3b8;
+            --bg: #0f172a;
+            --bg-secondary: #1e293b;
+            --border: #334155;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --card-bg: #1e293b;
+            --toast-bg: #e2e8f0;
+            --toast-text: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: var(--bg-secondary);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .ad-container {
+            margin: 1.5rem 0;
+            background-color: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px dashed var(--border);
+        }
+
+        .ad-container p {
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .tool-container {
+            background-color: var(--bg-secondary);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .input-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: var(--bg);
+            color: var(--text);
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .results {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .result-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            margin-bottom: 0.5rem;
+        }
+
+        .card p strong {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card p span {
+            color: var(--text-light);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: var(--toast-bg);
+            color: var(--toast-text);
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .full-ua {
+            margin-top: 2rem;
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            word-break: break-all;
+        }
+
+        .full-ua h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .full-ua p {
+            font-family: monospace;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+                margin-top: 1rem;
+                display: none;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0;
+                padding: 0.5rem 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Blog and article styles */
+        .blog-section, .article-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .blog-grid, .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card, .article-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover, .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image, .article-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content, .article-content {
+            padding: 1.5rem;
+        }
+
+        .blog-content h3, .article-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .blog-meta, .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-excerpt, .article-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* About page styles */
+        .about-section {
+            padding: 3rem 0;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            text-align: center;
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .team-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary);
+        }
+
+        .team-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ page styles */
+        .faq-section {
+            padding: 3rem 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-secondary);
+        }
+
+        .faq-question:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        /* Contact page styles */
+        .contact-section {
+            padding: 3rem 0;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .info-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            color: var(--text-light);
+        }
+
+        /* Privacy Policy page styles */
+        .privacy-section {
+            padding: 3rem 0;
+        }
+
+        .privacy-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .privacy-container h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-container h3 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            color: var(--text);
+        }
+
+        .privacy-container p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .privacy-container ul {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .privacy-container ul li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">UA Parser</div>
+            <button class="mobile-menu-btn">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" aria-label="Toggle dark mode">🌓</button>
+        </div>
+    </header>
+
+    <main id="home" class="container">
+        <section class="hero">
+            <h1>User Agent Parser Tool</h1>
+            <p>Detect browser, operating system, device type and more from any user agent string. Works entirely in your browser with no external API calls.</p>
+        </section>
+
+        <div class="ad-container">
+            <p>Advertisement</p>
+            <!-- Google AdSense Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section class="tool-container">
+            <div class="input-group">
+                <label for="user-agent-input">Enter or paste a User Agent string:</label>
+                <textarea id="user-agent-input" placeholder="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"></textarea>
+            </div>
+
+            <div class="button-group">
+                <button id="parse-btn" class="btn btn-primary">Parse User Agent</button>
+                <button id="detect-btn" class="btn btn-secondary">Detect My Browser</button>
+                <button id="clear-btn" class="btn btn-secondary">Clear</button>
+            </div>
+
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Parsing user agent...</p>
+            </div>
+
+            <div class="results">
+                <h2>Parsing Results</h2>
+                <div class="result-cards">
+                    <div class="card">
+                        <h3>🌐 Browser</h3>
+                        <p><strong>Name:</strong> <span id="browser-name">-</span></p>
+                        <p><strong>Version:</strong> <span id="browser-version">-</span></p>
+                        <p><strong>Major:</strong> <span id="browser-major">-</span></p>
+                    </div>
+                    <div class="card">
+                        <h3>💻 Operating System</h3>
+                        <p><strong>Name:</strong> <span id="os-name">-</span></p>
+                        <p><strong>Version:</strong> <span id="os-version">-</span></p>
+                    </div>
+                    <div class="card">
+                        <h3>📱 Device</h3>
+                        <p><strong>Type:</strong> <span id="device-type">-</span></p>
+                        <p><strong>Vendor:</strong> <span id="device-vendor">-</span></p>
+                        <p><strong>Model:</strong> <span id="device-model">-</span></p>
+                    </div>
+                </div>
+
+                <div class="full-ua">
+                    <h3>Full User Agent String</h3>
+                    <p id="full-ua-text"></p>
+                </div>
+
+                <div class="share-buttons">
+                    <button id="copy-btn" class="btn btn-secondary">Copy Results</button>
+                    <button id="share-btn" class="btn btn-secondary">Generate Share Link</button>
+                    <button id="json-btn" class="btn btn-secondary">View as JSON</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="ad-container">
+            <p>Advertisement</p>
+            <!-- Google AdSense Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="YYYYYYYYYY"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section id="blog" class="blog-section">
+            <div class="section-title">
+                <h2>Latest Blog Posts</h2>
+                <p>Learn more about user agents, browser detection, and web technologies</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <img src="https://source.unsplash.com/random/600x400/?browser" alt="Browser Technology" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>June 15, 2023</span>
+                            <span>5 min read</span>
+                        </div>
+                        <h3>Understanding User Agent Strings</h3>
+                        <p class="blog-excerpt">Learn how to decode the information hidden in user agent strings and what it means for web development.</p>
+                        <a href="#" class="read-more">Read more →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="https://source.unsplash.com/random/600x400/?technology" alt="Web Technology" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>June 10, 2023</span>
+                            <span>4 min read</span>
+                        </div>
+                        <h3>The Evolution of Browser Detection</h3>
+                        <p class="blog-excerpt">From simple browser sniffing to modern feature detection - how browser identification has changed over time.</p>
+                        <a href="#" class="read-more">Read more →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="https://source.unsplash.com/random/600x400/?privacy" alt="Privacy" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>June 5, 2023</span>
+                            <span>6 min read</span>
+                        </div>
+                        <h3>Privacy Concerns with User Agent Strings</h3>
+                        <p class="blog-excerpt">How much information does your browser reveal and what are the privacy implications?</p>
+                        <a href="#" class="read-more">Read more →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="ad-container">
+            <p>Advertisement</p>
+            <!-- Google AdSense Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="ZZZZZZZZZZ"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section id="about" class="about-section">
+            <div class="about-content">
+                <h2>About Our User Agent Parser Tool</h2>
+                <p>Our User Agent Parser Tool is a free, client-side solution for analyzing and decoding user agent strings. Unlike many other tools that send your data to external servers, our tool processes everything directly in your browser for enhanced privacy and faster results.</p>
+                <p>The tool uses the popular open-source UA-Parser-JS library to accurately identify browsers, operating systems, and device types from any user agent string. Whether you're a web developer debugging browser-specific issues, a marketer analyzing visitor demographics, or just curious about what information your browser reveals, our tool provides clear, detailed results.</p>
+                <p>We're committed to providing free, privacy-focused tools for the web community. Our parser doesn't store or log any user agent strings you analyze, and there are no tracking cookies or hidden data collection.</p>
+                
+                <h3>Our Team</h3>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="https://source.unsplash.com/random/300x300/?portrait,man" alt="Team Member" class="team-image">
+                        <h3>John Smith</h3>
+                        <p>Lead Developer</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://source.unsplash.com/random/300x300/?portrait,woman" alt="Team Member" class="team-image">
+                        <h3>Sarah Johnson</h3>
+                        <p>UX Designer</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://source.unsplash.com/random/300x300/?portrait,man,beard" alt="Team Member" class="team-image">
+                        <h3>Michael Chen</h3>
+                        <p>Web Security</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our User Agent Parser Tool</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is a user agent string?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A user agent string is a text that web browsers and other applications send to websites to identify themselves. It typically includes information about the browser name and version, operating system, device type, and sometimes additional details about the rendering engine or capabilities.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does this parser differ from other online tools?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Most online user agent parsers send the string you enter to their servers for processing. Our tool works entirely in your browser using JavaScript, which means your data never leaves your computer. This provides better privacy and faster results.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a limit to how many user agents I can parse?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, there are no limits. Since the parsing happens in your browser, you can analyze as many user agent strings as you need without any restrictions.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I use this tool programmatically?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>While this web interface is designed for manual use, you can integrate the same UA-Parser-JS library we use into your own JavaScript projects. The library is open-source and available on GitHub.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Why does my user agent show incorrect information?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Some browsers or extensions modify the user agent string for compatibility or privacy reasons. Additionally, new browser versions or devices might not be immediately recognized until the parser library is updated.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Have questions or feedback? We'd love to hear from you</p>
+            </div>
+            <div class="contact-container">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+
+                <div class="contact-info">
+                    <div class="info-card">
+                        <i>📧</i>
+                        <h3>Email</h3>
+                        <p>info@uaparser.example</p>
+                    </div>
+                    <div class="info-card">
+                        <i>📍</i>
+                        <h3>Location</h3>
+                        <p>123 Tech Street, San Francisco, CA</p>
+                    </div>
+                    <div class="info-card">
+                        <i>📞</i>
+                        <h3>Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="privacy" class="privacy-section">
+            <div class="privacy-container">
+                <h2>Privacy Policy</h2>
+                <p>Last updated: June 15, 2023</p>
+                
+                <h3>1. Information We Collect</h3>
+                <p>Our User Agent Parser Tool processes user agent strings entirely in your browser. We do not collect, store, or transmit the user agent strings you analyze to any servers.</p>
+                
+                <h3>2. Cookies and Tracking</h3>
+                <p>We use only essential cookies for site functionality, such as remembering your theme preference (light/dark mode). We do not use tracking cookies or any form of analytics that would identify individual users.</p>
+                
+                <h3>3. Third-Party Services</h3>
+                <p>The tool includes Google AdSense advertisements to support the free service. AdSense may use cookies to personalize ads based on your browsing history across sites. You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank">Google's Ads Settings</a>.</p>
+                
+                <h3>4. Data Security</h3>
+                <p>Since all parsing occurs locally in your browser, your data never leaves your device unless you explicitly choose to share results via the share link feature.</p>
+                
+                <h3>5. Changes to This Policy</h3>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+                
+                <h3>6. Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact us at privacy@uaparser.example.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>UA Parser</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://github.com/faisalman/ua-parser-js" target="_blank">UA-Parser-JS</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent" target="_blank">MDN Documentation</a></li>
+                        <li><a href="https://www.w3.org/TR/uaparser/" target="_blank">W3C Standards</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#">Report an Issue</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 UA Parser Tool. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // DOM Elements
+        const userAgentInput = document.getElementById('user-agent-input');
+        const parseBtn = document.getElementById('parse-btn');
+        const detectBtn = document.getElementById('detect-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const jsonBtn = document.getElementById('json-btn');
+        const resultsSection = document.querySelector('.results');
+        const loadingSection = document.querySelector('.loading');
+        const toast = document.getElementById('toast');
+        const themeToggle = document.querySelector('.theme-toggle');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        // Initialize UA Parser
+        const parser = new UAParser();
+
+        // Theme Management
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        }
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            nav.classList.toggle('active');
+        }
+
+        // FAQ Accordion
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                
+                // Close all answers first
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.classList.remove('active');
+                    ans.previousElementSibling.querySelector('span:last-child').textContent = '+';
+                });
+                
+                // Open current answer if it wasn't active
+                if (!isActive) {
+                    answer.classList.add('active');
+                    question.querySelector('span:last-child').textContent = '-';
+                }
+            });
+        });
+
+        // Parse User Agent
+        function parseUserAgent(uaString) {
+            loadingSection.classList.add('active');
+            resultsSection.classList.remove('active');
+
+            setTimeout(() => {
+                parser.setUA(uaString);
+                const result = parser.getResult();
+
+                // Update UI with results
+                document.getElementById('browser-name').textContent = result.browser.name || 'Unknown';
+                document.getElementById('browser-version').textContent = result.browser.version || '-';
+                document.getElementById('browser-major').textContent = result.browser.major || '-';
+                
+                document.getElementById('os-name').textContent = result.os.name || 'Unknown';
+                document.getElementById('os-version').textContent = result.os.version || '-';
+                
+                document.getElementById('device-type').textContent = result.device.type || 'Desktop';
+                document.getElementById('device-vendor').textContent = result.device.vendor || '-';
+                document.getElementById('device-model').textContent = result.device.model || '-';
+                
+                document.getElementById('full-ua-text').textContent = uaString;
+
+                loadingSection.classList.remove('active');
+                resultsSection.classList.add('active');
+            }, 500);
+        }
+
+        // Copy Results to Clipboard
+        function copyResults() {
+            const browserName = document.getElementById('browser-name').textContent;
+            const browserVersion = document.getElementById('browser-version').textContent;
+            const osName = document.getElementById('os-name').textContent;
+            const osVersion = document.getElementById('os-version').textContent;
+            const deviceType = document.getElementById('device-type').textContent;
+            const uaString = document.getElementById('full-ua-text').textContent;
+
+            const textToCopy = `User Agent Analysis:
+Browser: ${browserName} ${browserVersion}
+OS: ${osName} ${osVersion}
+Device: ${deviceType}
+User Agent String: ${uaString}`;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast('Results copied to clipboard!');
+            });
+        }
+
+        // Generate Share Link
+        function generateShareLink() {
+            const uaString = encodeURIComponent(userAgentInput.value.trim());
+            const url = `${window.location.origin}${window.location.pathname}?ua=${uaString}`;
+            
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('Share link copied to clipboard!');
+            });
+        }
+
+        // Show JSON View
+        function showJsonView() {
+            parser.setUA(userAgentInput.value.trim());
+            const result = parser.getResult();
+            
+            const jsonStr = JSON.stringify(result, null, 2);
+            document.getElementById('full-ua-text').textContent = jsonStr;
+            
+            showToast('Showing results in JSON format');
+        }
+
+        // Show Toast Notification
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Check for UA in URL parameters
+        function checkUrlForUa() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const uaParam = urlParams.get('ua');
+            
+            if (uaParam) {
+                const decodedUa = decodeURIComponent(uaParam);
+                userAgentInput.value = decodedUa;
+                parseUserAgent(decodedUa);
+            }
+        }
+
+        // Event Listeners
+        parseBtn.addEventListener('click', () => {
+            const uaString = userAgentInput.value.trim();
+            if (uaString) {
+                parseUserAgent(uaString);
+            } else {
+                showToast('Please enter a user agent string');
+            }
+        });
+
+        detectBtn.addEventListener('click', () => {
+            const currentUa = navigator.userAgent;
+            userAgentInput.value = currentUa;
+            parseUserAgent(currentUa);
+        });
+
+        clearBtn.addEventListener('click', () => {
+            userAgentInput.value = '';
+            resultsSection.classList.remove('active');
+        });
+
+        copyBtn.addEventListener('click', copyResults);
+        shareBtn.addEventListener('click', generateShareLink);
+        jsonBtn.addEventListener('click', showJsonView);
+        themeToggle.addEventListener('click', toggleTheme);
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Real-time parsing as user types
+        let typingTimer;
+        userAgentInput.addEventListener('input', () => {
+            clearTimeout(typingTimer);
+            
+            const uaString = userAgentInput.value.trim();
+            if (uaString.length > 10) {
+                typingTimer = setTimeout(() => {
+                    parseUserAgent(uaString);
+                }, 1000);
+            }
+        });
+
+        // Initialize
+        checkUrlForUa();
+    </script>
+</body>
+</html>
