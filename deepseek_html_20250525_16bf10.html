@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- SEO Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Formatter | Beautify & Minify JS Code Online</title>
+    <meta name="description" content="Free online JavaScript formatter with syntax highlighting. Beautify, minify, and format JS code instantly in your browser with no API calls required.">
+    <meta name="keywords" content="JavaScript formatter, JS beautifier, code prettifier, minify JavaScript, format JS online">
+    <meta name="author" content="CodeFormat Pro">
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="JavaScript Formatter Tool">
+    <meta property="og:description" content="Beautify and format your JavaScript code online with syntax highlighting">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jsformatter.example.com">
+    <meta property="og:image" content="https://jsformatter.example.com/assets/social-preview.jpg">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔹</text></svg>">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/nord.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #6b7280;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --lighter: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --dark: #f8fafc;
+            --darker: #e2e8f0;
+            --light: #1e293b;
+            --lighter: #0f172a;
+            --secondary: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background-color: rgba(99, 102, 241, 0.1);
+        }
+
+        [data-theme="dark"] .nav-links a {
+            color: var(--darker);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+            color: var(--dark);
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(99, 102, 241, 0.1);
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            color: var(--darker);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        [data-theme="dark"] .mobile-menu-btn {
+            color: var(--darker);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            background: linear-gradient(90deg, var(--primary), #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Ad Container */
+        .ad-container {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: var(--lighter);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        /* Editor Section */
+        .editor-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 1024px) {
+            .editor-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .editor-container, .preview-container {
+            background-color: var(--lighter);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .editor-header, .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .editor-actions, .preview-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0d9f6e;
+        }
+
+        .btn-error {
+            background-color: var(--error);
+            color: white;
+        }
+
+        .btn-error:hover {
+            background-color: #dc3030;
+        }
+
+        /* CodeMirror Customization */
+        .CodeMirror {
+            height: 400px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Settings Panel */
+        .settings-panel {
+            background-color: var(--lighter);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .settings-title {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .setting-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .setting-group label {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .setting-group select, .setting-group input {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: var(--light);
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .setting-group select,
+        [data-theme="dark"] .setting-group input {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .setting-group select:focus, .setting-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Features Section */
+        .features-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--dark);
+        }
+
+        [data-theme="dark"] .section-title {
+            color: var(--darker);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background-color: var(--lighter);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        [data-theme="dark"] .feature-title {
+            color: var(--darker);
+        }
+
+        .feature-desc {
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        [data-theme="dark"] .tabs {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--secondary);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            color: var(--primary);
+        }
+
+        .tab.active:after {
+            transform: scaleX(1);
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Blog Preview */
+        .blog-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .blog-card {
+            background-color: var(--lighter);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-date {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .blog-title {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        [data-theme="dark"] .blog-title {
+            color: var(--darker);
+        }
+
+        .blog-excerpt {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background-color: var(--lighter);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        [data-theme="dark"] .form-label {
+            color: var(--darker);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: var(--light);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .form-input {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background-color: var(--lighter);
+            border-radius: var(--border-radius);
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .faq-question {
+            color: var(--darker);
+        }
+
+        .faq-question:hover {
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--lighter);
+            padding: 40px 0;
+            margin-top: 80px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] footer {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        [data-theme="dark"] .footer-column h3 {
+            color: var(--darker);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--secondary);
+        }
+
+        [data-theme="dark"] .footer-bottom {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        [data-theme="dark"] .toast {
+            background-color: var(--darker);
+            color: var(--light);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            background-color: var(--success);
+        }
+
+        .toast-error {
+            background-color: var(--error);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--lighter);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow-md);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 100;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .editor-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-4 {
+            margin-top: 16px;
+        }
+
+        .mb-4 {
+            margin-bottom: 16px;
+        }
+
+        .py-8 {
+            padding-top: 32px;
+            padding-bottom: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🔹</span>
+                <span>JS Formatter</span>
+            </a>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="about-us.html">About Us</a>
+                <a href="blog.html">Blog</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact-us.html">Contact</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="light-icon">🌓</span>
+                    <span class="dark-icon" style="display: none;">🌞</span>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>JavaScript Code Formatter</h1>
+                <p>Beautify, minify, and format your JavaScript code with syntax highlighting. Works entirely in your browser with no API calls required.</p>
+                
+                <!-- Top Ad Banner -->
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_TOP_AD_SLOT"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </section>
+
+            <!-- Settings Panel -->
+            <section class="settings-panel">
+                <h3 class="settings-title">
+                    <span>⚙️</span> Formatting Options
+                </h3>
+                <div class="settings-grid">
+                    <div class="setting-group">
+                        <label for="indentSize">Indentation</label>
+                        <select id="indentSize">
+                            <option value="2">2 Spaces</option>
+                            <option value="4" selected>4 Spaces</option>
+                            <option value="tab">Tabs</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="lineWrap">Line Wrapping</label>
+                        <select id="lineWrap">
+                            <option value="false">Off</option>
+                            <option value="true">On</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="semicolons">Semicolons</label>
+                        <select id="semicolons">
+                            <option value="true" selected>Add</option>
+                            <option value="false">Omit</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="quoteStyle">Quotes</label>
+                        <select id="quoteStyle">
+                            <option value="single" selected>Single</option>
+                            <option value="double">Double</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Editor Section -->
+            <section class="editor-section">
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <h3>Input JavaScript</h3>
+                        <div class="editor-actions">
+                            <button class="btn btn-error btn-sm" id="clearCode">
+                                <span>🗑️</span> Clear
+                            </button>
+                        </div>
+                    </div>
+                    <textarea id="codeInput" style="display: none;">// Paste your JavaScript code here
+function example() {
+  console.log('Hello World');
+  return {
+    name: 'John Doe',
+    age: 30,
+    hobbies: ['coding', 'reading', 'gaming']
+  };
+}</textarea>
+                </div>
+
+                <div class="preview-container">
+                    <div class="editor-header">
+                        <h3>Formatted Output</h3>
+                        <div class="preview-actions">
+                            <button class="btn btn-success btn-sm" id="copyCode">
+                                <span>📋</span> Copy
+                            </button>
+                            <button class="btn btn-primary btn-sm" id="downloadCode">
+                                <span>💾</span> Download
+                            </button>
+                        </div>
+                    </div>
+                    <textarea id="codeOutput" style="display: none;"></textarea>
+                </div>
+            </section>
+
+            <!-- Format Button -->
+            <div class="text-center mt-4">
+                <button class="btn btn-primary" id="formatBtn" style="padding: 12px 24px; font-size: 1.1rem;">
+                    <span>✨</span> Format JavaScript
+                </button>
+            </div>
+
+            <!-- Middle Ad Banner -->
+            <div class="ad-container mt-8">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                     data-ad-slot="YOUR_MIDDLE_AD_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <h2 class="section-title">Why Use Our JavaScript Formatter?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Lightning Fast</h3>
+                        <p class="feature-desc">Format your code instantly with our optimized processing engine that works entirely in your browser.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3 class="feature-title">Privacy Focused</h3>
+                        <p class="feature-desc">Your code never leaves your browser. No server processing means complete confidentiality.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3 class="feature-title">Works Offline</h3>
+                        <p class="feature-desc">After the first load, you can use the tool without an internet connection.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Navigation -->
+            <div class="tabs">
+                <div class="tab active" data-tab="about">About</div>
+                <div class="tab" data-tab="blog">Blog</div>
+                <div class="tab" data-tab="faq">FAQ</div>
+                <div class="tab" data-tab="contact">Contact</div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content active" id="about">
+                <h2>About Our JavaScript Formatter</h2>
+                <p>Our JavaScript Formatter is a free online tool designed to help developers clean up and standardize their JavaScript code. Whether you're working with minified code that needs to be readable or just want to enforce consistent formatting across your team, our tool makes it easy.</p>
+                <p>The formatter supports all modern JavaScript syntax including ES6+ features, JSX, TypeScript, and more. It's built with performance in mind and processes your code entirely in your browser for maximum privacy.</p>
+                
+                <div class="mt-4">
+                    <h3>How It Works</h3>
+                    <p>The tool uses Prettier, the industry-standard code formatter, running directly in your browser. This means:</p>
+                    <ul style="margin-left: 20px; margin-top: 8px;">
+                        <li>No code is sent to any server</li>
+                        <li>No network requests after initial page load</li>
+                        <li>Instant formatting with no waiting</li>
+                        <li>Works even without internet connection</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content" id="blog">
+                <h2>Latest Articles</h2>
+                <p>Explore our blog for JavaScript tips, tricks, and best practices.</p>
+                
+                <div class="blog-preview">
+                    <div class="blog-card">
+                        <img src="https://via.placeholder.com/600x400/6366f1/ffffff?text=JavaScript+Tips" alt="JavaScript Tips" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-date">June 15, 2023</div>
+                            <h3 class="blog-title">10 JavaScript Formatting Best Practices</h3>
+                            <p class="blog-excerpt">Learn the most important JavaScript formatting rules to make your code more readable and maintainable.</p>
+                            <a href="#" class="btn btn-outline">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Code+Quality" alt="Code Quality" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-date">May 28, 2023</div>
+                            <h3 class="blog-title">Why Consistent Code Formatting Matters</h3>
+                            <p class="blog-excerpt">Discover how consistent code formatting can improve your team's productivity and reduce bugs.</p>
+                            <a href="#" class="btn btn-outline">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://via.placeholder.com/600x400/a855f7/ffffff?text=ES6+Features" alt="ES6 Features" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-date">April 10, 2023</div>
+                            <h3 class="blog-title">Modern JavaScript Features You Should Use</h3>
+                            <p class="blog-excerpt">Explore the latest JavaScript features that can make your code cleaner and more efficient.</p>
+                            <a href="#" class="btn btn-outline">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog Ad Banner -->
+                <div class="ad-container mt-8">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_BLOG_AD_SLOT"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <div class="tab-content" id="faq">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is my JavaScript code sent to a server?</span>
+                        <span>➕</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, all processing happens entirely in your browser. Your code never leaves your computer, ensuring complete privacy.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Does this tool work offline?</span>
+                        <span>➕</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! After the initial page load, all the required libraries are cached by your browser, allowing you to use the formatter without an internet connection.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What JavaScript versions does this support?</span>
+                        <span>➕</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our formatter supports all modern JavaScript syntax including ES6+ features. It also handles JSX (React) and can be configured to work with TypeScript.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I format minified JavaScript code?</span>
+                        <span>➕</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! Our tool is perfect for making minified code readable again. Just paste your minified code and click format.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a limit to code size?</span>
+                        <span>➕</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>There's no hard limit, but very large files (10,000+ lines) may slow down your browser since processing happens client-side.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="contact">
+                <h2 class="text-center">Contact Us</h2>
+                <p class="text-center">Have questions or suggestions? We'd love to hear from you!</p>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-input" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>JS Formatter</h3>
+                    <p>The ultimate tool for formatting and beautifying your JavaScript code online.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="about-us.html">About Us</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <div class="footer-links">
+                        <a href="faq.html">FAQ</a>
+                        <a href="contact-us.html">Contact</a>
+                        <a href="#">GitHub</a>
+                        <a href="#">API Documentation</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 JS Formatter Tool. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Load required libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.7.1/standalone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.7.1/parser-babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.7.1/parser-typescript.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize CodeMirror editors
+            const codeInput = CodeMirror.fromTextArea(document.getElementById('codeInput'), {
+                mode: 'javascript',
+                theme: 'default',
+                lineNumbers: true,
+                matchBrackets: true,
+                autoCloseBrackets: true,
+                indentUnit: 4,
+                lineWrapping: false,
+                extraKeys: {
+                    "Tab": function(cm) {
+                        if (cm.somethingSelected()) {
+                            cm.indentSelection("add");
+                        } else {
+                            cm.replaceSelection(cm.getOption("indentWithTabs") ? "\t" :
+                                Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
+                        }
+                    }
+                }
+            });
+
+            const codeOutput = CodeMirror.fromTextArea(document.getElementById('codeOutput'), {
+                mode: 'javascript',
+                theme: 'default',
+                lineNumbers: true,
+                matchBrackets: true,
+                readOnly: true,
+                lineWrapping: false
+            });
+
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            
+            // Set initial theme
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                enableDarkMode();
+            }
+            
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            function toggleTheme() {
+                if (document.body.getAttribute('data-theme') === 'dark') {
+                    disableDarkMode();
+                } else {
+                    enableDarkMode();
+                }
+            }
+            
+            function enableDarkMode() {
+                document.body.setAttribute('data-theme', 'dark');
+                codeInput.setOption('theme', 'dracula');
+                codeOutput.setOption('theme', 'dracula');
+                themeToggle.querySelector('.light-icon').style.display = 'none';
+                themeToggle.querySelector('.dark-icon').style.display = 'inline';
+                localStorage.setItem('theme', 'dark');
+            }
+            
+            function disableDarkMode() {
+                document.body.removeAttribute('data-theme');
+                codeInput.setOption('theme', 'default');
+                codeOutput.setOption('theme', 'default');
+                themeToggle.querySelector('.light-icon').style.display = 'inline';
+                themeToggle.querySelector('.dark-icon').style.display = 'none';
+                localStorage.setItem('theme', 'light');
+            }
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Tab navigation
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // FAQ accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const item = question.parentElement;
+                    item.classList.toggle('active');
+                    
+                    // Toggle icon
+                    const icon = question.querySelector('span:last-child');
+                    icon.textContent = item.classList.contains('active') ? '➖' : '➕';
+                });
+            });
+
+            // Format button
+            document.getElementById('formatBtn').addEventListener('click', formatCode);
+
+            // Clear button
+            document.getElementById('clearCode').addEventListener('click', () => {
+                codeInput.setValue('');
+                codeOutput.setValue('');
+                showToast('Editor cleared');
+            });
+
+            // Copy button
+            document.getElementById('copyCode').addEventListener('click', () => {
+                const formattedCode = codeOutput.getValue();
+                if (formattedCode.trim() === '') {
+                    showToast('No code to copy', 'error');
+                    return;
+                }
+                
+                navigator.clipboard.writeText(formattedCode).then(() => {
+                    showToast('Code copied to clipboard', 'success');
+                }).catch(err => {
+                    showToast('Failed to copy code', 'error');
+                    console.error('Failed to copy code:', err);
+                });
+            });
+
+            // Download button
+            document.getElementById('downloadCode').addEventListener('click', () => {
+                const formattedCode = codeOutput.getValue();
+                if (formattedCode.trim() === '') {
+                    showToast('No code to download', 'error');
+                    return;
+                }
+                
+                const blob = new Blob([formattedCode], { type: 'text/javascript' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'formatted-code.js';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('Code downloaded', 'success');
+            });
+
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    // In a real implementation, you would send the form data to a server
+                    showToast('Message sent successfully!', 'success');
+                    contactForm.reset();
+                });
+            }
+
+            // File input handling
+            document.getElementById('browseFiles').addEventListener('click', () => {
+                document.getElementById('fileInput').click();
+            });
+
+            document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+            // Drag and drop handling
+            const dropArea = document.getElementById('dropArea');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                dropArea.classList.add('highlight');
+            }
+
+            function unhighlight() {
+                dropArea.classList.remove('highlight');
+            }
+
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            function handleFileSelect(e) {
+                const files = e.target.files;
+                handleFiles(files);
+            }
+
+            function handleFiles(files) {
+                if (files.length === 0) return;
+                
+                const file = files[0];
+                if (!file.name.endsWith('.js') && !file.name.endsWith('.txt')) {
+                    showToast('Please select a .js or .txt file', 'error');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    codeInput.setValue(content);
+                    showToast(`Loaded ${file.name}`, 'success');
+                };
+                reader.readAsText(file);
+            }
+
+            // Format code function
+            function formatCode() {
+                const code = codeInput.getValue();
+                if (code.trim() === '') {
+                    showToast('Please enter some JavaScript code', 'error');
+                    return;
+                }
+                
+                try {
+                    const indentSize = document.getElementById('indentSize').value;
+                    const lineWrap = document.getElementById('lineWrap').value === 'true';
+                    const semicolons = document.getElementById('semicolons').value === 'true';
+                    const quoteStyle = document.getElementById('quoteStyle').value;
+                    
+                    const options = {
+                        parser: 'babel',
+                        plugins: prettierPlugins,
+                        printWidth: lineWrap ? 80 : Infinity,
+                        tabWidth: indentSize === 'tab' ? 2 : parseInt(indentSize),
+                        useTabs: indentSize === 'tab',
+                        semi: semicolons,
+                        singleQuote: quoteStyle === 'single',
+                        trailingComma: 'all',
+                        bracketSpacing: true,
+                        arrowParens: 'always'
+                    };
+                    
+                    const formattedCode = prettier.format(code, options);
+                    codeOutput.setValue(formattedCode);
+                    
+                    // Update editor settings based on formatting options
+                    codeInput.setOption('lineWrapping', lineWrap);
+                    codeOutput.setOption('lineWrapping', lineWrap);
+                    
+                    showToast('Code formatted successfully', 'success');
+                } catch (error) {
+                    console.error('Formatting error:', error);
+                    showToast('Error formatting code. Check for syntax errors.', 'error');
+                    codeOutput.setValue(`// Formatting Error:\n// ${error.message}\n\n${code}`);
+                }
+            }
+
+            // Show toast notification
+            function showToast(message, type = '') {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.className = 'toast';
+                
+                if (type) {
+                    toast.classList.add(`toast-${type}`);
+                }
+                
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.className = 'toast';
+                    }, 300);
+                }, 3000);
+            }
+
+            // Initialize with sample code formatted
+            setTimeout(() => {
+                formatCode();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
