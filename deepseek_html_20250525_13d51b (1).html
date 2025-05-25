@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online CSS Formatter & Beautifier tool. Instantly format and minify CSS code with our responsive, no-API-required tool. Perfect for developers and designers.">
+    <meta name="keywords" content="CSS formatter, CSS beautifier, CSS prettifier, clean CSS, format CSS online, CSS minifier">
+    <meta name="author" content="CSS Formatter Pro">
+    <meta property="og:title" content="CSS Formatter Pro - Beautify & Minify CSS Instantly">
+    <meta property="og:description" content="Free online tool to format and minify CSS code with perfect indentation. Works 100% in your browser - no API required.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cssformatterpro.com">
+    <meta property="og:image" content="https://cssformatterpro.com/images/og-image.jpg">
+    <title>CSS Formatter Pro | Beautify & Minify CSS Code Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/css.min.js"></script>
+    <style>
+        :root {
+            --primary: #6C5CE7;
+            --primary-dark: #5649C0;
+            --secondary: #00CEFF;
+            --accent: #FD79A8;
+            --text: #2D3436;
+            --text-light: #636E72;
+            --bg: #FFFFFF;
+            --card-bg: #F5F6FA;
+            --border: #DFE6E9;
+            --success: #00B894;
+            --error: #D63031;
+            --warning: #FDCB6E;
+            
+            /* Dark mode variables */
+            --dark-primary: #A29BFE;
+            --dark-primary-dark: #847DED;
+            --dark-secondary: #74F9FF;
+            --dark-accent: #FF7675;
+            --dark-text: #ECF0F1;
+            --dark-text-light: #B2BEC3;
+            --dark-bg: #1A1A2E;
+            --dark-card-bg: #16213E;
+            --dark-border: #3A3B4A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-primary-dark));
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        body.dark-mode .logo-icon {
+            color: var(--dark-secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        body.dark-mode .nav-links a::after {
+            background-color: var(--dark-secondary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.05), rgba(0, 206, 255, 0.05));
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 2rem;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, rgba(162, 155, 254, 0.05), rgba(116, 249, 255, 0.05));
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        body.dark-mode .hero h1 {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .hero p {
+            color: var(--dark-text-light);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Tool Container */
+        .tool-container {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        body.dark-mode .tool-container {
+            background-color: var(--dark-card-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .code-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .code-box {
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.2rem;
+        }
+
+        body.dark-mode .code-header {
+            background-color: var(--dark-primary);
+        }
+
+        .code-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .code-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background 0.3s ease;
+        }
+
+        .code-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .code-btn i {
+            font-size: 0.8rem;
+        }
+
+        .code-editor {
+            flex: 1;
+            padding: 1.2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            resize: none;
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 400px;
+        }
+
+        body.dark-mode .code-editor {
+            background-color: #1E1E2E;
+            color: #E0E0E0;
+            border-color: var(--dark-border);
+        }
+
+        .tool-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        body.dark-mode .btn-primary {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-primary-dark));
+            box-shadow: 0 4px 15px rgba(162, 155, 254, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        body.dark-mode .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(162, 155, 254, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--card-bg);
+            color: var(--primary);
+            border: 1px solid var(--border);
+        }
+
+        body.dark-mode .btn-secondary {
+            background-color: var(--dark-card-bg);
+            color: var(--dark-primary);
+            border-color: var(--dark-border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border);
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .btn-secondary:hover {
+            background-color: var(--dark-border);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(253, 121, 168, 0.3);
+        }
+
+        body.dark-mode .btn-accent {
+            background-color: var(--dark-accent);
+            box-shadow: 0 4px 15px rgba(255, 118, 117, 0.3);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(253, 121, 168, 0.4);
+        }
+
+        body.dark-mode .btn-accent:hover {
+            box-shadow: 0 6px 20px rgba(255, 118, 117, 0.4);
+        }
+
+        /* Ad Containers */
+        .ad-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px dashed var(--border);
+        }
+
+        body.dark-mode .ad-container {
+            background-color: var(--dark-card-bg);
+            border-color: var(--dark-border);
+        }
+
+        .ad-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        body.dark-mode .ad-label {
+            color: var(--dark-text-light);
+        }
+
+        .ad-placeholder {
+            min-height: 90px;
+            background-color: var(--bg);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+
+        body.dark-mode .ad-placeholder {
+            background-color: var(--dark-bg);
+            color: var(--dark-text-light);
+            border-color: var(--dark-border);
+        }
+
+        .ad-wide {
+            min-height: 250px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        body.dark-mode .section-title h2 {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin: 0.8rem auto 0;
+            border-radius: 2px;
+        }
+
+        body.dark-mode .section-title::after {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        body.dark-mode .feature-card {
+            background-color: var(--dark-card-bg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: var(--dark-border);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .feature-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        body.dark-mode .feature-icon {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .feature-title {
+            color: var(--dark-primary);
+        }
+
+        .feature-desc {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        body.dark-mode .feature-desc {
+            color: var(--dark-text-light);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 3rem 0;
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        body.dark-mode .content-section h2 {
+            color: var(--dark-primary);
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        body.dark-mode .content-section h2::after {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+        }
+
+        .content-section p {
+            margin-bottom: 1.2rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        body.dark-mode .content-section p {
+            color: var(--dark-text);
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        body.dark-mode .content-section li {
+            color: var(--dark-text);
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        body.dark-mode .blog-card {
+            background-color: var(--dark-card-bg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: var(--dark-border);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .blog-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+        }
+
+        body.dark-mode .blog-image {
+            border-bottom-color: var(--dark-border);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .blog-meta {
+            color: var(--dark-text-light);
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .blog-title {
+            color: var(--dark-primary);
+        }
+
+        .blog-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .blog-excerpt {
+            color: var(--dark-text-light);
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .read-more {
+            color: var(--dark-primary);
+        }
+
+        .read-more:hover {
+            color: var(--secondary);
+        }
+
+        body.dark-mode .read-more:hover {
+            color: var(--dark-secondary);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        body.dark-mode .contact-form {
+            background-color: var(--dark-card-bg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: var(--dark-border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        body.dark-mode .form-label {
+            color: var(--dark-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .form-control {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            border-color: var(--dark-border);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+
+        body.dark-mode .form-control:focus {
+            border-color: var(--dark-primary);
+            box-shadow: 0 0 0 3px rgba(162, 155, 254, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        body.dark-mode .faq-item {
+            background-color: var(--dark-card-bg);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            border-color: var(--dark-border);
+        }
+
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .faq-question {
+            background-color: var(--dark-primary);
+        }
+
+        .faq-question:hover {
+            background-color: var(--primary-dark);
+        }
+
+        body.dark-mode .faq-question:hover {
+            background-color: var(--dark-primary-dark);
+        }
+
+        .faq-answer {
+            padding: 1.5rem;
+            color: var(--text);
+            line-height: 1.7;
+            display: none;
+        }
+
+        body.dark-mode .faq-answer {
+            color: var(--dark-text);
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        body.dark-mode footer {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-primary-dark));
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        body.dark-mode .footer-logo-icon {
+            color: var(--dark-secondary);
+        }
+
+        .footer-about {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            color: white;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        body.dark-mode .footer-column h3::after {
+            background-color: var(--dark-secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+            display: block;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            margin-right: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .toast.error {
+            background-color: var(--error);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            font-size: 1.2rem;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                flex-direction: column;
+                align-items: center;
+                padding: 1.5rem 0;
+                gap: 1.5rem;
+                clip-path: circle(0px at 90% -10%);
+                transition: clip-path 0.5s ease;
+                z-index: 99;
+            }
+
+            body.dark-mode .nav-links {
+                background: linear-gradient(135deg, var(--dark-primary), var(--dark-primary-dark));
+            }
+            
+            .nav-links.active {
+                clip-path: circle(1000px at 90% -10%);
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .tool-actions {
+                flex-direction: column;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Highlight.js overrides */
+        .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        /* File input styling */
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            font-size: 100px;
+            opacity: 0;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-code logo-icon"></i>
+                <span>CSS Formatter Pro</span>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                <li><a href="#" class="nav-link" data-page="blog">Blog</a></li>
+                <li><a href="#" class="nav-link" data-page="faq">FAQ</a></li>
+                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Ad Container Top -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <!-- Google AdSense Ad Unit -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+                <!-- Top Banner Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <!-- Home Page -->
+        <section id="home-page" class="page-content">
+            <div class="hero">
+                <h1>Beautify & Minify Your CSS Code Instantly</h1>
+                <p>Our free online tool helps you format messy CSS with perfect indentation or minify it for production. Works 100% in your browser - no API required!</p>
+                <div class="hero-buttons">
+                    <a href="#tool" class="btn btn-primary">
+                        <i class="fas fa-magic"></i> Try Formatter
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <i class="fas fa-star"></i> Explore Features
+                    </a>
+                </div>
+            </div>
+
+            <div class="tool-container" id="tool">
+                <div class="code-columns">
+                    <div class="code-box">
+                        <div class="code-header">
+                            <span class="code-title">Input CSS</span>
+                            <div class="code-actions">
+                                <button class="code-btn" id="clearInputBtn">
+                                    <i class="fas fa-trash-alt"></i> Clear
+                                </button>
+                                <div class="file-input-wrapper">
+                                    <button class="code-btn" id="uploadBtn">
+                                        <i class="fas fa-upload"></i> Upload
+                                    </button>
+                                    <input type="file" id="fileInput" accept=".css">
+                                </div>
+                            </div>
+                        </div>
+                        <textarea class="code-editor" id="inputEditor" placeholder="Paste your CSS code here..."></textarea>
+                    </div>
+                    
+                    <div class="code-box">
+                        <div class="code-header">
+                            <span class="code-title">Formatted CSS</span>
+                            <div class="code-actions">
+                                <button class="code-btn" id="copyBtn">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="code-btn" id="downloadBtn">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                        <pre class="code-editor" id="outputEditor"></pre>
+                    </div>
+                </div>
+                
+                <div class="tool-actions">
+                    <button class="btn btn-primary" id="formatBtn">
+                        <i class="fas fa-magic"></i> Format CSS
+                    </button>
+                    <button class="btn btn-accent" id="minifyBtn">
+                        <i class="fas fa-compress-alt"></i> Minify CSS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ad Container Middle -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-placeholder ad-wide">
+                    <!-- Google AdSense Rectangle Ad -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+                    <!-- Middle Rectangle Ad -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="rectangle"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <section class="features" id="features">
+                <div class="section-title">
+                    <h2>Why Choose Our CSS Formatter?</h2>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="feature-title">Privacy First</h3>
+                        <p class="feature-desc">Your CSS code never leaves your browser. We don't send it to any servers, ensuring complete privacy and security for your work.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="feature-title">Lightning Fast</h3>
+                        <p class="feature-desc">Format or minify your CSS instantly with our optimized processing algorithm. No waiting, no delays.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Fully Responsive</h3>
+                        <p class="feature-desc">Works perfectly on all devices - desktop, tablet, or mobile. Format CSS anywhere, anytime.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="feature-title">Syntax Highlighting</h3>
+                        <p class="feature-desc">Beautiful syntax highlighting makes your CSS easier to read and understand at a glance.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-export"></i>
+                        </div>
+                        <h3 class="feature-title">Import & Export</h3>
+                        <p class="feature-desc">Upload .css files directly or download the formatted output. Copy to clipboard with one click.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <h3 class="feature-title">Dark Mode</h3>
+                        <p class="feature-desc">Eyes tired? Switch to dark mode for comfortable coding sessions at any time of day.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- About Page -->
+        <section id="about-page" class="page-content hidden">
+            <div class="content-section">
+                <h2>About CSS Formatter Pro</h2>
+                <p>CSS Formatter Pro was created in 2023 by a team of front-end developers who were frustrated with existing CSS formatting tools. We wanted something that was fast, privacy-focused, and worked entirely in the browser without requiring an internet connection after the initial page load.</p>
+                
+                <p>Our mission is to provide developers with simple, efficient tools that improve their workflow without compromising on privacy or performance. We believe in creating tools that just work, without unnecessary complexity.</p>
+                
+                <h3>How It Works</h3>
+                <p>The CSS Formatter Pro uses a sophisticated parsing algorithm that analyzes your CSS code structure and applies consistent indentation, spacing, and line breaks to make the code more readable. For minification, it removes all unnecessary whitespace and comments while preserving the functionality of your CSS.</p>
+                
+                <p>All processing happens directly in your browser using JavaScript. This means:</p>
+                <ul>
+                    <li>No network requests are made with your CSS code</li>
+                    <li>Your code never leaves your computer</li>
+                    <li>You can use the tool offline after the initial page load</li>
+                    <li>Formatting is nearly instantaneous</li>
+                </ul>
+                
+                <h3>Our Team</h3>
+                <p>We're a small team of CSS enthusiasts who love creating tools that make developers' lives easier. Our expertise includes:</p>
+                <ul>
+                    <li>Front-end development (HTML, CSS, JavaScript)</li>
+                    <li>Web performance optimization</li>
+                    <li>Developer tooling</li>
+                    <li>User experience design</li>
+                </ul>
+                
+                <p>We're constantly improving the tool based on user feedback. If you have suggestions or feature requests, please don't hesitate to <a href="#" class="nav-link" data-page="contact">contact us</a>.</p>
+            </div>
+        </section>
+
+        <!-- Blog Page -->
+        <section id="blog-page" class="page-content hidden">
+            <div class="content-section">
+                <h2>CSS Tips & Tutorials</h2>
+                <p>Explore our collection of articles and tutorials about CSS best practices, modern techniques, and performance optimization.</p>
+                
+                <div class="blog-grid">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="CSS Best Practices" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+                                <span><i class="far fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h3 class="blog-title">10 CSS Best Practices for Clean, Maintainable Code</h3>
+                            <p class="blog-excerpt">Learn the top 10 practices professional developers use to keep their CSS clean, maintainable, and scalable for projects of any size...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="CSS Variables" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar-alt"></i> May 28, 2023</span>
+                                <span><i class="far fa-clock"></i> 12 min read</span>
+                            </div>
+                            <h3 class="blog-title">Mastering CSS Variables: The Complete Guide</h3>
+                            <p class="blog-excerpt">CSS custom properties (variables) have revolutionized how we write CSS. This comprehensive guide covers everything from basic usage to advanced techniques...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="CSS Grid" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar-alt"></i> May 10, 2023</span>
+                                <span><i class="far fa-clock"></i> 10 min read</span>
+                            </div>
+                            <h3 class="blog-title">CSS Grid vs Flexbox: When to Use Each</h3>
+                            <p class="blog-excerpt">Both CSS Grid and Flexbox are powerful layout systems, but they serve different purposes. Learn when to use each and how to combine them effectively...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="CSS Animations" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar-alt"></i> April 22, 2023</span>
+                                <span><i class="far fa-clock"></i> 15 min read</span>
+                            </div>
+                            <h3 class="blog-title">Smooth CSS Animations: Performance Tips</h3>
+                            <p class="blog-excerpt">Learn how to create buttery-smooth animations that don't jank or lag. This guide covers the most performant CSS animation techniques...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="CSS Architecture" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar-alt"></i> April 5, 2023</span>
+                                <span><i class="far fa-clock"></i> 20 min read</span>
+                            </div>
+                            <h3 class="blog-title">CSS Architecture for Large-Scale Projects</h3>
+                            <p class="blog-excerpt">Discover scalable CSS architecture patterns that keep your stylesheets maintainable as your project grows. Compare methodologies like BEM, SMACSS, and ITCSS...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="CSS Tools" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar-alt"></i> March 18, 2023</span>
+                                <span><i class="far fa-clock"></i> 7 min read</span>
+                            </div>
+                            <h3 class="blog-title">Essential CSS Tools for Modern Developers</h3>
+                            <p class="blog-excerpt">The modern CSS ecosystem is full of powerful tools. Here are our picks for the most essential CSS tools that can supercharge your workflow...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Page -->
+        <section id="faq-page" class="page-content hidden">
+            <div class="content-section">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our CSS Formatter tool below. If you don't see your question answered, feel free to <a href="#" class="nav-link" data-page="contact">contact us</a>.</p>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is my CSS code safe when using this tool?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely! Our CSS formatter works completely in your browser. Your code never leaves your computer and is not sent to any server. This ensures complete privacy and security for your CSS. You can even use the tool offline after the initial page load.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Does this tool support all CSS versions and features?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, our formatter supports all CSS versions including CSS1, CSS2, CSS3, and modern CSS features like variables (custom properties), grid, flexbox, animations, and more. The formatter preserves all valid CSS syntax while improving readability.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I format very large CSS files with this tool?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>While there's technically no file size limit, very large CSS files (several MB) might slow down your browser temporarily during formatting. For optimal performance, we recommend formatting files under 1MB in size. The tool works best with typical stylesheets used in web projects.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How does the formatting algorithm work?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our tool analyzes your CSS code structure and applies consistent indentation (2 spaces by default), spacing, and line breaks to make the code more readable. It:</p>
+                            <ul>
+                                <li>Preserves all original functionality</li>
+                                <li>Maintains comments in their original position</li>
+                                <li>Handles nested rules and media queries properly</li>
+                                <li>Formats CSS variables correctly</li>
+                                <li>Aligns properties for better readability</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is this tool completely free to use?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, our CSS Formatter is completely free to use with no hidden costs or limitations. You can format as much CSS as you need without any restrictions. We may show non-intrusive ads to support the development and maintenance of the tool.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I customize the formatting style?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Currently, the tool uses a standard formatting style with 2-space indentation. We're working on adding customization options in future updates, including:</p>
+                            <ul>
+                                <li>Indentation size (tabs or spaces)</li>
+                                <li>Brace positioning</li>
+                                <li>Line break preferences</li>
+                                <li>Property sorting</li>
+                            </ul>
+                            <p>If you have specific formatting preferences you'd like to see, please <a href="#" class="nav-link" data-page="contact">let us know</a>!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact-page" class="page-content hidden">
+            <div class="content-section">
+                <h2>Contact Us</h2>
+                <p>Have questions, suggestions, or feedback? We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.</p>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+                
+                <div style="margin-top: 3rem; text-align: center;">
+                    <h3>Other Ways to Connect</h3>
+                    <div class="footer-social" style="justify-content: center; margin-top: 1.5rem;">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Policy Page -->
+        <section id="privacy-page" class="page-content hidden">
+            <div class="content-section">
+                <h2>Privacy Policy</h2>
+                <p><strong>Last updated:</strong> June 1, 2023</p>
+                
+                <p>At CSS Formatter Pro, we take your privacy seriously. This Privacy Policy explains how we handle information when you use our tool.</p>
+                
+                <h3>Information We Don't Collect</h3>
+                <p>Our CSS Formatter tool operates entirely within your web browser. We do not collect, store, or transmit any of the CSS code you input into the tool. Your code never leaves your computer.</p>
+                
+                <h3>Information We Do Collect</h3>
+                <p>We may collect anonymous usage statistics to understand how visitors use our site (e.g., page views, button clicks, country of origin). This information is aggregated and cannot be used to identify individual users.</p>
+                
+                <h3>Advertising</h3>
+                <p>We display ads through Google AdSense to support the development and maintenance of this free tool. These ads may use cookies to personalize content based on your browsing history. You can opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank">Google's Ads Settings</a>.</p>
+                
+                <h3>Cookies</h3>
+                <p>We use cookies to:</p>
+                <ul>
+                    <li>Remember your theme preference (dark/light mode)</li>
+                    <li>Maintain session information</li>
+                    <li>Support our advertising partners (Google AdSense)</li>
+                </ul>
+                
+                <h3>Third-Party Services</h3>
+                <p>We use the following third-party services:</p>
+                <ul>
+                    <li><strong>Google AdSense:</strong> For displaying advertisements</li>
+                    <li><strong>Google Analytics:</strong> For anonymous usage statistics</li>
+                    <li><strong>Highlight.js:</strong> For syntax highlighting (loaded from CDN)</li>
+                </ul>
+                
+                <h3>Changes to This Policy</h3>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
+                
+                <h3>Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact us through our <a href="#" class="nav-link" data-page="contact">Contact page</a>.</p>
+            </div>
+        </section>
+
+        <!-- Terms of Service Page -->
+        <section id="terms-page" class="page-content hidden">
+            <div class="content-section">
+                <h2>Terms of Service</h2>
+                <p><strong>Last updated:</strong> June 1, 2023</p>
+                
+                <p>Welcome to CSS Formatter Pro. By accessing or using our tool, you agree to be bound by these Terms of Service.</p>
+                
+                <h3>Use of the Tool</h3>
+                <p>CSS Formatter Pro is provided free of charge for personal and commercial use. You may use the tool to format CSS code for your projects.</p>
+                
+                <h3>Intellectual Property</h3>
+                <p>All content, features, and functionality on this website are the exclusive property of CSS Formatter Pro and are protected by international copyright laws.</p>
+                
+                <h3>User Responsibilities</h3>
+                <p>You agree not to:</p>
+                <ul>
+                    <li>Use the tool for any illegal purpose</li>
+                    <li>Attempt to disrupt or overload the service</li>
+                    <li>Reverse engineer or attempt to extract the source code</li>
+                </ul>
+                
+                <h3>No Warranty</h3>
+                <p>The tool is provided "as is" without any warranties. While we strive for accuracy, we cannot guarantee that the formatted output will always be perfect. Always review the formatted code before using it in production.</p>
+                
+                <h3>Limitation of Liability</h3>
+                <p>In no event shall CSS Formatter Pro be liable for any damages resulting from the use or inability to use this tool, including any issues that may arise from formatted CSS code.</p>
+                
+                <h3>Changes to Terms</h3>
+                <p>We reserve the right to modify these terms at any time. Your continued use of the tool constitutes acceptance of any changes.</p>
+                
+                <h3>Governing Law</h3>
+                <p>These Terms shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.</p>
+            </div>
+        </section>
+
+        <!-- Ad Container Bottom -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <!-- Google AdSense Bottom Banner Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+                <!-- Bottom Banner Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <i class="fas fa-code footer-logo-icon"></i>
+                        <span>CSS Formatter Pro</span>
+                    </div>
+                    <p class="footer-about">A free online tool to format and minify CSS code with perfect indentation. Works 100% in your browser - no API required.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-product-hunt"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                        <li><a href="#" class="nav-link" data-page="blog">Blog</a></li>
+                        <li><a href="#" class="nav-link" data-page="faq">FAQ</a></li>
+                        <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">CSS Documentation</a></li>
+                        <li><a href="https://css-tricks.com/" target="_blank">CSS Tricks</a></li>
+                        <li><a href="https://www.w3schools.com/css/" target="_blank">W3Schools CSS</a></li>
+                        <li><a href="https://caniuse.com/" target="_blank">Can I Use</a></li>
+                        <li><a href="https://web.dev/learn/css/" target="_blank">Learn CSS</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="nav-link" data-page="privacy">Privacy Policy</a></li>
+                        <li><a href="#" class="nav-link" data-page="terms">Terms of Service</a></li>
+                        <li><a href="#" class="nav-link" data-page="privacy">Cookie Policy</a></li>
+                        <li><a href="#" class="nav-link" data-page="contact">DMCA</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2023 CSS Formatter Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">CSS formatted successfully!</span>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navLinkElements = document.querySelectorAll('.nav-link');
+        const pageContents = document.querySelectorAll('.page-content');
+        const inputEditor = document.getElementById('inputEditor');
+        const outputEditor = document.getElementById('outputEditor');
+        const formatBtn = document.getElementById('formatBtn');
+        const minifyBtn = document.getElementById('minifyBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const clearInputBtn = document.getElementById('clearInputBtn');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileInput = document.getElementById('fileInput');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        const contactForm = document.getElementById('contactForm');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        // Theme Management
+        function setTheme(isDark) {
+            document.body.classList.toggle('dark-mode', isDark);
+            localStorage.setItem('darkMode', isDark);
+            
+            // Update theme toggle icon
+            const icon = themeToggle.querySelector('i');
+            icon.classList.toggle('fa-moon', !isDark);
+            icon.classList.toggle('fa-sun', isDark);
+        }
+
+        // Check for saved theme preference or system preference
+        function initTheme() {
+            const savedTheme = localStorage.getItem('darkMode');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme !== null) {
+                setTheme(savedTheme === 'true');
+            } else if (systemPrefersDark) {
+                setTheme(true);
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = !document.body.classList.contains('dark-mode');
+            setTheme(isDark);
+        });
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            pageContents.forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(`${pageId}-page`).classList.remove('hidden');
+            
+            // Update active nav link
+            navLinkElements.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Close mobile menu if open
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Update URL hash
+            history.pushState({ page: pageId }, '', `#${pageId}`);
+        }
+
+        // Handle nav link clicks
+        navLinkElements.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                showPage(page);
+            });
+        });
+
+        // Handle initial page load and hash changes
+        function handleHashChange() {
+            const hash = window.location.hash.substring(1);
+            const validPages = ['home', 'about', 'blog', 'faq', 'contact', 'privacy', 'terms'];
+            const defaultPage = 'home';
+            
+            if (hash && validPages.includes(hash)) {
+                showPage(hash);
+            } else {
+                showPage(defaultPage);
+                if (!window.location.hash) {
+                    history.replaceState({ page: defaultPage }, '', `#${defaultPage}`);
+                }
+            }
+        }
+
+        window.addEventListener('load', handleHashChange);
+        window.addEventListener('hashchange', handleHashChange);
+
+        // Toast Notification
+        function showToast(message, isSuccess = true) {
+            toastMessage.textContent = message;
+            
+            // Update icon based on success/error
+            const icon = toast.querySelector('i');
+            icon.className = isSuccess ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            
+            // Update background color
+            toast.className = isSuccess ? 'toast show' : 'toast show error';
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // CSS Formatting Functions
+        function formatCSS(css) {
+            // Remove any existing indentation
+            css = css.trim();
+            
+            let formatted = '';
+            let indentLevel = 0;
+            let inComment = false;
+            let inAtRule = false;
+            
+            // Split CSS into lines
+            const lines = css.split(/\r?\n/);
+            
+            for (let line of lines) {
+                line = line.trim();
+                if (!line) continue;
+                
+                // Handle multi-line comments
+                if (line.startsWith('/*')) {
+                    if (line.endsWith('*/')) {
+                        // Single-line comment
+                        formatted += '  '.repeat(indentLevel) + line + '\n';
+                    } else {
+                        // Start of multi-line comment
+                        inComment = true;
+                        formatted += '  '.repeat(indentLevel) + line + '\n';
+                    }
+                    continue;
+                }
+                
+                if (inComment) {
+                    formatted += '  '.repeat(indentLevel) + line + '\n';
+                    if (line.endsWith('*/')) {
+                        inComment = false;
+                    }
+                    continue;
+                }
+                
+                // Handle @ rules
+                if (line.startsWith('@') && !line.endsWith('{') && !line.endsWith(';')) {
+                    inAtRule = true;
+                }
+                
+                // Decrease indent level when closing a rule
+                if (line.includes('}') && !inAtRule) {
+                    indentLevel = Math.max(0, indentLevel - 1);
+                }
+                
+                // Add the line with proper indentation
+                formatted += '  '.repeat(indentLevel) + line + '\n';
+                
+                // Increase indent level when opening a new rule
+                if (line.includes('{') && !line.includes('}') && !inAtRule) {
+                    indentLevel++;
+                }
+                
+                // Reset @ rule tracking
+                if (line.includes('}') && inAtRule) {
+                    inAtRule = false;
+                }
+            }
+            
+            return formatted.trim();
+        }
+
+        function minifyCSS(css) {
+            // Remove comments
+            css = css.replace(/\/\*[\s\S]*?\*\//g, '');
+            
+            // Remove whitespace
+            css = css.replace(/\s+/g, ' ');
+            
+            // Remove space around selectors, braces, colons, commas, semicolons
+            css = css.replace(/\s*([{}:;,])\s*/g, '$1');
+            
+            // Remove last semicolon before closing brace
+            css = css.replace(/;}/g, '}');
+            
+            // Remove leading and trailing whitespace
+            return css.trim();
+        }
+
+        // Event Listeners for CSS Formatting
+        formatBtn.addEventListener('click', () => {
+            const css = inputEditor.value;
+            if (!css.trim()) {
+                showToast('Please enter some CSS to format', false);
+                return;
+            }
+            
+            try {
+                const formatted = formatCSS(css);
+                outputEditor.textContent = formatted;
+                hljs.highlightElement(outputEditor);
+                showToast('CSS formatted successfully!');
+            } catch (error) {
+                showToast('Error formatting CSS: ' + error.message, false);
+                console.error(error);
+            }
+        });
+
+        minifyBtn.addEventListener('click', () => {
+            const css = inputEditor.value;
+            if (!css.trim()) {
+                showToast('Please enter some CSS to minify', false);
+                return;
+            }
+            
+            try {
+                const minified = minifyCSS(css);
+                outputEditor.textContent = minified;
+                hljs.highlightElement(outputEditor);
+                showToast('CSS minified successfully!');
+            } catch (error) {
+                showToast('Error minifying CSS: ' + error.message, false);
+                console.error(error);
+            }
+        });
+
+        // Copy to Clipboard
+        copyBtn.addEventListener('click', () => {
+            const formattedCSS = outputEditor.textContent;
+            if (!formattedCSS.trim()) {
+                showToast('No formatted CSS to copy', false);
+                return;
+            }
+            
+            navigator.clipboard.writeText(formattedCSS)
+                .then(() => showToast('CSS copied to clipboard!'))
+                .catch(err => {
+                    showToast('Failed to copy CSS', false);
+                    console.error('Failed to copy: ', err);
+                });
+        });
+
+        // Download CSS
+        downloadBtn.addEventListener('click', () => {
+            const formattedCSS = outputEditor.textContent;
+            if (!formattedCSS.trim()) {
+                showToast('No formatted CSS to download', false);
+                return;
+            }
+            
+            const blob = new Blob([formattedCSS], { type: 'text/css' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'formatted-styles.css';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('CSS downloaded successfully!');
+        });
+
+        // Clear Input
+        clearInputBtn.addEventListener('click', () => {
+            inputEditor.value = '';
+            outputEditor.textContent = '';
+            showToast('Input cleared');
+        });
+
+        // File Upload
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            if (!file.name.endsWith('.css')) {
+                showToast('Please upload a .css file', false);
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                inputEditor.value = event.target.result;
+                showToast('CSS file loaded successfully!');
+                
+                // Auto-format the loaded CSS
+                try {
+                    const formatted = formatCSS(inputEditor.value);
+                    outputEditor.textContent = formatted;
+                    hljs.highlightElement(outputEditor);
+                } catch (error) {
+                    console.error('Error auto-formatting:', error);
+                }
+            };
+            reader.onerror = () => {
+                showToast('Error reading file', false);
+            };
+            reader.readAsText(file);
+            
+            // Reset file input
+            e.target.value = '';
+        });
+
+        // FAQ Accordion
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Contact Form Submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // In a real implementation, you would send this data to a server
+            console.log('Form submitted:', { name, email, subject, message });
+            
+            // Show success message
+            showToast('Message sent successfully!');
+            
+            // Reset form
+            contactForm.reset();
+        });
+
+        // Auto-format on input (debounced)
+        let formatTimeout;
+        inputEditor.addEventListener('input', () => {
+            clearTimeout(formatTimeout);
+            formatTimeout = setTimeout(() => {
+                if (inputEditor.value.trim()) {
+                    try {
+                        const formatted = formatCSS(inputEditor.value);
+                        outputEditor.textContent = formatted;
+                        hljs.highlightElement(outputEditor);
+                    } catch (error) {
+                        console.error('Auto-format error:', error);
+                    }
+                } else {
+                    outputEditor.textContent = '';
+                }
+            }, 1000);
+        });
+
+        // Initialize the page
+        initTheme();
+        handleHashChange();
+        hljs.highlightAll();
+    </script>
+</body>
+</html>
