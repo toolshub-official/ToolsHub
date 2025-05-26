@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurePass Pro - Advanced Password Generator Tool | Create Strong Random Passwords</title>
+    <meta name="description" content="Generate ultra-secure passwords with SecurePass Pro. Our free online tool creates strong, random passwords with customizable options for maximum security. Perfect for all your online accounts.">
+    <meta name="keywords" content="password generator, secure password, random password, password creator, online password tool, strong password">
+    <meta property="og:title" content="SecurePass Pro - Advanced Password Generator">
+    <meta property="og:description" content="Generate strong, secure passwords instantly with our free password generator tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://securepasspro.com">
+    <meta property="og:image" content="https://securepasspro.com/images/og-image.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SecurePass Pro Password Generator",
+      "description": "A professional tool for generating secure random passwords with advanced customization options",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "128"
+      }
+    }
+    </script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --text: #334155;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --bg-secondary: #f1f5f9;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-body: 'Poppins', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            --primary: #818cf8;
+            --primary-dark: #6366f1;
+            --primary-light: #a5b4fc;
+            --secondary: #94a3b8;
+            --success: #34d399;
+            --danger: #f87171;
+            --warning: #fbbf24;
+            --info: #60a5fa;
+            --light: #1e293b;
+            --dark: #f8fafc;
+            --text: #e2e8f0;
+            --text-light: #94a3b8;
+            --bg: #0f172a;
+            --bg-secondary: #1e293b;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .logo:hover .logo-text {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 30px 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+            line-height: 1.2;
+            background: linear-gradient(90deg, var(--primary), var(--info));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Ad Banner */
+        .ad-banner {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            padding: 15px;
+            margin: 30px 0;
+            text-align: center;
+            border: 1px dashed var(--border);
+        }
+
+        .ad-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Password Generator Section */
+        .password-generator {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .password-display {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .password-field {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 1.2rem;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background-color: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+            font-weight: 600;
+            letter-spacing: 1px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-text-security: disc;
+        }
+
+        .password-field::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .password-field::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        .password-actions {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .password-btn {
+            background: var(--bg);
+            border: none;
+            color: var(--text-light);
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+        }
+
+        .password-btn:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .password-strength {
+            margin-bottom: 30px;
+        }
+
+        .strength-meter {
+            height: 8px;
+            background-color: var(--border);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .strength-progress {
+            height: 100%;
+            width: 0%;
+            background-color: var(--danger);
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+
+        .strength-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .strength-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .strength-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--danger);
+        }
+
+        /* Generator Options */
+        .generator-options {
+            margin-bottom: 30px;
+        }
+
+        .option-group {
+            margin-bottom: 25px;
+        }
+
+        .option-group-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-group-title i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background-color: var(--bg);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .option-item:hover {
+            border-color: var(--primary);
+        }
+
+        .option-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .option-label {
+            cursor: pointer;
+            user-select: none;
+            color: var(--text);
+        }
+
+        /* Length Control */
+        .length-control {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .length-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .length-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .length-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        .length-value {
+            min-width: 50px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            font-family: var(--font-mono);
+            color: var(--primary);
+            background-color: var(--bg);
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        /* Generator Buttons */
+        .generator-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #575d6b;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0ea371;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Password History */
+        .password-history {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .history-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .history-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .history-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .history-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--bg);
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .history-item:hover {
+            transform: translateX(5px);
+            border-color: var(--primary);
+        }
+
+        .history-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .history-password {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .history-time {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .history-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 16px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--bg-secondary);
+        }
+
+        .history-btn:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Blog Section */
+        .blog-section {
+            margin-bottom: 50px;
+        }
+
+        .blog-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .blog-excerpt {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--primary-dark);
+            gap: 8px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 50px;
+        }
+
+        .faq-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            color: var(--text-light);
+        }
+
+        .faq-item.active .faq-question {
+            background-color: var(--bg);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* About Section */
+        .about-section {
+            margin-bottom: 50px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-bottom: 50px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Privacy Policy */
+        .privacy-section {
+            margin-bottom: 50px;
+        }
+
+        .privacy-content {
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .privacy-content h2 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .privacy-content p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .privacy-content ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            color: var(--text-light);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: var(--dark);
+            color: var(--light);
+            text-align: center;
+            border-radius: var(--radius-sm);
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--dark) transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--success);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            font-size: 20px;
+        }
+
+        .toast.error {
+            background-color: var(--danger);
+        }
+
+        .toast.warning {
+            background-color: var(--warning);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text);
+            padding: 40px 0 20px;
+            margin-top: auto;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .password-generator, .password-history {
+                padding: 25px;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .generator-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .header-container {
+                padding: 12px 0;
+            }
+            
+            .password-field {
+                padding: 15px;
+                font-size: 1rem;
+                height: 60px;
+            }
+            
+            .password-actions {
+                position: static;
+                transform: none;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
+            .history-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .history-actions {
+                align-self: flex-end;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-lock logo-icon"></i>
+                <span class="logo-text">SecurePass Pro</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="privacy.html" class="nav-link">Privacy Policy</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Ad Banner (Top) -->
+            <div class="ad-banner">
+                <span class="ad-label">Advertisement</span>
+                <!-- Google AdSense Ad Unit -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_AD_SLOT_ID"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="hero" id="home">
+                <h1 class="hero-title">Ultimate Password Generator</h1>
+                <p class="hero-subtitle">Create strong, random, and secure passwords in seconds. Protect your online accounts with our advanced password generator tool.</p>
+            </section>
+
+            <!-- Password Generator -->
+            <section class="password-generator">
+                <h2 class="section-title">
+                    <i class="fas fa-key"></i>
+                    Generate Secure Password
+                </h2>
+                
+                <div class="password-display">
+                    <div class="password-field" id="passwordField">Click "Generate Password" to create a secure password</div>
+                    <div class="password-actions">
+                        <button class="password-btn tooltip" id="copyBtn">
+                            <i class="fas fa-copy"></i>
+                            <span class="tooltiptext">Copy to clipboard</span>
+                        </button>
+                        <button class="password-btn" id="visibilityBtn">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="password-btn" id="refreshBtn">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="password-strength">
+                    <div class="strength-labels">
+                        <span class="strength-label">Password Strength:</span>
+                        <span class="strength-text" id="strengthText">None</span>
+                    </div>
+                    <div class="strength-meter">
+                        <div class="strength-progress" id="strengthProgress"></div>
+                    </div>
+                </div>
+
+                <div class="generator-options">
+                    <div class="option-group">
+                        <h3 class="option-group-title">
+                            <i class="fas fa-ruler"></i>
+                            Password Length
+                        </h3>
+                        <div class="length-control">
+                            <input type="range" min="6" max="100" value="16" class="length-slider" id="lengthSlider">
+                            <span class="length-value" id="lengthValue">16</span>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <h3 class="option-group-title">
+                            <i class="fas fa-sliders-h"></i>
+                            Character Types
+                        </h3>
+                        <div class="options-grid">
+                            <div class="option-item">
+                                <input type="checkbox" id="uppercase" class="option-checkbox" checked>
+                                <label for="uppercase" class="option-label">Uppercase Letters (A-Z)</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="lowercase" class="option-checkbox" checked>
+                                <label for="lowercase" class="option-label">Lowercase Letters (a-z)</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="numbers" class="option-checkbox" checked>
+                                <label for="numbers" class="option-label">Numbers (0-9)</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="symbols" class="option-checkbox" checked>
+                                <label for="symbols" class="option-label">Symbols (!@#$%^&*)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <h3 class="option-group-title">
+                            <i class="fas fa-cog"></i>
+                            Advanced Options
+                        </h3>
+                        <div class="options-grid">
+                            <div class="option-item">
+                                <input type="checkbox" id="excludeSimilar" class="option-checkbox">
+                                <label for="excludeSimilar" class="option-label">Exclude similar characters (i,l,1,o,0,O)</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="excludeDuplicates" class="option-checkbox">
+                                <label for="excludeDuplicates" class="option-label">Exclude duplicate characters</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="generator-buttons">
+                    <button class="btn btn-primary" id="generateBtn">
+                        <i class="fas fa-key"></i>
+                        Generate Password
+                    </button>
+                    <button class="btn btn-success" id="saveBtn">
+                        <i class="fas fa-save"></i>
+                        Save Password
+                    </button>
+                    <button class="btn btn-outline" id="downloadBtn">
+                        <i class="fas fa-download"></i>
+                        Download as TXT
+                    </button>
+                </div>
+            </section>
+
+            <!-- Ad Banner (Middle) -->
+            <div class="ad-banner">
+                <span class="ad-label">Advertisement</span>
+                <!-- Google AdSense Ad Unit -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_AD_SLOT_ID"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- Password History -->
+            <section class="password-history">
+                <div class="history-header">
+                    <h2 class="section-title history-title">
+                        <i class="fas fa-history"></i>
+                        Password History
+                    </h2>
+                    <button class="btn btn-danger" id="clearHistoryBtn">
+                        <i class="fas fa-trash"></i>
+                        Clear History
+                    </button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="empty-history">No passwords generated yet</div>
+                </div>
+            </section>
+
+            <!-- Blog Section -->
+            <section class="blog-section" id="blog">
+                <div class="blog-title">
+                    <h2 class="section-title">
+                        <i class="fas fa-newspaper"></i>
+                        Latest Security Articles
+                    </h2>
+                    <p>Learn more about password security and online safety</p>
+                </div>
+                
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Password Security" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-date">
+                                <i class="far fa-calendar-alt"></i>
+                                June 15, 2023
+                            </div>
+                            <h3 class="blog-card-title">10 Tips for Creating Strong Passwords</h3>
+                            <p class="blog-excerpt">Learn the best practices for creating passwords that are both secure and memorable. Protect your online accounts from hackers with these expert tips.</p>
+                            <a href="#" class="read-more">
+                                Read More
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Password Manager" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-date">
+                                <i class="far fa-calendar-alt"></i>
+                                June 8, 2023
+                            </div>
+                            <h3 class="blog-card-title">Why You Need a Password Manager in 2023</h3>
+                            <p class="blog-excerpt">Password managers are essential tools for modern digital life. Discover how they can simplify your online security and protect your sensitive data.</p>
+                            <a href="#" class="read-more">
+                                Read More
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Two-Factor Authentication" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-date">
+                                <i class="far fa-calendar-alt"></i>
+                                June 1, 2023
+                            </div>
+                            <h3 class="blog-card-title">The Importance of Two-Factor Authentication</h3>
+                            <p class="blog-excerpt">Two-factor authentication adds an extra layer of security to your accounts. Learn how it works and why you should enable it everywhere possible.</p>
+                            <a href="#" class="read-more">
+                                Read More
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section" id="faq">
+                <div class="faq-title">
+                    <h2 class="section-title">
+                        <i class="far fa-question-circle"></i>
+                        Frequently Asked Questions
+                    </h2>
+                    <p>Find answers to common questions about password security</p>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How does this password generator work?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our password generator uses cryptographically secure random number generation to create strong, unpredictable passwords. You can customize the length and character types to meet your specific requirements.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Are the passwords stored or transmitted anywhere?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No, all password generation happens locally in your browser. We don't store, transmit, or log any passwords you generate. Your security and privacy are our top priorities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What makes a password strong?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A strong password is long (at least 12 characters), includes a mix of character types (uppercase, lowercase, numbers, symbols), doesn't contain dictionary words or personal information, and is unique to each account.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How often should I change my passwords?</span>
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Current security best practices recommend changing passwords only when there's reason to believe they may have been compromised. Instead of frequent changes, focus on using strong, unique passwords for each account.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ad Banner (Bottom) -->
+            <div class="ad-banner">
+                <span class="ad-label">Advertisement</span>
+                <!-- Google AdSense Ad Unit -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_AD_SLOT_ID"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SecurePass Pro</h3>
+                    <p>Your trusted tool for generating strong, secure passwords. Protecting your online accounts since 2023.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                        <li><a href="faq.html"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Password Security Guide</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Two-Factor Authentication</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cybersecurity Tips</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Password Manager Reviews</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Data Breach Alerts</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@securepasspro.com"><i class="fas fa-envelope"></i> info@securepasspro.com</a></li>
+                        <li><a href="tel:+1234567890"><i class="fas fa-phone"></i> +1 (234) 567-890</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Security Ave, Cyber City</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> SecurePass Pro. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--danger);"></i> for your security</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Password copied to clipboard!</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const themeToggle = document.getElementById('themeToggle');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const passwordField = document.getElementById('passwordField');
+            const copyBtn = document.getElementById('copyBtn');
+            const visibilityBtn = document.getElementById('visibilityBtn');
+            const refreshBtn = document.getElementById('refreshBtn');
+            const generateBtn = document.getElementById('generateBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+            const historyList = document.getElementById('historyList');
+            const lengthSlider = document.getElementById('lengthSlider');
+            const lengthValue = document.getElementById('lengthValue');
+            const uppercaseCheckbox = document.getElementById('uppercase');
+            const lowercaseCheckbox = document.getElementById('lowercase');
+            const numbersCheckbox = document.getElementById('numbers');
+            const symbolsCheckbox = document.getElementById('symbols');
+            const excludeSimilarCheckbox = document.getElementById('excludeSimilar');
+            const excludeDuplicatesCheckbox = document.getElementById('excludeDuplicates');
+            const strengthProgress = document.getElementById('strengthProgress');
+            const strengthText = document.getElementById('strengthText');
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const currentYear = document.getElementById('currentYear');
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            // Character sets
+            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+            const numberChars = '0123456789';
+            const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            const similarChars = 'il1Lo0O';
+
+            // Theme management
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                
+                if (theme === 'dark') {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            }
+
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    setTheme('light');
+                } else {
+                    setTheme('dark');
+                }
+            }
+
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', function() {
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+
+            // FAQ accordion
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Password generation
+            function generatePassword() {
+                const length = parseInt(lengthSlider.value);
+                let charset = '';
+                
+                if (uppercaseCheckbox.checked) charset += uppercaseChars;
+                if (lowercaseCheckbox.checked) charset += lowercaseChars;
+                if (numbersCheckbox.checked) charset += numberChars;
+                if (symbolsCheckbox.checked) charset += symbolChars;
+                
+                // Exclude similar characters if option is checked
+                if (excludeSimilarCheckbox.checked) {
+                    for (const char of similarChars) {
+                        charset = charset.replace(char, '');
+                    }
+                }
+                
+                // Check if at least one character type is selected
+                if (charset === '') {
+                    showToast('Please select at least one character type', 'error');
+                    return '';
+                }
+                
+                let password = '';
+                const charsetLength = charset.length;
+                
+                // Generate password with possible duplicates
+                for (let i = 0; i < length; i++) {
+                    const randomIndex = Math.floor(Math.random() * charsetLength);
+                    password += charset[randomIndex];
+                }
+                
+                // Remove duplicates if option is checked
+                if (excludeDuplicatesCheckbox.checked) {
+                    const uniqueChars = [];
+                    for (const char of password) {
+                        if (!uniqueChars.includes(char)) {
+                            uniqueChars.push(char);
+                        }
+                    }
+                    
+                    // If we don't have enough unique characters, generate more
+                    while (uniqueChars.length < length) {
+                        const randomIndex = Math.floor(Math.random() * charsetLength);
+                        const newChar = charset[randomIndex];
+                        if (!uniqueChars.includes(newChar)) {
+                            uniqueChars.push(newChar);
+                        }
+                    }
+                    
+                    // Shuffle the unique characters
+                    password = shuffleArray(uniqueChars).join('').slice(0, length);
+                }
+                
+                return password;
+            }
+
+            // Helper function to shuffle array
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            // Password strength calculation
+            function calculateStrength(password) {
+                if (!password) return { score: 0, text: 'None', color: 'var(--secondary)' };
+                
+                let score = 0;
+                const length = password.length;
+                
+                // Length contributes up to 50 points (6-100 chars)
+                score += Math.min(50, Math.max(0, (length - 6) * (50 / 94)));
+                
+                // Character variety
+                let varietyBonus = 0;
+                if (/[A-Z]/.test(password)) varietyBonus += 10;
+                if (/[a-z]/.test(password)) varietyBonus += 10;
+                if (/[0-9]/.test(password)) varietyBonus += 10;
+                if (/[^A-Za-z0-9]/.test(password)) varietyBonus += 20;
+                
+                score += varietyBonus;
+                
+                // Deductions for patterns
+                if (/(.)\1{2,}/.test(password)) score -= 15; // Repeated chars
+                if (/^[a-zA-Z]/.test(password)) score -= 5; // Starts with letter
+                if (/[0-9]$/.test(password)) score -= 5; // Ends with number
+                
+                // Normalize score to 0-100
+                score = Math.max(0, Math.min(100, score));
+                
+                // Determine strength level
+                let text, color;
+                if (score < 30) {
+                    text = 'Weak';
+                    color = 'var(--danger)';
+                } else if (score < 60) {
+                    text = 'Medium';
+                    color = 'var(--warning)';
+                } else if (score < 80) {
+                    text = 'Strong';
+                    color = 'var(--success)';
+                } else {
+                    text = 'Very Strong';
+                    color = 'var(--primary)';
+                }
+                
+                return { score, text, color };
+            }
+
+            // Update password strength display
+            function updateStrengthDisplay(password) {
+                const strength = calculateStrength(password);
+                strengthProgress.style.width = `${strength.score}%`;
+                strengthProgress.style.backgroundColor = strength.color;
+                strengthText.textContent = strength.text;
+                strengthText.style.color = strength.color;
+            }
+
+            // Password visibility toggle
+            function togglePasswordVisibility() {
+                const isVisible = passwordField.style.webkitTextSecurity === 'none';
+                passwordField.style.webkitTextSecurity = isVisible ? 'disc' : 'none';
+                visibilityBtn.innerHTML = isVisible ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            }
+
+            // Copy password to clipboard
+            function copyToClipboard() {
+                const password = passwordField.textContent;
+                if (!password || password === 'Click "Generate Password" to create a secure password') {
+                    showToast('No password to copy', 'error');
+                    return;
+                }
+                
+                navigator.clipboard.writeText(password).then(() => {
+                    showToast('Password copied to clipboard!');
+                }).catch(err => {
+                    showToast('Failed to copy password', 'error');
+                    console.error('Failed to copy password: ', err);
+                });
+            }
+
+            // Show toast notification
+            function showToast(message, type = 'success') {
+                toastMessage.textContent = message;
+                
+                // Set icon and color based on type
+                let icon;
+                if (type === 'success') {
+                    icon = '<i class="fas fa-check-circle"></i>';
+                    toast.style.backgroundColor = 'var(--success)';
+                } else if (type === 'error') {
+                    icon = '<i class="fas fa-exclamation-circle"></i>';
+                    toast.style.backgroundColor = 'var(--danger)';
+                } else if (type === 'warning') {
+                    icon = '<i class="fas fa-exclamation-triangle"></i>';
+                    toast.style.backgroundColor = 'var(--warning)';
+                } else {
+                    icon = '<i class="fas fa-info-circle"></i>';
+                    toast.style.backgroundColor = 'var(--info)';
+                }
+                
+                toast.innerHTML = icon + '<span id="toastMessage">' + message + '</span>';
+                
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            // Save password to history
+            function savePasswordToHistory(password) {
+                if (!password) return;
+                
+                let history = JSON.parse(localStorage.getItem('passwordHistory')) || [];
+                
+                // Add new password to beginning of array
+                history.unshift({
+                    password: password,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Keep only the last 20 passwords
+                if (history.length > 20) {
+                    history = history.slice(0, 20);
+                }
+                
+                localStorage.setItem('passwordHistory', JSON.stringify(history));
+                renderPasswordHistory();
+            }
+
+            // Render password history
+            function renderPasswordHistory() {
+                const history = JSON.parse(localStorage.getItem('passwordHistory')) || [];
+                
+                if (history.length === 0) {
+                    historyList.innerHTML = '<div class="empty-history">No passwords generated yet</div>';
+                    return;
+                }
+                
+                historyList.innerHTML = '';
+                
+                history.forEach((item, index) => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    
+                    const date = new Date(item.timestamp);
+                    const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const dateString = date.toLocaleDateString();
+                    
+                    historyItem.innerHTML = `
+                        <div class="history-content">
+                            <div class="history-password" title="${item.password}">
+                                ${item.password}
+                            </div>
+                            <div class="history-time">
+                                <i class="far fa-clock"></i>
+                                ${dateString} ${timeString}
+                            </div>
+                        </div>
+                        <div class="history-actions">
+                            <button class="history-btn copy-history" data-password="${item.password}" title="Copy">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="history-btn delete-history" data-index="${index}" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    historyList.appendChild(historyItem);
+                });
+                
+                // Add event listeners to history buttons
+                document.querySelectorAll('.copy-history').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const password = this.getAttribute('data-password');
+                        navigator.clipboard.writeText(password).then(() => {
+                            showToast('Password copied to clipboard!');
+                        });
+                    });
+                });
+                
+                document.querySelectorAll('.delete-history').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        deletePasswordFromHistory(index);
+                    });
+                });
+            }
+
+            // Delete password from history
+            function deletePasswordFromHistory(index) {
+                let history = JSON.parse(localStorage.getItem('passwordHistory')) || [];
+                if (index >= 0 && index < history.length) {
+                    history.splice(index, 1);
+                    localStorage.setItem('passwordHistory', JSON.stringify(history));
+                    renderPasswordHistory();
+                    showToast('Password removed from history');
+                }
+            }
+
+            // Clear password history
+            function clearPasswordHistory() {
+                if (confirm('Are you sure you want to clear all password history?')) {
+                    localStorage.removeItem('passwordHistory');
+                    renderPasswordHistory();
+                    showToast('Password history cleared');
+                }
+            }
+
+            // Download password as TXT file
+            function downloadPassword() {
+                const password = passwordField.textContent;
+                if (!password || password === 'Click "Generate Password" to create a secure password') {
+                    showToast('No password to download', 'error');
+                    return;
+                }
+                
+                const blob = new Blob([password], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'secure-password.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showToast('Password downloaded as TXT file');
+            }
+
+            // Event listeners
+            lengthSlider.addEventListener('input', function() {
+                lengthValue.textContent = this.value;
+            });
+
+            copyBtn.addEventListener('click', copyToClipboard);
+            visibilityBtn.addEventListener('click', togglePasswordVisibility);
+            refreshBtn.addEventListener('click', function() {
+                const password = generatePassword();
+                if (password) {
+                    passwordField.textContent = password;
+                    updateStrengthDisplay(password);
+                }
+            });
+
+            generateBtn.addEventListener('click', function() {
+                const password = generatePassword();
+                if (password) {
+                    passwordField.textContent = password;
+                    updateStrengthDisplay(password);
+                    passwordField.style.webkitTextSecurity = 'disc';
+                    visibilityBtn.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            });
+
+            saveBtn.addEventListener('click', function() {
+                const password = passwordField.textContent;
+                if (password && password !== 'Click "Generate Password" to create a secure password') {
+                    savePasswordToHistory(password);
+                    showToast('Password saved to history');
+                } else {
+                    showToast('No password to save', 'error');
+                }
+            });
+
+            downloadBtn.addEventListener('click', downloadPassword);
+            clearHistoryBtn.addEventListener('click', clearPasswordHistory);
+
+            // Initialize
+            currentYear.textContent = new Date().getFullYear();
+            renderPasswordHistory();
+
+            // Auto-generate first password
+            const firstPassword = generatePassword();
+            passwordField.textContent = firstPassword;
+            updateStrengthDisplay(firstPassword);
+        });
+    </script>
+</body>
+</html>
