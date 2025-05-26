@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Encoder/Decoder | Tools Hub - Free Online Encoding Tools</title>
+    <meta name="description" content="Free online Base64 encoder and decoder tool. Convert text to Base64 and decode Base64 back to text instantly. Perfect for developers and data transmission needs.">
+    <meta name="keywords" content="base64 encoder, base64 decoder, online tools, web utilities, developer tools, text encoding, data encoding">
+    <meta name="author" content="Tools Hub">
+    <meta property="og:title" content="Base64 Encoder/Decoder | Tools Hub">
+    <meta property="og:description" content="Free online Base64 encoder and decoder tool for developers">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://example.com/images/base64-tool-cover.jpg">
+    <meta property="og:url" content="https://example.com/base64-encoder-decoder">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://example.com/base64-encoder-decoder">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Base64 Encoder/Decoder",
+        "description": "Online tool for encoding text to Base64 and decoding Base64 back to text",
+        "applicationCategory": "DeveloperTool",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4895ef;
+            --text-color: #2b2d42;
+            --text-light: #6c757d;
+            --bg-color: #f8f9fa;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+            --nav-height: 70px;
+        }
+
+        .dark-mode {
+            --primary-color: #4895ef;
+            --secondary-color: #4361ee;
+            --accent-color: #4cc9f0;
+            --text-color: #f8f9fa;
+            --text-light: #adb5bd;
+            --bg-color: #121212;
+            --card-bg: rgba(30, 30, 30, 0.85);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            min-height: 100vh;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.1) 0px, transparent 50%);
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            height: var(--nav-height);
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .navbar {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-top: calc(var(--nav-height) + 2rem);
+        }
+
+        /* Tool Section */
+        .tool-section {
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .tool-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
+        }
+
+        .tool-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .textarea-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            resize: vertical;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .dark-mode textarea {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        button.secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        button.secondary:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .live-toggle {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .error-message {
+            color: #e63946;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Ad Containers */
+        .ad-container {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px dashed var(--primary-color);
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Pages */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .page-title {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .page-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .page-content h2 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .page-content p {
+            margin-bottom: 1rem;
+        }
+
+        .page-content ul, .page-content ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .page-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Blog */
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .blog-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        /* Article */
+        .article-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .dark-mode .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: var(--text-light);
+            padding-left: 1rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .dark-mode .form-group input,
+        .dark-mode .form-group textarea {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Copy Notification */
+        .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .mobile-menu {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            padding: 0.75rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .container {
+                padding: 1.5rem;
+                padding-top: calc(var(--nav-height) + 1.5rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-content {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 1rem;
+                padding-top: calc(var(--nav-height) + 1rem);
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .live-toggle {
+                margin-left: 0;
+                justify-content: flex-end;
+            }
+
+            .page-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo" data-page="home">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            Tools Hub
+        </a>
+        
+        <div class="nav-links">
+            <a href="#" data-page="home">Home</a>
+            <a href="#" data-page="about">About Us</a>
+            <a href="#" data-page="blog">Blog</a>
+            <a href="#" data-page="faq">FAQ</a>
+            <a href="#" data-page="contact">Contact</a>
+            <button class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">🌙</span>
+                <span id="themeText">Dark Mode</span>
+            </button>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </nav>
+    
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" data-page="home">Home</a>
+        <a href="#" data-page="about">About Us</a>
+        <a href="#" data-page="blog">Blog</a>
+        <a href="#" data-page="faq">FAQ</a>
+        <a href="#" data-page="contact">Contact</a>
+        <button class="theme-toggle" id="themeToggleMobile" style="width: 100%; justify-content: center;">
+            <span id="themeIconMobile">🌙</span>
+            <span id="themeTextMobile">Dark Mode</span>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Home Page -->
+        <section class="page-section active" id="home">
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Header Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_HEADER_SLOT"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <h1>Base64 Encoder/Decoder</h1>
+            <p class="description">
+                Quickly encode text to Base64 or decode Base64 back to text with our free online tool. 
+                Perfect for developers, data transmission, and encoding sensitive information.
+            </p>
+
+            <div class="tool-section">
+                <div class="tool-container">
+                    <div class="tool-card">
+                        <h2 class="tool-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 20h9"></path>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                            </svg>
+                            Encode to Base64
+                        </h2>
+                        <div class="textarea-container">
+                            <textarea id="encodeInput" placeholder="Enter text to encode to Base64..."></textarea>
+                        </div>
+                        <div class="button-group">
+                            <button id="encodeBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="4 17 10 11 4 5"></polyline>
+                                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                                </svg>
+                                Encode
+                            </button>
+                            <button class="secondary" id="copyEncodedBtn" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                Copy
+                            </button>
+                            <button class="secondary" id="clearEncodeBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6h18"></path>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                                Clear
+                            </button>
+                            <div class="live-toggle">
+                                <span>Live</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="liveEncodeToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Encoded Result</h3>
+                        <div class="textarea-container">
+                            <textarea id="encodeOutput" placeholder="Base64 encoded result will appear here..." readonly></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h2 class="tool-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 20h9"></path>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                            </svg>
+                            Decode from Base64
+                        </h2>
+                        <div class="textarea-container">
+                            <textarea id="decodeInput" placeholder="Enter Base64 to decode to text..."></textarea>
+                        </div>
+                        <div class="button-group">
+                            <button id="decodeBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                                Decode
+                            </button>
+                            <button class="secondary" id="copyDecodedBtn" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                Copy
+                            </button>
+                            <button class="secondary" id="clearDecodeBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6h18"></path>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                                Clear
+                            </button>
+                            <div class="live-toggle">
+                                <span>Live</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="liveDecodeToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="error-message" id="decodeError">Invalid Base64 input. Please check your input and try again.</div>
+                        <h3 class="tool-title">Decoded Result</h3>
+                        <div class="textarea-container">
+                            <textarea id="decodeOutput" placeholder="Decoded result will appear here..." readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Content Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_CONTENT_SLOT"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="page-content">
+                <h2>What is Base64 Encoding?</h2>
+                <p>Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format by translating it into a radix-64 representation. It's commonly used when there is a need to encode binary data that needs to be stored and transferred over media designed to deal with text.</p>
+                
+                <h2>Common Uses of Base64</h2>
+                <ul>
+                    <li>Encoding images for web pages (data URIs)</li>
+                    <li>Sending binary data through XML or JSON APIs</li>
+                    <li>Storing complex data in cookies</li>
+                    <li>Basic authentication in HTTP headers</li>
+                    <li>Email attachments (MIME)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Us Page -->
+        <section class="page-section" id="about">
+            <h1 class="page-title">About Tools Hub</h1>
+            
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense About Page Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_ABOUT_SLOT"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
+            <div class="page-content">
+                <img src="https://example.com/images/about-us.jpg" alt="Our Team" class="article-image">
+                
+                <h2>Our Mission</h2>
+                <p>At Tools Hub, we believe in making technology accessible to everyone. Our mission is to provide simple, reliable, and free online tools that help people solve everyday problems without the need for complex software installations.</p>
+                
+                <h2>Our Story</h2>
+                <p>Founded in 2020 by a group of developers who were frustrated with the cluttered, ad-heavy tools available online, Tools Hub was born out of a desire to create a better experience. We started with just a few basic tools and have since grown to offer dozens of utilities used by millions of people worldwide.</p>
+                
+                <h2>The Team</h2>
+                <p>Our team consists of passionate developers, designers, and tech enthusiasts who are dedicated to creating the best possible tools. We're constantly working to improve our existing tools and add new ones based on user feedback.</p>
+                
+                <h2>Why Choose Us?</h2>
+                <ul>
+                    <li><strong>Free Forever:</strong> All our tools will always be completely free to use</li>
+                    <li><strong>No Registration Required:</strong> Use our tools without creating an account</li>
+                    <li><strong>Privacy Focused:</strong> We don't store your data when you use our tools</li>
+                    <li><strong>Simple Interface:</strong> Clean, intuitive design without unnecessary clutter</li>
+                    <li><strong>Regular Updates:</strong> We continuously improve our tools based on feedback</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Blog Page -->
+        <section class="page-section" id="blog">
+            <h1 class="page-title">Blog & Tutorials</h1>
+            
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Blog Page Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_BLOG_SLOT"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
+            <div class="page-content">
+                <h2>Latest Articles</h2>
+                <p>Learn about web technologies, coding tips, and how to get the most out of our tools.</p>
+                
+                <div class="blog-posts">
+                    <div class="blog-card">
+                        <img src="https://example.com/images/base64-guide.jpg" alt="Base64 Encoding Guide" class="blog-image">
+                        <div class="blog-content">
+                            <h3 class="blog-title">What is Base64 Encoding? A Simple Guide</h3>
+                            <p class="blog-excerpt">Learn how Base64 encoding works, its common uses, and why it's essential for web development and data transmission.</p>
+                            <div class="blog-meta">
+                                <span>June 15, 2023</span>
+                                <span>5 min read</span>
+                            </div>
+                            <a href="#" class="read-more" data-article="base64-guide">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://example.com/images/data-uris.jpg" alt="Data URIs" class="blog-image">
+                        <div class="blog-content">
+                            <h3 class="blog-title">Using Data URIs and Base64 for Web Performance</h3>
+                            <p class="blog-excerpt">Discover how Base64 encoded data URIs can improve your website's performance by reducing HTTP requests.</p>
+                            <div class="blog-meta">
+                                <span>May 28, 2023</span>
+                                <span>7 min read</span>
+                            </div>
+                            <a href="#" class="read-more" data-article="data-uris">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <img src="https://example.com/images/encoding-comparison.jpg" alt="Encoding Comparison" class="blog-image">
+                        <div class="blog-content">
+                            <h3 class="blog-title">Base64 vs. Other Encoding Methods</h3>
+                            <p class="blog-excerpt">Compare Base64 with other encoding schemes like Hex, UTF-8, and URL encoding to understand when to use each.</p>
+                            <div class="blog-meta">
+                                <span>April 10, 2023</span>
+                                <span>8 min read</span>
+                            </div>
+                            <a href="#" class="read-more" data-article="encoding-comparison">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Articles -->
+        <section class="page-section" id="base64-guide">
+            <div class="page-content">
+                <button class="secondary" onclick="showPage('blog')" style="margin-bottom: 1rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back to Blog
+                </button>
+                
+                <h1 class="page-title">What is Base64 Encoding? A Simple Guide</h1>
+                
+                <img src="https://example.com/images/base64-guide-large.jpg" alt="Base64 Encoding Explained" class="article-image">
+                
+                <p>Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format by translating it into a radix-64 representation. It's commonly used when there is a need to encode binary data that needs to be stored and transferred over media designed to deal with text.</p>
+                
+                <h2>How Base64 Encoding Works</h2>
+                <p>Base64 encoding takes binary data and converts it into a set of 64 characters that are safe for transmission. The 64 characters used are:</p>
+                <p><code>A-Z, a-z, 0-9, +, /</code> with <code>=</code> used as padding at the end.</p>
+                
+                <p>The encoding process works as follows:</p>
+                <ol>
+                    <li>Take the original binary data (like an image file or text)</li>
+                    <li>Split it into chunks of 3 bytes (24 bits)</li>
+                    <li>Divide each 24-bit chunk into four 6-bit segments</li>
+                    <li>Convert each 6-bit segment to a corresponding Base64 character</li>
+                    <li>If the last chunk has less than 3 bytes, pad with '=' characters</li>
+                </ol>
+                
+                <h2>Common Uses of Base64</h2>
+                <ul>
+                    <li><strong>Data URIs:</strong> Embed images directly in HTML or CSS files</li>
+                    <li><strong>APIs:</strong> Send binary data through JSON or XML</li>
+                    <li><strong>Email:</strong> Encode attachments in MIME emails</li>
+                    <li><strong>Basic Authentication:</strong> Encode username:password in HTTP headers</li>
+                    <li><strong>Cookies:</strong> Store complex data in browser cookies</li>
+                </ul>
+                
+                <h2>Advantages of Base64</h2>
+                <ul>
+                    <li>Makes binary data safe for text-based systems</li>
+                    <li>Simple to implement and widely supported</li>
+                    <li>No special characters that might cause issues in transmission</li>
+                </ul>
+                
+                <h2>Disadvantages</h2>
+                <ul>
+                    <li>Increases data size by about 33%</li>
+                    <li>Requires encoding/decoding processing</li>
+                    <li>Not a encryption method (data is not secured)</li>
+                </ul>
+                
+                <h2>Using Our Base64 Tool</h2>
+                <p>Our Base64 encoder/decoder makes it easy to convert between text and Base64. Simply paste your text in the "Encode" section to get the Base64 equivalent, or paste Base64 in the "Decode" section to get the original text.</p>
+                
+                <p>For developers, you can also use the live mode to see conversions happen as you type, which is great for testing and debugging.</p>
+                
+                <div class="ad-container">
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Google AdSense In-Article Ad -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                        data-ad-slot="YOUR_INARTICLE_SLOT"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Policy Page -->
+        <section class="page-section" id="privacy">
+            <h1 class="page-title">Privacy Policy</h1>
+            
+            <div class="page-content">
+                <p>Last Updated: June 1, 2023</p>
+                
+                <h2>Information We Collect</h2>
+                <p>When you use Tools Hub, we may collect certain information automatically, including:</p>
+                <ul>
+                    <li>Browser type and version</li>
+                    <li>Operating system</li>
+                    <li>Pages visited on our site</li>
+                    <li>Time and date of visits</li>
+                    <li>Time spent on pages</li>
+                </ul>
+                
+                <h2>How We Use Your Information</h2>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Provide and maintain our service</li>
+                    <li>Improve user experience</li>
+                    <li>Analyze how our tools are used</li>
+                    <li>Detect and prevent technical issues</li>
+                </ul>
+                
+                <h2>Data Security</h2>
+                <p>We implement appropriate security measures to protect your personal information. However, please remember that no method of transmission over the Internet is 100% secure.</p>
+                
+                <h2>Third-Party Services</h2>
+                <p>We use Google AdSense to serve ads on our site. Google uses cookies to serve ads based on your prior visits to our website or other websites.</p>
+                
+                <h2>Changes to This Policy</h2>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+                
+                <h2>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us through our contact page.</p>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section class="page-section" id="contact">
+            <h1 class="page-title">Contact Us</h1>
+            
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Contact Page Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_CONTACT_SLOT"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
+            <div class="page-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h2>Get in Touch</h2>
+                        <p>Have questions, suggestions, or feedback? We'd love to hear from you!</p>
+                        
+                        <div style="margin-top: 2rem;">
+                            <h3>Email</h3>
+                            <p>support@toolshub.example.com</p>
+                            
+                            <h3>Social Media</h3>
+                            <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                <a href="#" style="color: var(--primary-color);">Twitter</a>
+                                <a href="#" style="color: var(--primary-color);">Facebook</a>
+                                <a href="#" style="color: var(--primary-color);">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h2>Send Us a Message</h2>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            
+                            <button type="submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Page -->
+        <section class="page-section" id="faq">
+            <h1 class="page-title">Frequently Asked Questions</h1>
+            
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense FAQ Page Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                    data-ad-slot="YOUR_FAQ_SLOT"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
+            <div class="page-content">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <span>What is Base64 encoding used for?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Base64 encoding is commonly used to encode binary data (like images or files) into ASCII characters for safe transmission over text-based protocols like HTTP, email (MIME), or for embedding in text formats like JSON or XML. It's often used for data URIs in web pages, basic authentication, and storing complex data in cookies.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <span>Is Base64 encoding secure?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Base64 is not encryption and provides no security. It's simply an encoding scheme that makes binary data safe for text-based systems. Anyone can decode Base64 data back to its original form. If you need security, you should encrypt your data first, then optionally encode it with Base64.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <span>Why does my Base64 string end with equals signs?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The equals signs (=) at the end of a Base64 string are padding characters. Base64 works by encoding every 3 bytes of binary data into 4 ASCII characters. If the input isn't a multiple of 3 bytes, padding is added to make it so. One equals sign means there were 2 bytes left (needing 2 more 6-bit groups), two equals signs mean there was 1 byte left (needing 3 more 6-bit groups).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <span>Does Base64 encoding increase file size?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, Base64 encoding typically increases the size of the data by about 33%. This is because every 3 bytes of binary data gets converted to 4 ASCII characters (which are each 1 byte). The exact increase depends on whether padding is needed, but you can generally expect the encoded version to be roughly 1.37 times the original size.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <span>Can I decode any Base64 string back to the original file?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, any properly encoded Base64 string can be decoded back to its original binary form. However, you'll need to know what the original file type was (e.g., .jpg, .png, .pdf) to properly use the decoded data. Our tool works best with text data - for binary files like images, you might need specialized software to handle the decoded output.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <span>Why am I getting an error when trying to decode?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>If you're getting an error when decoding, it typically means the input isn't valid Base64. Common issues include:</p>
+                        <ul>
+                            <li>Extra spaces or line breaks in the input</li>
+                            <li>Missing padding characters (=) at the end</li>
+                            <li>Characters outside the Base64 alphabet (A-Z, a-z, 0-9, +, /)</li>
+                            <li>Data that was corrupted during copying/pasting</li>
+                        </ul>
+                        <p>Try removing any extra spaces or line breaks and ensure all characters are valid Base64 characters.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#" data-page="home">Home</a>
+            <a href="#" data-page="about">About Us</a>
+            <a href="#" data-page="blog">Blog</a>
+            <a href="#" data-page="privacy">Privacy Policy</a>
+            <a href="#" data-page="contact">Contact</a>
+            <a href="#" data-page="faq">FAQ</a>
+        </div>
+        <p>© 2023 Tools Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- Copy Notification -->
+    <div class="copy-notification" id="copyNotification">Copied to clipboard!</div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const themeIconMobile = document.getElementById('themeIconMobile');
+        const themeTextMobile = document.getElementById('themeTextMobile');
+        
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.textContent = '☀️';
+            themeText.textContent = 'Light Mode';
+            themeIconMobile.textContent = '☀️';
+            themeTextMobile.textContent = 'Light Mode';
+        }
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+                themeIconMobile.textContent = '☀️';
+                themeTextMobile.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+                themeIconMobile.textContent = '🌙';
+                themeTextMobile.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            mobileMenu.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Set up page navigation links
+        document.querySelectorAll('[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                showPage(pageId);
+                
+                // Update browser history
+                history.pushState({page: pageId}, '', `#${pageId}`);
+                document.title = `${link.textContent} | Tools Hub`;
+            });
+        });
+        
+        // Handle back/forward navigation
+        window.addEventListener('popstate', (event) => {
+            const pageId = event.state?.page || 'home';
+            showPage(pageId);
+        });
+        
+        // Check for hash on initial load
+        if (window.location.hash) {
+            const pageId = window.location.hash.substring(1);
+            if (document.getElementById(pageId)) {
+                showPage(pageId);
+            }
+        }
+        
+        // FAQ toggle functionality
+        function toggleAnswer(question) {
+            const answer = question.nextElementSibling;
+            const icon = question.querySelector('svg');
+            
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                answer.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Initialize FAQ answers to be hidden
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+        
+        // Base64 encoding/decoding functions
+        function encodeBase64(text) {
+            return btoa(unescape(encodeURIComponent(text)));
+        }
+        
+        function decodeBase64(base64) {
+            try {
+                return decodeURIComponent(escape(atob(base64)));
+            } catch (e) {
+                return null;
+            }
+        }
+        
+        // DOM elements
+        const encodeInput = document.getElementById('encodeInput');
+        const encodeOutput = document.getElementById('encodeOutput');
+        const encodeBtn = document.getElementById('encodeBtn');
+        const copyEncodedBtn = document.getElementById('copyEncodedBtn');
+        const clearEncodeBtn = document.getElementById('clearEncodeBtn');
+        const liveEncodeToggle = document.getElementById('liveEncodeToggle');
+        
+        const decodeInput = document.getElementById('decodeInput');
+        const decodeOutput = document.getElementById('decodeOutput');
+        const decodeBtn = document.getElementById('decodeBtn');
+        const copyDecodedBtn = document.getElementById('copyDecodedBtn');
+        const clearDecodeBtn = document.getElementById('clearDecodeBtn');
+        const decodeError = document.getElementById('decodeError');
+        const liveDecodeToggle = document.getElementById('liveDecodeToggle');
+        
+        const copyNotification = document.getElementById('copyNotification');
+        
+        // Encode functionality
+        function performEncode() {
+            const text = encodeInput.value;
+            if (text) {
+                const encoded = encodeBase64(text);
+                encodeOutput.value = encoded;
+                copyEncodedBtn.disabled = false;
+            } else {
+                encodeOutput.value = '';
+                copyEncodedBtn.disabled = true;
+            }
+        }
+        
+        // Decode functionality
+        function performDecode() {
+            const base64 = decodeInput.value.trim();
+            if (base64) {
+                const decoded = decodeBase64(base64);
+                if (decoded !== null) {
+                    decodeOutput.value = decoded;
+                    copyDecodedBtn.disabled = false;
+                    decodeError.style.display = 'none';
+                } else {
+                    decodeOutput.value = '';
+                    copyDecodedBtn.disabled = true;
+                    decodeError.style.display = 'block';
+                }
+            } else {
+                decodeOutput.value = '';
+                copyDecodedBtn.disabled = true;
+                decodeError.style.display = 'none';
+            }
+        }
+        
+        // Event listeners
+        encodeBtn.addEventListener('click', performEncode);
+        decodeBtn.addEventListener('click', performDecode);
+        
+        // Live encoding/decoding
+        encodeInput.addEventListener('input', () => {
+            if (liveEncodeToggle.checked) {
+                performEncode();
+            }
+        });
+        
+        decodeInput.addEventListener('input', () => {
+            if (liveDecodeToggle.checked) {
+                performDecode();
+            }
+        });
+        
+        // Copy functionality
+        function showCopyNotification() {
+            copyNotification.classList.add('show');
+            setTimeout(() => {
+                copyNotification.classList.remove('show');
+            }, 2000);
+        }
+        
+        copyEncodedBtn.addEventListener('click', () => {
+            if (encodeOutput.value) {
+                navigator.clipboard.writeText(encodeOutput.value);
+                showCopyNotification();
+            }
+        });
+        
+        copyDecodedBtn.addEventListener('click', () => {
+            if (decodeOutput.value) {
+                navigator.clipboard.writeText(decodeOutput.value);
+                showCopyNotification();
+            }
+        });
+        
+        // Clear functionality
+        clearEncodeBtn.addEventListener('click', () => {
+            encodeInput.value = '';
+            encodeOutput.value = '';
+            copyEncodedBtn.disabled = true;
+        });
+        
+        clearDecodeBtn.addEventListener('click', () => {
+            decodeInput.value = '';
+            decodeOutput.value = '';
+            copyDecodedBtn.disabled = true;
+            decodeError.style.display = 'none';
+        });
+        
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
+        }
+        
+        // Blog article navigation
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const articleId = link.getAttribute('data-article');
+                showPage(articleId);
+            });
+        });
+        
+        // Initialize
+        performEncode();
+        performDecode();
+    </script>
+</body>
+</html>
