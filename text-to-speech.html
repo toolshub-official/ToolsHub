@@ -811,10 +811,10 @@
             <nav class="desktop-nav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
                     <li><a href="blog.html">Blog</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="contact-us.html">Contact Us</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                 </ul>
             </nav>
@@ -840,24 +840,16 @@
         <nav class="mobile-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
+                <li><a href="about-us.html">About Us</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="privacy.html">Privacy Policy</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="contact-us.html">Contact Us</a></li>
                 <li><a href="faq.html">FAQ</a></li>
             </ul>
         </nav>
     </div>
     
     <div class="overlay" id="overlay"></div>
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Convert Text to Natural Sounding Speech</h1>
-            <p>Our advanced Text-to-Speech converter supports multiple languages and voices. Create high-quality audio files for presentations, e-learning, videos, and more.</p>
-        </div>
-    </section>
     
     <!-- Main Content -->
     <div class="container">
@@ -908,6 +900,8 @@
                             <option value="zh-cn-m">Chinese - Male</option>
                             <option value="ko-kr">Korean - Female</option>
                             <option value="ko-kr-m">Korean - Male</option>
+                            <option value="ko-kr">Urdu - Female</option>
+                            <option value="ko-kr-m">Urdu - Male</option>
                         </select>
                     </div>
                     
@@ -1185,9 +1179,9 @@
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
                         <li><a href="blog.html">Blog</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
                         <li><a href="faq.html">FAQ</a></li>
                     </ul>
@@ -1196,12 +1190,12 @@
                 <div class="footer-links">
                     <h3>Languages</h3>
                     <ul>
-                        <li><a href="#">English</a></li>
-                        <li><a href="#">Spanish</a></li>
-                        <li><a href="#">French</a></li>
-                        <li><a href="#">German</a></li>
-                        <li><a href="#">Italian</a></li>
-                        <li><a href="#">Japanese</a></li>
+                        <li><a href="text-to-speech.html">English</a></li>
+                        <li><a href="text-to-speech.html">Spanish</a></li>
+                        <li><a href="text-to-speech.html">French</a></li>
+                        <li><a href="text-to-speech.html">German</a></li>
+                        <li><a href="text-to-speech.html">Italian</a></li>
+                        <li><a href="text-to-speech.html">Japanese</a></li>
                     </ul>
                 </div>
                 
@@ -1394,7 +1388,7 @@
                 return new Promise((resolve, reject) => {
                     // VoiceRSS API parameters
                     const params = new URLSearchParams();
-                    params.append('key', 'a3f7e4c1a8e84c3f9e1a5d5e5b5e5e5e'); // Replace with your actual API key
+                    params.append('key', 'bfe6a35a223b4e4c94aaf168ecd92141'); // Replace with your actual API key
                     params.append('hl', voice);
                     params.append('src', text);
                     params.append('r', speed); // Rate (speed)
