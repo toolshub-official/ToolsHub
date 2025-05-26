@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Convert speech to text instantly using our accurate, real-time voice recognition tool. No installation needed. Try now!" />
+  <title>Speech to Text Converter</title>
+  <style>
+    :root {
+      --bg-light: #f4f6f9;
+      --bg-dark: #1e1e1e;
+      --text-light: #333;
+      --text-dark: #f1f1f1;
+      --primary: #2b7cd3;
+      --primary-dark: #1e5ea8;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    h1 {
+      color: #2b4d70;
+      margin-bottom: 10px;
+    }
+
+    p {
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 90%;
+      max-width: 700px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 250px;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      resize: vertical;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button, select {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    select {
+      background-color: #f0f0f0;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .controls {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+
+  <h1>Speech to Text Converter</h1>
+  <p>Convert your voice to text instantly with our accurate, real-time speech recognition tool.</p>
+
+  <!-- Top Ad Banner -->
+  <div class="ad-container">
+    <!-- AdSense Leaderboard -->
+    <div class="ad-leaderboard">
+      <!-- Replace with your AdSense code -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+           crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+           data-ad-slot="YOUR_LEADERBOARD_SLOT"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+  
+  <div class="container">
+    <textarea id="output" placeholder="Your transcribed text will appear here..."></textarea>
+
+    <div class="controls">
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+      <select id="language">
+        <option value="en-US">English (US)</option>
+        <option value="en-GB">English (UK)</option>
+        <option value="hi-IN">Hindi</option>
+        <option value="es-ES">Spanish</option>
+        <option value="fr-FR">French</option>
+        <option value="de-DE">German</option>
+        <option value="zh-CN">Chinese</option>
+        <option value="ar-SA">Arabic</option>
+        <option value="ja-JP">Japanese</option>
+        <option value="ru-RU">Russian</option>
+        <option value="pt-PT">Portuguese</option>
+        <option value="it-IT">Italian</option>
+        <option value="ko-KR">Korean</option>
+        <option value="tr-TR">Turkish</option>
+        <option value="th-TH">Thai</option>
+        <option value="bn-BD">Bengali</option>
+        <option value="ms-MY">Malay</option>
+        <option value="id-ID">Indonesian</option>
+        <option value="vi-VN">Vietnamese</option>
+        <option value="vi-PK">Urdu</option>
+        <option value="vi-NP">Nepali</option>
+      </select>
+      <button id="copy">Copy Text</button>
+    </div>
+
+    <div class="status" id="status">Click "Start" to begin voice transcription.</div>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById("start");
+    const stopBtn = document.getElementById("stop");
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+    const languageSelect = document.getElementById("language");
+    const copyBtn = document.getElementById("copy");
+
+    let recognition;
+    let isRecognizing = false;
+
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert("Sorry, your browser does not support the Speech Recognition API.");
+    } else {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+
+      recognition.onstart = () => {
+        isRecognizing = true;
+        status.textContent = "Listening... Speak now.";
+      };
+
+      recognition.onerror = (event) => {
+        status.textContent = "Error occurred: " + event.error;
+      };
+
+      recognition.onend = () => {
+        isRecognizing = false;
+        status.textContent = "Stopped listening. Click 'Start' to transcribe again.";
+      };
+
+      recognition.onresult = (event) => {
+        let transcript = "";
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          transcript += event.results[i][0].transcript;
+        }
+        output.value = transcript;
+      };
+
+      startBtn.onclick = () => {
+        if (isRecognizing) return;
+        recognition.lang = languageSelect.value;
+        recognition.start();
+      };
+
+      stopBtn.onclick = () => {
+        if (!isRecognizing) return;
+        recognition.stop();
+      };
+
+      copyBtn.onclick = () => {
+        output.select();
+        document.execCommand("copy");
+        status.textContent = "Text copied to clipboard!";
+      };
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+  </script>
+
+</body>
+</html>
+
+  <!-- Bottom Ad Banner -->
+  <div class="ad-container">
+    <!-- AdSense Mobile Banner -->
+    <div class="ad-mobile">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+           crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:320px;height:50px"
+           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+           data-ad-slot="YOUR_MOBILE_SLOT"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div
+  
