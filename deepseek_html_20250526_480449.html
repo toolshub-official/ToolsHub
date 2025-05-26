@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online URL Encoder and Decoder Tool | Tools Hub</title>
+    <meta name="description" content="Easily encode or decode URLs for safe sharing on the web. Use our free, fast, and secure online URL Encoder/Decoder Tool.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "URL Encoder/Decoder Tool",
+      "description": "Free online tool to encode and decode URLs",
+      "url": "https://example.com/url-encoder-decoder",
+      "applicationCategory": "Utility",
+      "operatingSystem": "Web"
+    }
+    </script>
+    <style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .dark .glassmorphism {
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.18);
+        }
+        .toast {
+            animation: fadeInOut 3s ease-in-out forwards;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Ad Banner Top -->
+    <div class="bg-white dark:bg-gray-800 p-2 text-center border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto">
+            <div class="ad-banner-top h-[90px] w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                <span class="text-gray-500 dark:text-gray-400">Advertisement</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header/Nav -->
+    <header class="sticky top-0 z-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="#" class="text-xl font-bold text-gray-900 dark:text-white">Tools Hub</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Blog</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</a>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-3 space-y-2">
+                <a href="#" class="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">Home</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">About</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">Blog</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">Contact</a>
+                <button class="block w-full text-left px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
+                    Toggle Theme
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Hero Section -->
+        <section class="mb-12 text-center">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">URL Encoder/Decoder Tool</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Easily encode or decode URLs for safe sharing on the web. Our free tool works in real-time and supports all special characters.
+            </p>
+        </section>
+
+        <!-- Tool Section -->
+        <section class="mb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Main Tool Area -->
+                <div class="lg:col-span-8">
+                    <div class="glassmorphism p-6 shadow-lg rounded-lg">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">URL Converter</h2>
+                            <div class="flex items-center space-x-4">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="auto-toggle" class="sr-only peer" checked>
+                                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <span class="ms-3 text-sm font-medium text-gray-700 dark:text-gray-300">Auto</span>
+                                </label>
+                                <div class="relative">
+                                    <select id="mode-select" class="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md py-2 pl-3 pr-8 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="encode">Encode</option>
+                                        <option value="decode">Decode</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label for="input-text" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Input</label>
+                                <textarea id="input-text" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter text to encode or paste URL to decode"></textarea>
+                            </div>
+
+                            <div class="flex flex-wrap gap-3">
+                                <button id="encode-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                                    <i class="fas fa-lock mr-2"></i>Encode
+                                </button>
+                                <button id="decode-btn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                                    <i class="fas fa-lock-open mr-2"></i>Decode
+                                </button>
+                                <button id="clear-btn" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                                    <i class="fas fa-broom mr-2"></i>Clear All
+                                </button>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <label for="output-text" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Output</label>
+                                    <button id="copy-btn" class="text-sm px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+                                        <i class="fas fa-copy mr-1"></i>Copy
+                                    </button>
+                                </div>
+                                <textarea id="output-text" readonly class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white" placeholder="Result will appear here"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar with Ad -->
+                <div class="lg:col-span-4">
+                    <div class="sticky top-20 space-y-6">
+                        <div class="glassmorphism p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">How to use</h3>
+                            <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">1.</span>
+                                    <span>Select Encode or Decode mode</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">2.</span>
+                                    <span>Enter your text or URL in the input box</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">3.</span>
+                                    <span>Result will appear automatically (or click the buttons)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">4.</span>
+                                    <span>Copy the result with the Copy button</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ad-sidebar h-[250px] w-full bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                            <span class="text-gray-500 dark:text-gray-400">Advertisement</span>
+                        </div>
+
+                        <div class="glassmorphism p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Quick Tips</h3>
+                            <div class="space-y-4 text-gray-600 dark:text-gray-300">
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-200">Why encode URLs?</h4>
+                                    <p class="text-sm mt-1">URL encoding converts special characters to a format that can be transmitted over the internet safely.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-200">Common encoded characters</h4>
+                                    <p class="text-sm mt-1">Space becomes %20, & becomes %26, ? becomes %3F, etc.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Frequently Asked Questions</h2>
+            <div class="glassmorphism p-6 rounded-lg shadow-lg max-w-4xl mx-auto">
+                <div class="space-y-6">
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">What is URL encoding?</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            URL encoding is the process of converting characters in a URL into a format that can be safely transmitted over the internet. 
+                            It replaces unsafe ASCII characters with a "%" followed by two hexadecimal digits representing the character's ASCII value.
+                        </p>
+                    </div>
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">When should I encode a URL?</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            You should encode URLs when they contain special characters, spaces, or non-ASCII characters. 
+                            This is especially important when passing parameters in query strings or when the URL contains user-generated content.
+                        </p>
+                    </div>
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">What's the difference between encodeURI and encodeURIComponent?</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">encodeURI</code> is meant for encoding entire URLs and doesn't encode characters that are valid in URLs (like /, ?, &, etc.). 
+                            <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">encodeURIComponent</code> is meant for encoding parts of URLs (like query parameters) and encodes more characters.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Is URL encoding secure?</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            URL encoding is not encryption - it doesn't provide security or hide information. It's simply a way to ensure special characters are transmitted correctly. 
+                            For sensitive data, use proper encryption methods in addition to URL encoding if needed.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Preview Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">From Our Blog</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glassmorphism p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-3">Understanding URL Encoding</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Learn the fundamentals of URL encoding and why it's essential for web development.</p>
+                    <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center">
+                        Read more <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                <div class="glassmorphism p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-3">Common URL Encoding Mistakes</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Avoid these common pitfalls when working with encoded URLs in your projects.</p>
+                    <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center">
+                        Read more <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                <div class="glassmorphism p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-3">Advanced URL Handling Techniques</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Explore advanced methods for working with URLs in JavaScript and other languages.</p>
+                    <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center">
+                        Read more <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="#" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 inline-flex items-center">
+                    View All Articles <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Bottom Ad -->
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg mb-16">
+            <div class="ad-bottom h-[90px] w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                <span class="text-gray-500 dark:text-gray-400">Advertisement</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <div class="col-span-2">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Tools Hub</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Providing free, high-quality online tools for developers, marketers, and content creators.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-800 dark:text-white uppercase tracking-wider mb-4">Tools</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">URL Encoder/Decoder</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">JSON Formatter</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Base64 Converter</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">HTML Escape</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-800 dark:text-white uppercase tracking-wider mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About Us</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Blog</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Careers</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-800 dark:text-white uppercase tracking-wider mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                    &copy; 2023 Tools Hub. All rights reserved.
+                </p>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 hidden">
+        <div class="toast bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span id="toast-message">Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        html.setAttribute('data-theme', savedTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // URL Encoding/Decoding Functions
+        function encodeURL(text) {
+            try {
+                return encodeURIComponent(text);
+            } catch (e) {
+                showToast('Invalid input for encoding', 'error');
+                return '';
+            }
+        }
+        
+        function decodeURL(text) {
+            try {
+                return decodeURIComponent(text.replace(/\+/g, ' '));
+            } catch (e) {
+                showToast('Invalid URL for decoding', 'error');
+                return '';
+            }
+        }
+        
+        // DOM Elements
+        const inputText = document.getElementById('input-text');
+        const outputText = document.getElementById('output-text');
+        const encodeBtn = document.getElementById('encode-btn');
+        const decodeBtn = document.getElementById('decode-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const modeSelect = document.getElementById('mode-select');
+        const autoToggle = document.getElementById('auto-toggle');
+        
+        // Auto Update when typing if auto mode is on
+        let timeoutId;
+        inputText.addEventListener('input', () => {
+            if (autoToggle.checked) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(updateOutput, 300);
+            }
+        });
+        
+        // Mode Select Change
+        modeSelect.addEventListener('change', () => {
+            if (autoToggle.checked && inputText.value) {
+                updateOutput();
+            }
+        });
+        
+        // Button Events
+        encodeBtn.addEventListener('click', () => {
+            modeSelect.value = 'encode';
+            updateOutput();
+        });
+        
+        decodeBtn.addEventListener('click', () => {
+            modeSelect.value = 'decode';
+            updateOutput();
+        });
+        
+        clearBtn.addEventListener('click', () => {
+            inputText.value = '';
+            outputText.value = '';
+            showToast('Cleared!', 'success');
+        });
+        
+        copyBtn.addEventListener('click', () => {
+            if (outputText.value) {
+                navigator.clipboard.writeText(outputText.value)
+                    .then(() => showToast('Copied to clipboard!', 'success'))
+                    .catch(() => showToast('Failed to copy', 'error'));
+            } else {
+                showToast('Nothing to copy', 'warning');
+            }
+        });
+        
+        // Update Output based on current mode
+        function updateOutput() {
+            const text = inputText.value;
+            if (!text) {
+                outputText.value = '';
+                return;
+            }
+            
+            if (modeSelect.value === 'encode') {
+                outputText.value = encodeURL(text);
+            } else {
+                outputText.value = decodeURL(text);
+            }
+        }
+        
+        // Toast Notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toastMessage.textContent = message;
+            
+            // Remove all color classes
+            toast.classList.remove('bg-green-500', 'bg-red-500', 'bg-yellow-500');
+            
+            // Add appropriate color class
+            switch (type) {
+                case 'success':
+                    toast.classList.add('bg-green-500');
+                    break;
+                case 'error':
+                    toast.classList.add('bg-red-500');
+                    break;
+                case 'warning':
+                    toast.classList.add('bg-yellow-500');
+                    break;
+            }
+            
+            // Show toast
+            toast.classList.remove('hidden');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Example text
+            // inputText.value = 'Hello World! How are you?';
+            // updateOutput();
+        });
+    </script>
+</body>
+</html>
