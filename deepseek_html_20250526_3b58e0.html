@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Generate MD5 hashes from any text instantly. Free online MD5 Generator tool for cryptographic and data integrity applications."/>
+  <meta name="keywords" content="MD5 generator, hash generator, online tools, cryptography, data security"/>
+  <meta name="author" content="Tools Hub"/>
+  <meta property="og:title" content="MD5 Generator Tool - Free Online Hash Generator"/>
+  <meta property="og:description" content="Generate MD5 hashes from any text instantly. Free online tool for developers and security professionals."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://example.com/md5-generator"/>
+  <title>MD5 Generator Tool - Free Online Hash Generator | Tools Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --text-color: #2b2d42;
+      --bg-color: #f8f9fa;
+      --card-color: #ffffff;
+      --border-color: #e9ecef;
+      --success-color: #2ecc71;
+      --danger-color: #e74c3c;
+      --warning-color: #f39c12;
+      --dark-mode-bg: #121212;
+      --dark-mode-card: #1e1e1e;
+      --dark-mode-text: #f8f9fa;
+      --dark-mode-border: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dark-mode {
+      --bg-color: var(--dark-mode-bg);
+      --card-color: var(--dark-mode-card);
+      --text-color: var(--dark-mode-text);
+      --border-color: var(--dark-mode-border);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: var(--accent-color);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 20px;
+      flex: 1;
+      width: 100%;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 30px;
+    }
+
+    @media (max-width: 992px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tool-container {
+      background: var(--card-color);
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      padding: 30px;
+      border: 1px solid var(--border-color);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: var(--accent-color);
+    }
+
+    .description {
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 15px;
+      font-size: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      resize: none;
+      background-color: var(--card-color);
+      color: var(--text-color);
+      margin-bottom: 1rem;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .generate-btn {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .generate-btn:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+
+    .copy-btn {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .copy-btn:hover {
+      background-color: #27ae60;
+      transform: translateY(-2px);
+    }
+
+    .clear-btn {
+      background-color: var(--danger-color);
+      color: white;
+    }
+
+    .clear-btn:hover {
+      background-color: #c0392b;
+      transform: translateY(-2px);
+    }
+
+    .result-container {
+      margin-top: 20px;
+    }
+
+    .result-label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .result-box {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      padding: 15px;
+      border-radius: 8px;
+      word-break: break-all;
+      font-family: 'Courier New', monospace;
+      min-height: 60px;
+      color: var(--text-color);
+    }
+
+    .features {
+      margin-top: 2rem;
+    }
+
+    .features h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .features ul {
+      list-style-position: inside;
+      margin-bottom: 1rem;
+    }
+
+    .features li {
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .ad-container {
+      background: var(--card-color);
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-color);
+    }
+
+    .blog-preview {
+      background: var(--card-color);
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .blog-preview h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .blog-item {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .blog-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .blog-item a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .blog-item a:hover {
+      text-decoration: underline;
+    }
+
+    .blog-meta {
+      font-size: 0.8rem;
+      color: var(--text-color);
+      opacity: 0.7;
+      display: flex;
+      gap: 10px;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--accent-color);
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-column a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Mobile menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: var(--primary-color);
+        padding: 1rem;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+      }
+      
+      nav.active {
+        transform: translateY(0);
+      }
+      
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .buttons {
+        flex-direction: column;
+      }
+      
+      .buttons button {
+        width: 100%;
+      }
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-lock"></i>
+        <span>Tools Hub</span>
+      </div>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav id="mainNav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+      
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="main-content">
+      <div class="tool-container">
+        <h1>MD5 Hash Generator</h1>
+        <p class="description">
+          Generate MD5 hashes from any text instantly. MD5 is a widely used cryptographic hash function that produces a 128-bit (16-byte) hash value. 
+          While not recommended for security purposes due to vulnerabilities, it's still useful for checksums and data integrity verification.
+        </p>
+        
+        <textarea id="inputText" placeholder="Enter text to generate MD5 hash..."></textarea>
+        
+        <div class="buttons">
+          <button class="generate-btn" onclick="generateMD5()">
+            <i class="fas fa-key"></i> Generate MD5
+          </button>
+          <button class="copy-btn" onclick="copyHash()">
+            <i class="far fa-copy"></i> Copy Hash
+          </button>
+          <button class="clear-btn" onclick="clearAll()">
+            <i class="fas fa-trash-alt"></i> Clear
+          </button>
+        </div>
+        
+        <div class="result-container">
+          <label class="result-label">MD5 Hash Result:</label>
+          <div id="result" class="result-box"></div>
+        </div>
+        
+        <div class="features">
+          <h2><i class="fas fa-star"></i> Key Features</h2>
+          <ul>
+            <li>Instant MD5 hash generation</li>
+            <li>Clean, user-friendly interface</li>
+            <li>Copy to clipboard with one click</li>
+            <li>Supports all text and special characters</li>
+            <li>Completely free with no limitations</li>
+            <li>Works on all devices - mobile, tablet, desktop</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="sidebar">
+        <div class="ad-container">
+          <!-- Google AdSense Ad Unit -->
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+               crossorigin="anonymous"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+        
+        <div class="blog-preview">
+          <h3><i class="fas fa-newspaper"></i> Latest Articles</h3>
+          
+          <div class="blog-item">
+            <a href="blog/understanding-md5.html">Understanding MD5: Uses and Limitations</a>
+            <p>A deep dive into the MD5 algorithm, its applications, and why it's considered cryptographically broken.</p>
+            <div class="blog-meta">
+              <span><i class="far fa-calendar-alt"></i> May 15, 2025</span>
+              <span><i class="far fa-clock"></i> 5 min read</span>
+            </div>
+          </div>
+          
+          <div class="blog-item">
+            <a href="blog/secure-hashing.html">Secure Hashing Alternatives to MD5</a>
+            <p>Explore modern hashing algorithms like SHA-256, SHA-3, and BLAKE2 that provide better security than MD5.</p>
+            <div class="blog-meta">
+              <span><i class="far fa-calendar-alt"></i> April 28, 2025</span>
+              <span><i class="far fa-clock"></i> 7 min read</span>
+            </div>
+          </div>
+          
+          <div class="blog-item">
+            <a href="blog/data-integrity.html">Ensuring Data Integrity with Hashes</a>
+            <p>Learn how cryptographic hashes help verify data integrity in file transfers, downloads, and storage.</p>
+            <div class="blog-meta">
+              <span><i class="far fa-calendar-alt"></i> April 10, 2025</span>
+              <span><i class="far fa-clock"></i> 4 min read</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="ad-container">
+          <!-- Google AdSense Ad Unit -->
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+               crossorigin="anonymous"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>Tools Hub</h3>
+        <p>Your one-stop destination for free online tools to make your digital life easier.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Popular Tools</h3>
+        <ul>
+          <li><a href="md5-generator.html">MD5 Generator</a></li>
+          <li><a href="sha256-generator.html">SHA-256 Generator</a></li>
+          <li><a href="password-generator.html">Password Generator</a></li>
+          <li><a href="base64-encoder.html">Base64 Encoder</a></li>
+          <li><a href="qr-generator.html">QR Code Generator</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <ul>
+          <li><i class="fas fa-envelope"></i> contact@toolshub.com</li>
+          <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Silicon Valley, CA</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      &copy; 2025 Tools Hub. All rights reserved.
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- MD5 Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference or use preferred color scheme
+    const savedTheme = localStorage.getItem('theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-mode');
+      icon.classList.replace('fa-moon', 'fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      
+      if (body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+    
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mainNav = document.getElementById('mainNav');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
+    
+    // MD5 Functions
+    function generateMD5() {
+      const input = document.getElementById("inputText").value.trim();
+      if (!input) {
+        showToast("Please enter some text to generate hash.");
+        return;
+      }
+      const hash = md5(input);
+      const resultBox = document.getElementById("result");
+      resultBox.textContent = hash;
+      resultBox.style.padding = "15px";
+    }
+
+    function copyHash() {
+      const resultBox = document.getElementById("result");
+      if (!resultBox.textContent) {
+        showToast("Nothing to copy. Generate a hash first.");
+        return;
+      }
+      navigator.clipboard.writeText(resultBox.textContent).then(() => {
+        showToast("MD5 hash copied to clipboard!");
+      }).catch(err => {
+        showToast("Failed to copy hash. Please try again.");
+        console.error('Failed to copy: ', err);
+      });
+    }
+
+    function clearAll() {
+      document.getElementById("inputText").value = "";
+      const resultBox = document.getElementById("result");
+      resultBox.textContent = "";
+      resultBox.style.padding = "0";
+    }
+    
+    // Toast notification function
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Initialize tooltips
+    const tooltipElements = document.querySelectorAll('.tooltip');
+    tooltipElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        const tooltip = el.querySelector('.tooltiptext');
+        tooltip.style.visibility = 'visible';
+        tooltip.style.opacity = '1';
+      });
+      
+      el.addEventListener('mouseleave', () => {
+        const tooltip = el.querySelector('.tooltiptext');
+        tooltip.style.visibility = 'hidden';
+        tooltip.style.opacity = '0';
+      });
+    });
+    
+    // SEO enhancement - structured data
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "MD5 Generator Tool",
+      "description": "Free online tool to generate MD5 hashes from text input instantly.",
+      "applicationCategory": "DeveloperTool",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    };
+    
+    const scriptTag = document.createElement('script');
+    scriptTag.type = 'application/ld+json';
+    scriptTag.text = JSON.stringify(structuredData);
+    document.head.appendChild(scriptTag);
+  </script>
+</body>
+</html>
