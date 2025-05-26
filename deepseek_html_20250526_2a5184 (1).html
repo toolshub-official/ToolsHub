@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Text to Speech Converter | Natural Voice Generator | ToolsHub Pro</title>
+  <meta name="description" content="Convert text to natural sounding speech with our advanced TTS tool. Supports 50+ languages, multiple voices, speed control, and various audio formats. Perfect for content creators, educators, and developers." />
+  <meta name="keywords" content="text to speech, TTS, voice generator, speech synthesis, audio converter, voice RSS, multilingual TTS" />
+  <meta name="author" content="ToolsHub Pro" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --dark: #212529;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --dark-gray: #495057;
+      --success: #4cc9f0;
+      --warning: #f8961e;
+      --danger: #f72585;
+      --radius: 12px;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --primary: #4895ef;
+      --primary-dark: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4cc9f0;
+      --dark: #f8f9fa;
+      --light: #212529;
+      --gray: #adb5bd;
+      --light-gray: #343a40;
+      --dark-gray: #e9ecef;
+      --success: #4cc9f0;
+      --warning: #f8961e;
+      --danger: #f72585;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      transition: var(--transition);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: var(--accent);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+      margin-bottom: 2rem;
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Main Content */
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 992px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* TTS Converter Section */
+    .converter-card {
+      background-color: var(--light-gray);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .converter-card h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .converter-card h2 i {
+      color: var(--accent);
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--gray);
+      background-color: var(--light);
+      color: var(--dark);
+      resize: vertical;
+      transition: var(--transition);
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+    }
+
+    select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--gray);
+      background-color: var(--light);
+      color: var(--dark);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+    }
+
+    .range-group {
+      margin: 1.5rem 0;
+    }
+
+    .range-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .range-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      height: 8px;
+      border-radius: 4px;
+      background: var(--gray);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    .range-value {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #3525d4;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .audio-player {
+      width: 100%;
+      margin-top: 2rem;
+      border-radius: var(--radius);
+      background-color: var(--light);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .ad-container {
+      background-color: var(--light-gray);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed var(--gray);
+    }
+
+    .ad-container p {
+      color: var(--gray);
+    }
+
+    .feature-card {
+      background-color: var(--light-gray);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .feature-list {
+      list-style: none;
+    }
+
+    .feature-list li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feature-list i {
+      color: var(--accent);
+      margin-top: 3px;
+    }
+
+    /* Blog Preview Section */
+    .blog-preview {
+      margin: 3rem 0;
+    }
+
+    .blog-preview h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .blog-card {
+      background-color: var(--light-gray);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-image {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .blog-card:hover .blog-image img {
+      transform: scale(1.05);
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+    }
+
+    .blog-content h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .blog-meta i {
+      margin-right: 5px;
+    }
+
+    .blog-excerpt {
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+
+    .read-more {
+      display: inline-block;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .read-more:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin: 3rem 0;
+    }
+
+    .faq-section h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background-color: var(--light-gray);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.5rem;
+      text-align: left;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .faq-question:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .faq-question i {
+      transition: var(--transition);
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 1.5rem;
+      max-height: 500px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 3rem 0 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-column h3 {
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: white;
+      background-color: var(--primary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--dark-gray);
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-menu.active {
+        display: block;
+      }
+    }
+
+    /* Dark Mode Toggle */
+    .theme-toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-toggle {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      border-radius: 15px;
+      background-color: var(--dark-gray);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: white;
+      transition: var(--transition);
+    }
+
+    [data-theme="dark"] .theme-toggle::after {
+      transform: translateX(30px);
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--dark);
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fas fa-microphone-alt"></i>
+        <span>ToolsHub Pro</span>
+      </div>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav class="nav-menu" id="navMenu">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="theme-toggle-container">
+        <span><i class="fas fa-sun"></i></span>
+        <div class="theme-toggle" id="themeToggle"></div>
+        <span><i class="fas fa-moon"></i></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <h1>Premium Text to Speech Converter</h1>
+      <p>Transform your text into natural sounding speech with our advanced AI-powered voice generator. Perfect for content creators, educators, and developers.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container main-content">
+    <!-- Converter Section -->
+    <main>
+      <div class="converter-card">
+        <h2><i class="fas fa-microphone"></i> Text to Speech Converter</h2>
+        
+        <div class="input-group">
+          <label for="textInput">Enter your text:</label>
+          <textarea id="textInput" placeholder="Type or paste your text here to convert it to speech..."></textarea>
+        </div>
+        
+        <div class="input-group">
+          <label for="languageSelect">Language & Voice:</label>
+          <select id="languageSelect">
+            <option value="en-us">English (US) - Allison (Female)</option>
+            <option value="en-gb">English (UK) - Amy (Female)</option>
+            <option value="en-au">English (Australia) - Catherine (Female)</option>
+            <option value="en-ca">English (Canada) - Linda (Female)</option>
+            <option value="en-in">English (India) - Ravi (Male)</option>
+            <option value="es-es">Spanish (Spain) - Laura (Female)</option>
+            <option value="es-mx">Spanish (Mexico) - Miguel (Male)</option>
+            <option value="fr-fr">French (France) - Celine (Female)</option>
+            <option value="de-de">German (Germany) - Hans (Male)</option>
+            <option value="it-it">Italian (Italy) - Isabella (Female)</option>
+            <option value="ja-jp">Japanese (Japan) - Ichiro (Male)</option>
+            <option value="ko-kr">Korean (Korea) - Yuna (Female)</option>
+            <option value="pt-br">Portuguese (Brazil) - Maria (Female)</option>
+            <option value="ru-ru">Russian (Russia) - Irina (Female)</option>
+            <option value="zh-cn">Chinese (Mandarin) - Hui (Female)</option>
+            <option value="hi-in">Hindi (India) - Aditi (Female)</option>
+            <option value="ar-sa">Arabic (Saudi Arabia) - Zeina (Female)</option>
+            <option value="tr-tr">Turkish (Turkey) - Deniz (Female)</option>
+            <option value="nl-nl">Dutch (Netherlands) - Emma (Female)</option>
+            <option value="sv-se">Swedish (Sweden) - Astrid (Female)</option>
+            <option value="pl-pl">Polish (Poland) - Ewa (Female)</option>
+            <option value="ur-pk">Urdu (Pakistan) - Ahmed (Male)</option>
+          </select>
+        </div>
+        
+        <div class="input-group">
+          <label for="codecSelect">Audio Format:</label>
+          <select id="codecSelect">
+            <option value="MP3">MP3 (Most Compatible)</option>
+            <option value="WAV">WAV (High Quality)</option>
+            <option value="AAC">AAC (Advanced Audio Coding)</option>
+            <option value="OGG">OGG (Open Format)</option>
+          </select>
+        </div>
+        
+        <div class="range-group">
+          <label for="speedRange">Speech Speed:</label>
+          <div class="range-container">
+            <input type="range" id="speedRange" min="-10" max="10" value="0" step="1">
+            <span class="range-value" id="speedValue">0</span>
+          </div>
+        </div>
+        
+        <div class="range-group">
+          <label for="volumeRange">Volume Gain:</label>
+          <div class="range-container">
+            <input type="range" id="volumeRange" min="-10" max="10" value="0" step="1">
+            <span class="range-value" id="volumeValue">0</span>
+          </div>
+        </div>
+        
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="convertTextToSpeech()">
+            <i class="fas fa-play"></i> Convert & Play
+          </button>
+          <button class="btn btn-secondary" id="downloadBtn" style="display:none;" onclick="downloadAudio()">
+            <i class="fas fa-download"></i> Download Audio
+          </button>
+        </div>
+        
+        <audio id="audioPlayer" class="audio-player" controls></audio>
+      </div>
+
+      <!-- About Section -->
+      <section class="converter-card" id="about">
+        <h2><i class="fas fa-info-circle"></i> About Our Text to Speech Service</h2>
+        <p>Our advanced Text-to-Speech (TTS) converter uses cutting-edge AI technology to transform written text into natural-sounding speech. With support for over 50 languages and various voice options, our tool is perfect for:</p>
+        
+        <ul style="margin: 1rem 0 1rem 2rem;">
+          <li>Content creators looking to add voiceovers to videos</li>
+          <li>Educators creating accessible learning materials</li>
+          <li>Developers integrating speech synthesis into applications</li>
+          <li>Individuals with reading difficulties or visual impairments</li>
+          <li>Language learners improving pronunciation</li>
+        </ul>
+        
+        <p>Our service is powered by VoiceRSS API, ensuring high-quality, natural-sounding voices with minimal robotic artifacts. The simple interface makes it easy for anyone to create professional-quality audio files in seconds.</p>
+      </section>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Ad Space 1 -->
+      <div class="ad-container">
+        <!-- Google AdSense Code -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+          crossorigin="anonymous"></script>
+        <!-- Sidebar Ad Unit -->
+        <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+          data-ad-slot="YOUR_AD_SLOT_ID"
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <!-- Features -->
+      <div class="feature-card">
+        <h3><i class="fas fa-star"></i> Key Features</h3>
+        <ul class="feature-list">
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <span>50+ languages & 100+ voice options</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <span>Adjustable speech speed & volume</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <span>Multiple audio formats (MP3, WAV, AAC, OGG)</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <span>High-quality natural sounding voices</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <span>Instant playback & download</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <span>No registration required</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Ad Space 2 -->
+      <div class="ad-container">
+        <!-- Google AdSense Code -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+          crossorigin="anonymous"></script>
+        <!-- Sidebar Ad Unit 2 -->
+        <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+          data-ad-slot="YOUR_AD_SLOT_ID_2"
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Blog Preview Section -->
+  <section class="blog-preview container" id="blog">
+    <h2><i class="fas fa-newspaper"></i> Latest Articles</h2>
+    
+    <div class="blog-grid">
+      <!-- Blog Post 1 -->
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Text to Speech Technology">
+        </div>
+        <div class="blog-content">
+          <h3>The Evolution of Text-to-Speech Technology</h3>
+          <div class="blog-meta">
+            <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+            <span><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <p class="blog-excerpt">Explore how text-to-speech technology has evolved from robotic voices to the natural-sounding AI voices we have today...</p>
+          <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+      
+      <!-- Blog Post 2 -->
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Accessibility">
+        </div>
+        <div class="blog-content">
+          <h3>How TTS Improves Digital Accessibility</h3>
+          <div class="blog-meta">
+            <span><i class="far fa-calendar-alt"></i> May 28, 2023</span>
+            <span><i class="far fa-clock"></i> 4 min read</span>
+          </div>
+          <p class="blog-excerpt">Discover how text-to-speech technology is breaking down barriers and making digital content accessible to everyone...</p>
+          <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+      
+      <!-- Blog Post 3 -->
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Content Creation">
+        </div>
+        <div class="blog-content">
+          <h3>Content Creation with TTS: A Game Changer</h3>
+          <div class="blog-meta">
+            <span><i class="far fa-calendar-alt"></i> April 10, 2023</span>
+            <span><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <p class="blog-excerpt">Learn how content creators are using text-to-speech tools to enhance their workflow and create engaging multimedia content...</p>
+          <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section container" id="faq">
+    <h2><i class="far fa-question-circle"></i> Frequently Asked Questions</h2>
+    
+    <div class="faq-container">
+      <!-- FAQ Item 1 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          What is text-to-speech technology?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Text-to-speech (TTS) is a form of speech synthesis that converts written text into spoken voice output. Our TTS system uses advanced AI to produce natural-sounding speech that closely resembles human voice patterns, intonation, and pronunciation.</p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 2 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          How many languages do you support?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>We currently support over 50 languages with multiple voice options for each language. This includes major world languages like English, Spanish, French, German, Chinese, Japanese, and many more. We're constantly adding new languages and voices to our system.</p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 3 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Is there a limit to how much text I can convert?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Our free version allows you to convert up to 1,000 characters at a time. For longer texts, we offer premium plans with higher limits. If you need to convert large documents, consider breaking them into smaller sections.</p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 4 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Can I use the generated audio commercially?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, audio files generated through our service can be used for commercial purposes, including in videos, podcasts, presentations, and other media. However, redistribution of the audio files as standalone voice products is not permitted.</p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 5 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          How do I download the audio files?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>After converting your text to speech, a "Download Audio" button will appear. Simply click this button to save the audio file to your device in your selected format (MP3, WAV, AAC, or OGG).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="converter-card container" id="contact">
+    <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+    <p>Have questions or feedback? We'd love to hear from you!</p>
+    
+    <form style="margin-top: 1.5rem;">
+      <div class="input-group">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" style="width: 100%; padding: 0.8rem 1rem; border-radius: var(--radius); border: 1px solid var(--gray);">
+      </div>
+      
+      <div class="input-group">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" placeholder="Enter your email" style="width: 100%; padding: 0.8rem 1rem; border-radius: var(--radius); border: 1px solid var(--gray);">
+      </div>
+      
+      <div class="input-group">
+        <label for="message">Message:</label>
+        <textarea id="message" placeholder="Enter your message" style="min-height: 120px;"></textarea>
+      </div>
+      
+      <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-column">
+          <h3>ToolsHub Pro</h3>
+          <p>Your one-stop solution for all digital tools and utilities. Making technology accessible to everyone.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Tools</h3>
+          <ul class="footer-links">
+            <li><a href="#">Text to Speech</a></li>
+            <li><a href="#">Speech to Text</a></li>
+            <li><a href="#">PDF Converter</a></li>
+            <li><a href="#">Image Editor</a></li>
+            <li><a href="#">Password Generator</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">GDPR Compliance</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 ToolsHub Pro. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+    
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Check for saved theme preference or use preferred color scheme
+    const savedTheme = localStorage.getItem('theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    html.setAttribute('data-theme', savedTheme);
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+    
+    // Range Input Updates
+    const speedRange = document.getElementById('speedRange');
+    const speedValue = document.getElementById('speedValue');
+    const volumeRange = document.getElementById('volumeRange');
+    const volumeValue = document.getElementById('volumeValue');
+    
+    speedRange.addEventListener('input', () => {
+      speedValue.textContent = speedRange.value;
+    });
+    
+    volumeRange.addEventListener('input', () => {
+      volumeValue.textContent = volumeRange.value;
+    });
+    
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        // Close all other items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+          }
+        });
+        
+        // Toggle current item
+        item.classList.toggle('active');
+      });
+    });
+    
+    // Text to Speech Conversion
+    const API_KEY = 'bfe6a35a223b4e4c94aaf168ecd92141'; // Your API Key
+    let currentAudioUrl = '';
+    
+    function convertTextToSpeech() {
+      const text = document.getElementById('textInput').value.trim();
+      const lang = document.getElementById('languageSelect').value;
+      const codec = document.getElementById('codecSelect').value;
+      const rate = speedRange.value;
+      const volume = volumeRange.value;
+      const audio = document.getElementById('audioPlayer');
+      const downloadBtn = document.getElementById('downloadBtn');
+      
+      if (!text) {
+        alert("Please enter some text to convert.");
+        return;
+      }
+      
+      if (text.length > 1000) {
+        alert("For the free version, please limit your text to 1000 characters. Consider upgrading for longer texts.");
+        return;
+      }
+      
+      // Show loading state
+      const convertBtn = document.querySelector('.btn-primary');
+      convertBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+      convertBtn.disabled = true;
+      
+      // Compose the VoiceRSS API URL with all params
+      currentAudioUrl = `https://api.voicerss.org/?key=${API_KEY}&hl=${lang}&src=${encodeURIComponent(text)}&c=${codec}&r=${rate}&b=${volume}`;
+      
+      audio.src = currentAudioUrl;
+      audio.style.display = 'block';
+      
+      audio.oncanplay = () => {
+        convertBtn.innerHTML = '<i class="fas fa-play"></i> Convert & Play';
+        convertBtn.disabled = false;
+        downloadBtn.style.display = 'inline-block';
+        audio.play();
+      };
+      
+      audio.onerror = () => {
+        convertBtn.innerHTML = '<i class="fas fa-play"></i> Convert & Play';
+        convertBtn.disabled = false;
+        alert("Error generating speech. Please try again.");
+      };
+    }
+    
+    function downloadAudio() {
+      if (!currentAudioUrl) return;
+      
+      const link = document.createElement('a');
+      link.href = currentAudioUrl;
+      const codec = document.getElementById('codecSelect').value.toLowerCase();
+      link.download = `tts-audio-${new Date().getTime()}.${codec}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          navMenu.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Premium Text to Speech Converter",
+      "url": "https://yourwebsite.com",
+      "description": "Convert text to natural sounding speech with our advanced AI-powered voice generator. Supports 50+ languages and multiple voice options.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "ToolsHub Pro"
+      }
+    }
+  </script>
+</body>
+</html>
