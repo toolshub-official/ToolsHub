@@ -1342,39 +1342,7 @@
                 <h1>500+ Free Online Tools for Your Daily Needs</h1>
                 <p>To make tools easier to use for mobile users, convert your Chrome browser to desktop site mode.</p>
                 
-  <div class="search-container">
-    <input type="text" class="search-bar" id="searchInput" placeholder="Search for tools...">
-    <div class="results" id="resultsBox"></div>
-  </div>
 
-  <script>
-    const tools = [
-      { name: "Word Counter", link: "word-counter.html" },
-      { name: "PDF to Word Converter", link: "pdf-to-word.html" },
-      { name: "Image Compressor", link: "image-compressor.html" },
-      { name: "Background Remover", link: "background-remover.html" },
-      { name: "Color Picker", link: "color-picker.html" }
-    ];
-
-    const input = document.getElementById('searchInput');
-    const resultsBox = document.getElementById('resultsBox');
-
-    input.addEventListener('input', () => {
-      const query = input.value.toLowerCase();
-      const filtered = tools.filter(tool => tool.name.toLowerCase().includes(query));
-      resultsBox.innerHTML = '';
-
-      if (query && filtered.length > 0) {
-        filtered.forEach(tool => {
-          const div = document.createElement('div');
-          div.className = 'result-item';
-          div.textContent = tool.name;
-          div.onclick = () => window.location.href = tool.link;
-          resultsBox.appendChild(div);
-        });
-      }
-    });
-  </script>
                 
                 <div class="tool-icons">
                     <div class="tool-icon">
@@ -1389,7 +1357,195 @@
                     <div class="tool-icon">
                         <i class="fas fa-font"></i>
                     </div>
-                    <div class="tool-icon">
+                    <<div class="search-wrapper">
+    <div class="search-container">
+        <div class="search-input-container">
+            <input type="text" class="search-bar" id="searchInput" placeholder="Search tools..." autocomplete="off">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <div class="search-border"></div>
+        </div>
+        <div class="results" id="resultsBox"></div>
+    </div>
+</div>
+
+<style>
+    .search-wrapper {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .search-container {
+        position: relative;
+        z-index: 10;
+    }
+
+    .search-input-container {
+        position: relative;
+    }
+
+    .search-bar {
+        width: 100%;
+        padding: 15px 20px 15px 50px;
+        font-size: 16px;
+        border: none;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        color: #333;
+        transition: all 0.3s ease;
+    }
+
+    .search-bar:focus {
+        outline: none;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .search-bar::placeholder {
+        color: #777;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        color: #777;
+        transition: all 0.3s ease;
+    }
+
+    .search-bar:focus + .search-icon {
+        color: #4a6cf7;
+    }
+
+    .search-border {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #4a6cf7, #a855f7);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+    }
+
+    .search-bar:focus ~ .search-border {
+        width: 100%;
+    }
+
+    .results {
+        position: absolute;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 10px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(10px);
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 100;
+    }
+
+    .results.show {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+    }
+
+    .result-item {
+        padding: 15px 25px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: #333;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .result-item:last-child {
+        border-bottom: none;
+    }
+
+    .result-item:hover {
+        background: rgba(74, 108, 247, 0.1);
+        color: #4a6cf7;
+        padding-left: 30px;
+    }
+
+    /* Scrollbar styling */
+    .results::-webkit-scrollbar {
+        width: 8px;
+        border-radius: 0 15px 15px 0;
+    }
+
+    .results::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 0 15px 15px 0;
+    }
+
+    .results::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+
+    .results::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<script>
+    const tools = [
+        { name: "Word Counter", link: "word-counter.html" },
+        { name: "PDF to Word Converter", link: "pdf-to-word.html" },
+        { name: "Image Compressor", link: "image-compressor.html" },
+        { name: "Background Remover", link: "background-remover.html" },
+        { name: "Color Picker", link: "color-picker.html" }
+    ];
+
+    const input = document.getElementById('searchInput');
+    const resultsBox = document.getElementById('resultsBox');
+
+    input.addEventListener('input', () => {
+        const query = input.value.toLowerCase();
+        const filtered = tools.filter(tool => tool.name.toLowerCase().includes(query));
+        resultsBox.innerHTML = '';
+
+        if (query && filtered.length > 0) {
+            filtered.forEach(tool => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `<span>${highlightMatches(tool.name, query)}</span>`;
+                div.onclick = () => window.location.href = tool.link;
+                resultsBox.appendChild(div);
+            });
+            resultsBox.classList.add('show');
+        } else {
+            resultsBox.classList.remove('show');
+        }
+    });
+
+    function highlightMatches(text, query) {
+        if (!query) return text;
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<span style="color: #4a6cf7; font-weight: 600;">$1</span>');
+    }
+
+    // Close results when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-container')) {
+            resultsBox.classList.remove('show');
+        }
+    });
+</script>div class="tool-icon">
                         <i class="fas fa-calculator"></i>
                     </div>
                     <div class="tool-icon">
