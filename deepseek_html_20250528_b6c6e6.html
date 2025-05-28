@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online PDF to Text converter using Google's Document AI technology. Extract text from PDFs with high accuracy. Perfect for scanned documents and editable PDFs.">
+    <meta name="keywords" content="PDF to Text, PDF converter, extract text from PDF, online PDF tool, Document AI">
+    <meta name="author" content="PDF Tools">
+    <meta name="robots" content="index, follow">
+    <title>PDF to Text Converter | Extract Text from PDFs Online</title>
+    <link rel="canonical" href="https://yourwebsite.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #4895ef;
+            --primary-dark: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --dark: #f8f9fa;
+            --light: #1a1a2e;
+            --gray: #adb5bd;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+        }
+
+        nav a:hover, nav a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .content-area {
+            flex: 2;
+        }
+
+        .sidebar {
+            flex: 1;
+        }
+
+        /* Converter Tool */
+        .converter-card {
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .converter-card {
+            background-color: #252540;
+        }
+
+        .converter-card h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--gray);
+            border-radius: var(--radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .upload-area.active {
+            border-color: var(--success);
+            background-color: rgba(76, 201, 240, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #3730a3;
+        }
+
+        .result-area {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .text-preview {
+            border: 1px solid var(--gray);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin-bottom: 1.5rem;
+            background-color: var(--light);
+            font-family: 'Courier New', monospace;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .progress-container {
+            margin: 1.5rem 0;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .error-message {
+            color: var(--warning);
+            margin: 1rem 0;
+            display: none;
+            padding: 1rem;
+            background-color: rgba(247, 37, 133, 0.1);
+            border-radius: var(--radius);
+        }
+
+        .file-info {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .file-info i {
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            color: var(--light);
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            background-color: #f5f5f5;
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--gray);
+        }
+
+        [data-theme="dark"] .ad-unit {
+            background-color: #2d2d42;
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        [data-theme="dark"] .feature-card {
+            background-color: #252540;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Blog/Articles */
+        .articles {
+            margin: 3rem 0;
+        }
+
+        .article-card {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .article-card {
+            background-color: #252540;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .article-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .article-card p {
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* FAQ Section */
+        .faq {
+            margin: 3rem 0;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        [data-theme="dark"] .faq-item {
+            background-color: #252540;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .article-card {
+                flex-direction: column;
+            }
+
+            .article-img {
+                width: 100%;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-dark);
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                gap: 0;
+                clip-path: circle(0px at 90% -10%);
+                transition: clip-path 0.5s ease;
+                pointer-events: none;
+            }
+
+            nav ul.open {
+                clip-path: circle(1000px at 90% -10%);
+                pointer-events: all;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+
+            nav a {
+                display: block;
+                padding: 1rem;
+                border-radius: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                top: 110px;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .converter-card {
+                padding: 1.5rem;
+            }
+
+            .upload-area {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Page-specific styles */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-content {
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        [data-theme="dark"] .page-content {
+            background-color: #252540;
+        }
+
+        .page-content h2 {
+            color: var(--primary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .page-content p {
+            margin-bottom: 1rem;
+        }
+
+        .page-content ul, .page-content ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .page-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--radius);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        .mt-5 { margin-top: 3rem; }
+
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .mb-5 { margin-bottom: 3rem; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF Tools</span>
+            </div>
+            <nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul id="navMenu">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="container">
+                    <h1>Convert PDF to Text with Ease</h1>
+                    <p>Extract text from any PDF document using advanced AI technology. Perfect for scanned documents, editable PDFs, and more.</p>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-file-upload"></i> Convert Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="container">
+                <!-- Ad Unit - Leaderboard -->
+                <div class="ad-unit mt-4 mb-4">
+                    <div>
+                        <span class="ad-label">Advertisement</span>
+                        <!-- Replace with your AdSense code -->
+                        <div id="leaderboard-ad">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                                crossorigin="anonymous"></script>
+                            <!-- Leaderboard Ad -->
+                            <ins class="adsbygoogle"
+                                style="display:block"
+                                data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                                data-ad-slot="YOUR_AD_SLOT"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="content-area">
+                        <!-- PDF Converter Tool -->
+                        <div class="converter-card">
+                            <h2><i class="fas fa-exchange-alt mr-2"></i>PDF to Text Converter</h2>
+                            <div class="upload-area" id="uploadArea">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <h3>Drag & Drop your PDF here</h3>
+                                <p>or</p>
+                                <input type="file" id="fileInput" class="file-input" accept=".pdf">
+                                <button class="btn" id="selectFileBtn">
+                                    <i class="fas fa-file-pdf"></i> Select PDF File
+                                </button>
+                                <p class="file-requirements mt-2">Supports PDF files up to 10MB. Scanned documents are supported.</p>
+                            </div>
+                            
+                            <div class="file-info" id="fileInfo"></div>
+                            
+                            <div class="progress-container" id="progressContainer">
+                                <p>Processing your file...</p>
+                                <div class="progress-bar">
+                                    <div class="progress" id="progressBar"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="error-message" id="errorMessage"></div>
+                            
+                            <div class="result-area" id="resultArea">
+                                <h3><i class="fas fa-file-alt mr-2"></i>Extracted Text:</h3>
+                                <div class="text-preview" id="textPreview"></div>
+                                <div class="action-buttons">
+                                    <button class="btn" id="copyTextBtn">
+                                        <i class="far fa-copy"></i> Copy Text
+                                    </button>
+                                    <button class="btn btn-secondary" id="downloadTextBtn">
+                                        <i class="fas fa-download"></i> Download as TXT
+                                    </button>
+                                    <button class="btn btn-outline" id="newFileBtn">
+                                        <i class="fas fa-redo"></i> Process New File
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Features Section -->
+                        <div class="features">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <h3>Fast Conversion</h3>
+                                <p>Convert your PDFs to text in seconds with our high-speed processing engine.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <h3>Secure Processing</h3>
+                                <p>Your files are processed securely and never stored permanently on our servers.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-scanner"></i>
+                                </div>
+                                <h3>OCR Technology</h3>
+                                <p>Extract text even from scanned documents using advanced OCR technology.</p>
+                            </div>
+                        </div>
+
+                        <!-- Ad Unit - Rectangle -->
+                        <div class="ad-unit mt-4 mb-4">
+                            <div>
+                                <span class="ad-label">Advertisement</span>
+                                <!-- Replace with your AdSense code -->
+                                <div id="rectangle-ad">
+                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                                        crossorigin="anonymous"></script>
+                                    <!-- Rectangle Ad -->
+                                    <ins class="adsbygoogle"
+                                        style="display:block"
+                                        data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                                        data-ad-slot="YOUR_AD_SLOT"
+                                        data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins>
+                                    <script>
+                                        (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog/Articles Section -->
+                        <div class="articles">
+                            <h2 class="mb-3"><i class="fas fa-newspaper mr-2"></i>Latest Articles</h2>
+                            
+                            <div class="article-card">
+                                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="PDF Technology" class="article-img">
+                                <div class="article-content">
+                                    <div class="article-meta">
+                                        <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+                                        <span><i class="far fa-user"></i> Admin</span>
+                                    </div>
+                                    <h3>The Future of PDF Technology: What to Expect in 2023</h3>
+                                    <p>Discover the latest advancements in PDF technology and how they're changing the way we work with documents. From improved OCR to enhanced security features, learn what's coming next.</p>
+                                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            
+                            <div class="article-card">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Document Management" class="article-img">
+                                <div class="article-content">
+                                    <div class="article-meta">
+                                        <span><i class="far fa-calendar-alt"></i> May 28, 2023</span>
+                                        <span><i class="far fa-user"></i> Admin</span>
+                                    </div>
+                                    <h3>5 Best Practices for Document Management in Small Businesses</h3>
+                                    <p>Effective document management is crucial for small businesses. Learn the top 5 strategies to organize, secure, and optimize your document workflow for maximum productivity.</p>
+                                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar">
+                        <!-- Ad Unit - Sidebar -->
+                        <div class="ad-unit">
+                            <div>
+                                <span class="ad-label">Advertisement</span>
+                                <!-- Replace with your AdSense code -->
+                                <div id="sidebar-ad">
+                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                                        crossorigin="anonymous"></script>
+                                    <!-- Sidebar Ad -->
+                                    <ins class="adsbygoogle"
+                                        style="display:block"
+                                        data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                                        data-ad-slot="YOUR_AD_SLOT"
+                                        data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins>
+                                    <script>
+                                        (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Popular Tools -->
+                        <div class="converter-card mt-4">
+                            <h3><i class="fas fa-fire mr-2"></i>Popular Tools</h3>
+                            <ul class="mt-3">
+                                <li class="mb-2"><a href="#" class="text-primary"><i class="fas fa-file-word mr-2"></i>PDF to Word</a></li>
+                                <li class="mb-2"><a href="#" class="text-primary"><i class="fas fa-file-excel mr-2"></i>PDF to Excel</a></li>
+                                <li class="mb-2"><a href="#" class="text-primary"><i class="fas fa-file-powerpoint mr-2"></i>PDF to PowerPoint</a></li>
+                                <li class="mb-2"><a href="#" class="text-primary"><i class="fas fa-file-image mr-2"></i>PDF to JPG</a></li>
+                                <li><a href="#" class="text-primary"><i class="fas fa-file-archive mr-2"></i>Compress PDF</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Subscribe Box -->
+                        <div class="converter-card mt-4">
+                            <h3><i class="fas fa-envelope mr-2"></i>Subscribe</h3>
+                            <p class="mt-2">Get the latest updates and tips delivered to your inbox.</p>
+                            <form class="mt-3">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Your email address" required>
+                                </div>
+                                <button type="submit" class="btn btn-secondary w-100">
+                                    <i class="fas fa-paper-plane mr-2"></i>Subscribe
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Page -->
+        <section id="about" class="page hidden">
+            <div class="page-header">
+                <div class="container">
+                    <h1>About Us</h1>
+                    <p>Learn more about our mission and the team behind PDF Tools</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="page-content">
+                    <h2>Our Story</h2>
+                    <p>Founded in 2020, PDF Tools began as a simple solution to a common problem: extracting text from PDF documents shouldn't be complicated or expensive. What started as a side project quickly grew into a full-fledged platform serving thousands of users worldwide.</p>
+                    
+                    <h2 class="mt-4">Our Mission</h2>
+                    <p>We believe in making document conversion tools accessible to everyone. Our mission is to provide reliable, secure, and easy-to-use tools that help individuals and businesses work more efficiently with their documents.</p>
+                    
+                    <h2 class="mt-4">The Technology</h2>
+                    <p>We leverage cutting-edge technologies including Google's Document AI and advanced OCR systems to deliver the most accurate text extraction possible. Our platform is constantly evolving to incorporate the latest advancements in document processing.</p>
+                    
+                    <div class="features mt-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>500,000+</h3>
+                            <p>Happy Users</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3>10M+</h3>
+                            <p>Documents Processed</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3>150+</h3>
+                            <p>Countries Served</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Page -->
+        <section id="blog" class="page hidden">
+            <div class="page-header">
+                <div class="container">
+                    <h1>Blog</h1>
+                    <p>Latest articles and news about PDF technology and document management</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="page-content">
+                    <div class="articles">
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Data Visualization" class="article-img">
+                            <div class="article-content">
+                                <div class="article-meta">
+                                    <span><i class="far fa-calendar-alt"></i> July 5, 2023</span>
+                                    <span><i class="far fa-user"></i> Admin</span>
+                                    <span><i class="far fa-comments"></i> 12 Comments</span>
+                                </div>
+                                <h3>How to Extract Data from PDFs for Analysis and Visualization</h3>
+                                <p>Learn techniques for extracting structured data from PDF reports and invoices to use in your data analysis workflows. This guide covers everything from simple text extraction to handling tables and forms.</p>
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Document Security" class="article-img">
+                            <div class="article-content">
+                                <div class="article-meta">
+                                    <span><i class="far fa-calendar-alt"></i> June 22, 2023</span>
+                                    <span><i class="far fa-user"></i> Admin</span>
+                                    <span><i class="far fa-comments"></i> 8 Comments</span>
+                                </div>
+                                <h3>Securing Sensitive Documents: Best Practices for PDF Security</h3>
+                                <p>Protecting sensitive information in your PDF documents is crucial. Discover the best practices for PDF security, including password protection, encryption, and redaction techniques.</p>
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Workflow Automation" class="article-img">
+                            <div class="article-content">
+                                <div class="article-meta">
+                                    <span><i class="far fa-calendar-alt"></i> June 10, 2023</span>
+                                    <span><i class="far fa-user"></i> Admin</span>
+                                    <span><i class="far fa-comments"></i> 15 Comments</span>
+                                </div>
+                                <h3>Automating Document Workflows with PDF Tools and APIs</h3>
+                                <p>Explore how businesses are automating their document processing workflows using PDF tools and APIs. Learn about integration options and real-world use cases that can save hours of manual work.</p>
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Policy Page -->
+        <section id="privacy" class="page hidden">
+            <div class="page-header">
+                <div class="container">
+                    <h1>Privacy Policy</h1>
+                    <p>How we collect, use, and protect your information</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="page-content">
+                    <h2>Introduction</h2>
+                    <p>At PDF Tools, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website and services.</p>
+                    
+                    <h2 class="mt-4">Information We Collect</h2>
+                    <p>We may collect information about you in a variety of ways:</p>
+                    <ul>
+                        <li><strong>Personal Data:</strong> While using our service, we may ask you to provide certain personally identifiable information that can be used to contact or identify you.</li>
+                        <li><strong>Usage Data:</strong> We may collect information on how the service is accessed and used.</li>
+                        <li><strong>Document Data:</strong> The PDF files you upload for processing are temporarily stored during conversion but are not retained after processing is complete.</li>
+                    </ul>
+                    
+                    <h2 class="mt-4">How We Use Your Information</h2>
+                    <p>We use the information we collect in various ways, including to:</p>
+                    <ul>
+                        <li>Provide, operate, and maintain our service</li>
+                        <li>Improve, personalize, and expand our service</li>
+                        <li>Understand and analyze how you use our service</li>
+                        <li>Develop new products, services, features, and functionality</li>
+                        <li>Communicate with you for customer service and support</li>
+                    </ul>
+                    
+                    <h2 class="mt-4">Security of Your Information</h2>
+                    <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable.</p>
+                    
+                    <h2 class="mt-4">Changes to This Privacy Policy</h2>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "effective date" at the top of this Privacy Policy.</p>
+                    
+                    <h2 class="mt-4">Contact Us</h2>
+                    <p>If you have any questions about this Privacy Policy, please contact us at privacy@pdftools.com.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us Page -->
+        <section id="contact" class="page hidden">
+            <div class="page-header">
+                <div class="container">
+                    <h1>Contact Us</h1>
+                    <p>Get in touch with our team for support and inquiries</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="page-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h2>Send Us a Message</h2>
+                            <form class="contact-form mt-4">
+                                <div class="form-group">
+                                    <label for="name">Your Name</label>
+                                    <input type="text" id="name" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <input type="text" id="subject" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" class="form-control" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fas fa-paper-plane mr-2"></i> Send Message
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div>
+                            <h2>Contact Information</h2>
+                            <div class="mt-4">
+                                <div class="flex items-start mb-4">
+                                    <i class="fas fa-map-marker-alt text-primary mt-1 mr-3"></i>
+                                    <div>
+                                        <h4>Our Office</h4>
+                                        <p>123 Tech Street, San Francisco, CA 94107</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start mb-4">
+                                    <i class="fas fa-envelope text-primary mt-1 mr-3"></i>
+                                    <div>
+                                        <h4>Email Us</h4>
+                                        <p>support@pdftools.com</p>
+                                        <p>sales@pdftools.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start mb-4">
+                                    <i class="fas fa-phone-alt text-primary mt-1 mr-3"></i>
+                                    <div>
+                                        <h4>Call Us</h4>
+                                        <p>+1 (555) 123-4567</p>
+                                        <p>Mon-Fri, 9am-5pm PST</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h2 class="mt-6">Follow Us</h2>
+                            <div class="social-links mt-3">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Page -->
+        <section id="faq" class="page hidden">
+            <div class="page-header">
+                <div class="container">
+                    <h1>Frequently Asked Questions</h1>
+                    <p>Find answers to common questions about our PDF to Text converter</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="page-content">
+                    <div class="faq">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How does the PDF to Text converter work?</span>
+                                <i class="fas fa-chevron-down faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our PDF to Text converter uses advanced OCR (Optical Character Recognition) technology to extract text from your PDF documents. For native PDFs with selectable text, it directly extracts the text content. For scanned documents or image-based PDFs, it uses Google's Document AI to recognize and extract text from the images.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Is there a file size limit for conversion?</span>
+                                <i class="fas fa-chevron-down faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, the current file size limit is 10MB per document. This ensures fast processing times and good performance for all users. For larger documents, we recommend splitting them into smaller parts before uploading.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How accurate is the text extraction?</span>
+                                <i class="fas fa-chevron-down faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>For native PDFs with selectable text, the accuracy is nearly 100%. For scanned documents, the accuracy depends on the quality of the scan but typically ranges from 95-99% for clear, high-quality scans. Our system automatically corrects common OCR errors and maintains the original formatting as much as possible.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Are my documents stored after conversion?</span>
+                                <i class="fas fa-chevron-down faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>No, we do not store your documents permanently. Your files are temporarily stored during the conversion process (typically less than 1 hour) and then automatically deleted from our servers. The extracted text is only available in your browser and is not stored on our servers unless you explicitly choose to save it.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>What types of PDFs can be converted?</span>
+                                <i class="fas fa-chevron-down faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our converter works with all standard PDF files including:</p>
+                                <ul>
+                                    <li>Native PDFs with selectable text</li>
+                                    <li>Scanned document PDFs (image-based)</li>
+                                    <li>Password-protected PDFs (if you provide the password)</li>
+                                    <li>Multi-page documents</li>
+                                    <li>PDFs containing tables and formatted text</li>
+                                </ul>
+                                <p>We support PDFs created by all major PDF generators including Adobe Acrobat, Microsoft Office, and various scanning apps.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Is there a limit to how many files I can convert?</span>
+                                <i class="fas fa-chevron-down faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>For free users, we allow up to 10 conversions per hour. If you need higher limits, you can upgrade to our premium plan which offers unlimited conversions and additional features.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PDF Tools</h3>
+                    <p>Your complete solution for all PDF conversion needs. Fast, secure, and easy to use.</p>
+                    <div class="social-links mt-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Tools</h3>
+                    <ul>
+                        <li><a href="#">PDF to Word</a></li>
+                        <li><a href="#">PDF to Excel</a></li>
+                        <li><a href="#">PDF to PowerPoint</a></li>
+                        <li><a href="#">PDF to JPG</a></li>
+                        <li><a href="#">Compress PDF</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 PDF Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const fileInfo = document.getElementById('fileInfo');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const errorMessage = document.getElementById('errorMessage');
+        const resultArea = document.getElementById('resultArea');
+        const textPreview = document.getElementById('textPreview');
+        const copyTextBtn = document.getElementById('copyTextBtn');
+        const downloadTextBtn = document.getElementById('downloadTextBtn');
+        const newFileBtn = document.getElementById('newFileBtn');
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('nav a');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        // Global variables
+        let currentFile = null;
+        let currentPage = 'home';
+
+        // Initialize the page
+        function init() {
+            // Show the home page by default
+            showPage('home');
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Initialize theme from localStorage
+            initTheme();
+        }
+
+        // Set up all event listeners
+        function setupEventListeners() {
+            // File upload events
+            selectFileBtn.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Drag and drop events
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('active');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('active');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('active');
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect({ target: fileInput });
+                }
+            });
+            
+            // Button events
+            copyTextBtn.addEventListener('click', copyTextToClipboard);
+            downloadTextBtn.addEventListener('click', downloadTextFile);
+            newFileBtn.addEventListener('click', resetForm);
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            // Mobile menu
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            
+            // Navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.getAttribute('href').substring(1);
+                    showPage(pageId);
+                    
+                    // Update active nav link
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    navMenu.classList.remove('open');
+                });
+            });
+            
+            // FAQ accordion
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                    
+                    // Close other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Handle file selection
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            
+            if (!file) return;
+            
+            // Validate file type
+            if (file.type !== 'application/pdf') {
+                showError('Please upload a PDF file.');
+                return;
+            }
+            
+            // Validate file size (10MB max)
+            if (file.size > 10 * 1024 * 1024) {
+                showError('File size exceeds 10MB limit.');
+                return;
+            }
+            
+            currentFile = file;
+            fileInfo.innerHTML = `<i class="fas fa-file-pdf"></i> Selected file: <strong>${file.name}</strong> (${formatFileSize(file.size)})`;
+            errorMessage.style.display = 'none';
+            
+            // Process the file
+            processFile(file);
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            resultArea.style.display = 'none';
+            progressContainer.style.display = 'none';
+        }
+
+        // Update progress bar
+        function updateProgress(percentage) {
+            progressBar.style.width = `${percentage}%`;
+        }
+
+        // Process the uploaded file
+        async function processFile(file) {
+            try {
+                // Show progress
+                progressContainer.style.display = 'block';
+                resultArea.style.display = 'none';
+                updateProgress(10);
+                
+                // In a real implementation, you would send the file to a backend server
+                // which would then use the Google Document AI API
+                // For this demo, we'll simulate the API call
+                const extractedText = await mockDocumentAIAPI(file);
+                
+                // Display results
+                textPreview.textContent = extractedText;
+                resultArea.style.display = 'block';
+                progressContainer.style.display = 'none';
+                
+            } catch (error) {
+                console.error('Error processing file:', error);
+                showError('An error occurred while processing the file. Please try again.');
+                progressContainer.style.display = 'none';
+            }
+        }
+
+        // Mock Document AI API - in a real app, this would be a call to your backend
+        async function mockDocumentAIAPI(file) {
+            return new Promise((resolve) => {
+                // Simulate API processing time
+                const totalSteps = 5;
+                let currentStep = 0;
+                
+                const progressInterval = setInterval(() => {
+                    currentStep++;
+                    const progress = 10 + (currentStep / totalSteps * 90);
+                    updateProgress(progress);
+                    
+                    if (currentStep === totalSteps) {
+                        clearInterval(progressInterval);
+                        
+                        // Generate mock extracted text based on file name
+                        resolve(generateMockText(file.name));
+                    }
+                }, 300);
+            });
+        }
+
+        // Generate mock extracted text
+        function generateMockText(filename) {
+            const pages = Math.max(1, Math.floor(Math.random() * 5) + 1);
+            let text = `Document: ${filename}\n\n`;
+            
+            // Generate mock document content
+            for (let i = 1; i <= pages; i++) {
+                text += `=== Page ${i} ===\n\n`;
+                
+                // Add random paragraphs
+                const paragraphs = Math.floor(Math.random() * 3) + 2;
+                for (let p = 0; p < paragraphs; p++) {
+                    text += `This is paragraph ${p+1} on page ${i} of the document. It contains some sample text that might appear in a real PDF document. The Google Document AI service would extract this text with high accuracy, preserving the structure and formatting where possible.\n\n`;
+                }
+                
+                // Add random list 50% of the time
+                if (Math.random() > 0.5) {
+                    text += "Key points:\n";
+                    const items = Math.floor(Math.random() * 4) + 3;
+                    for (let l = 1; l <= items; l++) {
+                        text += `- Item ${l}: Important detail ${l}\n`;
+                    }
+                    text += "\n";
+                }
+                
+                // Add random table 30% of the time
+                if (Math.random() > 0.7) {
+                    text += "Table:\n";
+                    const cols = Math.floor(Math.random() * 3) + 2;
+                    const rows = Math.floor(Math.random() * 4) + 2;
+                    
+                    // Header
+                    for (let c = 1; c <= cols; c++) {
+                        text += `Column ${c}\t`;
+                    }
+                    text += "\n";
+                    
+                    // Rows
+                    for (let r = 1; r <= rows; r++) {
+                        for (let c = 1; c <= cols; c++) {
+                            text += `Data ${r}-${c}\t`;
+                        }
+                        text += "\n";
+                    }
+                    text += "\n";
+                }
+            }
+            
+            text += `\nDocument processing complete. ${pages} page(s) processed.`;
+            return text;
+        }
+
+        // Copy text to clipboard
+        function copyTextToClipboard() {
+            navigator.clipboard.writeText(textPreview.textContent)
+                .then(() => {
+                    const originalText = copyTextBtn.textContent;
+                    copyTextBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyTextBtn.innerHTML = '<i class="far fa-copy"></i> Copy Text';
+                    }, 2000);
+                })
+                .catch(err => {
+                    showError('Failed to copy text to clipboard.');
+                    console.error('Failed to copy text:', err);
+                });
+        }
+
+        // Download text as file
+        function downloadTextFile() {
+            const blob = new Blob([textPreview.textContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            
+            a.href = url;
+            a.download = currentFile ? currentFile.name.replace('.pdf', '.txt') : 'extracted_text.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Reset the form
+        function resetForm() {
+            fileInput.value = '';
+            currentFile = null;
+            fileInfo.textContent = '';
+            resultArea.style.display = 'none';
+            errorMessage.style.display = 'none';
+            progressContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+        }
+
+        // Toggle theme between light and dark
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? null : 'dark';
+            
+            if (newTheme) {
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.removeItem('theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+
+        // Initialize theme from localStorage
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            navMenu.classList.toggle('open');
+        }
+
+        // Show the specified page and hide others
+        function showPage(pageId) {
+            // Update current page
+            currentPage = pageId;
+            
+            // Hide all pages
+            pages.forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.remove('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Update browser history
+            history.pushState({ page: pageId }, '', `#${pageId}`);
+        }
+
+        // Handle back/forward navigation
+        window.addEventListener('popstate', (event) => {
+            const pageId = event.state?.page || 'home';
+            showPage(pageId);
+            
+            // Update active nav link
+            navLinks.forEach(navLink => {
+                navLink.classList.remove('active');
+                if (navLink.getAttribute('href') === `#${pageId}`) {
+                    navLink.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
