@@ -682,7 +682,7 @@
           <button class="remove-btn" id="removeFile">
             <i class="fas fa-times"></i>
           </button>
-        </div>
+        </div></div>
 
         <div class="progress-bar" id="progressBar" style="display: none;">
           <div class="progress" id="progress"></div>
@@ -860,213 +860,33 @@
     </div>
   </footer>
 
-  <script>
-    // DOM Elements
-    const pdfFileInput = document.getElementById('pdfFile');
-    const uploadBtn = document.getElementById('uploadBtn');
-   const dropArea = document.getElementById('dropArea');
-    const fileInfo = document.getElementById('fileInfo');
-    const fileName = document.getElementById('fileName');
-    const removeFile = document.getElementById('removeFile');
-    const compressBtn = document.getElementById('compressBtn');
-    const progressBar = document.getElementById('progressBar');
-    const progress = document.getElementById('progress');
-    const statusMessage = document.getElementById('statusMessage');
-    const themeToggle = document.getElementById('themeToggle');
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mainNav = document.getElementById('mainNav');
 
-    // Theme Toggle
-    themeToggle.addEventListener('click', () => {
-      document.body.setAttribute('data-theme', 
-        document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-      
-      const icon = themeToggle.querySelector('i');
-      if (document.body.getAttribute('data-theme') === 'dark') {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-      } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-      }
+   <script>
+    const input = document.getElementById('pdfInput');
+    const button = document.getElementById('compressBtn');
+    let pdfData = null;
+
+    input.addEventListener('change', async () => {
+      const file = input.files[0];
+      if (!file || file.type !== 'application/pdf') return alert("Please select a valid PDF file.");
+      pdfData = await file.arrayBuffer();
+      button.disabled = false;
     });
 
-    // Mobile Menu Toggle
-    mobileMenuBtn.addEventListener('click', () => {
-      mainNav.classList.toggle('active');
+    button.addEventListener('click', async () => {
+      const originalPdf = await PDFLib.PDFDocument.load(pdfData);
+      const newPdf = await PDFLib.PDFDocument.create();
+      const pages = await newPdf.copyPages(originalPdf, originalPdf.getPageIndices());
+      pages.forEach(page => newPdf.addPage(page));
+
+      const compressedPdfBytes = await newPdf.save();
+      const blob = new Blob([compressedPdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'compressed.pdf';
+      a.click();
     });
-
-    // File Upload Handling
-    uploadBtn.addEventListener('click', () => {
-      pdfFileInput.click();
-    });
-
-    pdfFileInput.addEventListener('change', handleFileSelect);
-    removeFile.addEventListener('click', resetFileInput);
-
-    // Drag and Drop Handling
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-      dropArea.addEventListener(eventName, preventDefaults, false);
-    });
-
-    function preventDefaults(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-
-    ['dragenter', 'dragover'].forEach(eventName => {
-      dropArea.addEventListener(eventName, highlight, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-      dropArea.addEventListener(eventName, unhighlight, false);
-    });
-
-    function highlight() {
-      dropArea.style.borderColor = 'var(--primary-color)';
-      dropArea.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
-    }
-
-    function unhighlight() {
-      dropArea.style.borderColor = 'var(--border-color)';
-      dropArea.style.backgroundColor = '';
-    }
-
-    dropArea.addEventListener('drop', handleDrop, false);
-
-    function handleDrop(e) {
-      const dt = e.dataTransfer;
-      const files = dt.files;
-      
-      if (files.length) {
-        pdfFileInput.files = files;
-        handleFileSelect();
-      }
-    }
-
-    function handleFileSelect() {
-      if (pdfFileInput.files.length) {
-        const file = pdfFileInput.files[0];
-        
-        // Check if file is PDF
-        if (file.type !== 'application/pdf') {
-          showStatus('Please select a PDF file', 'error');
-          resetFileInput();
-          return;
-        }
-        
-        // Check file size (limit to 50MB)
-        if (file.size > 50 * 1024 * 1024) {
-          showStatus('File size exceeds 50MB limit', 'error');
-          resetFileInput();
-          return;
-        }
-        
-        fileName.textContent = file.name;
-        fileInfo.style.display = 'flex';
-        compressBtn.disabled = false;
-        hideStatus();
-      }
-    }
-
-    function resetFileInput() {
-      pdfFileInput.value = '';
-      fileInfo.style.display = 'none';
-      compressBtn.disabled = true;
-      hideStatus();
-    }
-
-    // Compression Handling
-    compressBtn.addEventListener('click', async () => {
-      if (!pdfFileInput.files.length) return;
-
-      const file = pdfFileInput.files[0];
-      
-      compressBtn.disabled = true;
-      progressBar.style.display = 'block';
-      progress.style.width = '0%';
-      showStatus('Compressing your PDF...', 'success');
-
-      // Simulate progress (in a real app, this would be based on actual upload/compression progress)
-      let progressValue = 0;
-      const progressInterval = setInterval(() => {
-        progressValue += Math.random() * 10;
-        if (progressValue >= 90) {
-          clearInterval(progressInterval);
-        }
-        progress.style.width = `${progressValue}%`;
-      }, 300);
-
-      try {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        // In a real implementation, you would make an actual API call here
-        // This is a mock implementation for demonstration
-        const response = await mockCompressAPI(formData);
-        
-        clearInterval(progressInterval);
-        progress.style.width = '100%';
-
-        if (response.success) {
-          showStatus('Compression successful! Download will start shortly...', 'success');
-          
-          // Mock download (in a real app, you would download the actual compressed file)
-          setTimeout(() => {
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(new Blob(['Mock compressed PDF content'], { type: 'application/pdf' }));
-            a.download = 'compressed_' + file.name;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            
-            showStatus('Download complete!', 'success');
-            setTimeout(hideStatus, 3000);
-          }, 1500);
-        } else {
-          throw new Error(response.error || 'Compression failed');
-        }
-      } catch (error) {
-        clearInterval(progressInterval);
-        showStatus(error.message, 'error');
-      } finally {
-        compressBtn.disabled = false;
-      }
-    });
-
-    // Mock API function for demonstration
-    function mockCompressAPI(formData) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          // Simulate random failure 10% of the time
-          if (Math.random() < 0.1) {
-            resolve({ success: false, error: 'Server error occurred during compression' });
-          } else {
-            resolve({ success: true });
-          }
-        }, 3000);
-      });
-    }
-
-    // Status Message Helpers
-    function showStatus(message, type) {
-      statusMessage.textContent = message;
-      statusMessage.className = `status-message ${type}`;
-      statusMessage.style.display = 'block';
-    }
-
-    function hideStatus() {
-      statusMessage.style.display = 'none';
-      progressBar.style.display = 'none';
-    }
-
-    // Set initial theme based on user preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.body.setAttribute('data-theme', 'dark');
-      const icon = themeToggle.querySelector('i');
-      icon.classList.remove('fa-moon');
-      icon.classList.add('fa-sun');
-    }
   </script>
 </body>
 </html>
